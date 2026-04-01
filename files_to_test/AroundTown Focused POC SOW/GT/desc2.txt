@@ -1,0 +1,32 @@
+AroundTown PoC SOW
+Detect newly uploaded documents in
+SharePoint folder
+-
+Classifying them into known document types
+Extracting defined key values / descriptions
+based on guidelines
+1
+Writing extracted values back as SharePoint
+metadata
+1
+Asking the document owner to validate results
+(via Teams Adaptive Card)
+1
+After approval: renaming + moving into the
+correct target folder/library in Sharepoint
+1
+Archiving originals and logging every action
+end-to-end
+Lightweight PoC SOW (2-3 weeks).ink
+Batch reading of uploaded files very X minutes,
+in Jeen Azure Blob
+Classifying them into known document types
+Write classification results to an internal Jeen
+database
+Send email with classification and read the
+reply
+-
+After approval: renaming + moving into the
+correct target folder in Azure Blob
+Archiving originals and logging every action
+end-to-end

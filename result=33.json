@@ -1,0 +1,615 @@
+{
+  "summary": {
+    "documents_evaluated": 4,
+    "avg_coverage_rate": 0.9093,
+    "avg_noise_rate": 0.0158
+  }
+}
+==============================
+{
+  "doc_name": "5 עמודים",
+  "coverage": {
+    "coverage_rate": 0.8389,
+    "fraction": "67/416"
+  },
+  "noise": {
+    "total": 289,
+    "extra": 15,
+    "extra_words_total": [
+      "ערךFalse",
+      "תפעולInteractive",
+      "באמצעותMessage",
+      "מצי",
+      "באמצעותTime",
+      "ג",
+      "כדי",
+      "בTone",
+      "בשדהGuard",
+      "קיבלהTrue",
+      "ם",
+      "למצביTrueFalse",
+      "קיבלהFalse",
+      "לClassifier",
+      "הרכיבי"
+    ],
+    "noise_rate": 0.0519,
+    "fraction": "15/289"
+  },
+  "gt_word_count": 440,
+  "parser_word_count": 433,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 3,
+        "missing": 3,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "3/3"
+      },
+      "missing_fourgrams_in_block": [
+        "מדריך תפעול Interactive",
+        "תפעול Interactive מורכב",
+        "Interactive מורכב Jeenai"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 413,
+        "missing": 64,
+        "coverage_block_rate": 0.845,
+        "fraction_block": "64/413"
+      },
+      "missing_fourgrams_in_block": [
+        "RAG במסגרת הInteractive",
+        "במסגרת הInteractive לאחר",
+        "הInteractive לאחר שהמדריך",
+        "מתקדמות בתפעול הרכיבים",
+        "בתפעול הרכיבים Tone",
+        "הרכיבים Tone מטרת",
+        "ניתן להשתמש ב",
+        "להשתמש ב Toneכדי",
+        "ב Toneכדי לעודד",
+        "Toneכדי לעודד שאילת",
+        "לא נשתמש ב",
+        "נשתמש ב Tone",
+        "ב Tone האם",
+        "Tone האם חובה",
+        "יופיעו הדוגמאות למצבי",
+        "הדוגמאות למצבי FalseTrue",
+        "למצבי FalseTrue דוגמאות",
+        "FalseTrue דוגמאות אלו",
+        "של המשתמש קיבלה",
+        "המשתמש קיבלה True",
+        "קיבלה True אז",
+        "True אז היא",
+        "היא תשלח ל",
+        "תשלח ל Classifier",
+        "ל Classifier במידה",
+        "Classifier במידה והשאלה",
+        "המשתמש קיבלה False",
+        "קיבלה False אז",
+        "False אז נקבל",
+        "את התשובה מהmessage",
+        "התשובה מהmessage Guard",
+        "מהmessage Guard פורמט",
+        "Guard פורמט Response",
+        "שבהם יתקבל ערך",
+        "יתקבל ערך False",
+        "ערך False כלומר",
+        "False כלומר במקום",
+        "הכללית שמוגדרת בשדה",
+        "שמוגדרת בשדה message",
+        "בשדה message Guard",
+        "message Guard התשובה",
+        "Guard התשובה תיגזר",
+        "האפשריים של ערך",
+        "של ערך False",
+        "ערך False במצב",
+        "False במצב כזה",
+        "שדה ה Message",
+        "ה Message Guard",
+        "Message Guard End",
+        "Guard End of",
+        "מגיע למכסה מציג",
+        "למכסה מציג את",
+        "מציג את ההודעה",
+        "את ההודעה שכתבנו",
+        "ההודעה שכתבנו בשדה",
+        "מגבלת הודעות באמצעות",
+        "הודעות באמצעות Limitation",
+        "באמצעות Limitation Message",
+        "Limitation Message אשר",
+        "Message אשר קובע",
+        "מגבלת זמן באמצעות",
+        "זמן באמצעות Time",
+        "באמצעות Time Out",
+        "Time Out אשר"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "AroundTown Focused POC SOW",
+  "coverage": {
+    "coverage_rate": 0.9731,
+    "fraction": "30/1116"
+  },
+  "noise": {
+    "total": 429,
+    "extra": 3,
+    "extra_words_total": [
+      "8",
+      "9",
+      "Simplifies"
+    ],
+    "noise_rate": 0.007,
+    "fraction": "3/429"
+  },
+  "gt_word_count": 1175,
+  "parser_word_count": 1190,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 167,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/167"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 136,
+        "missing": 6,
+        "coverage_block_rate": 0.9559,
+        "fraction_block": "6/136"
+      },
+      "missing_fourgrams_in_block": [
+        "Realtime parallel processingBatch",
+        "parallel processingBatch processing",
+        "processingBatch processing up",
+        "files per runSimplifies",
+        "per runSimplifies orchestration",
+        "runSimplifies orchestration for"
+      ]
+    },
+    {
+      "block_index": 5,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 6,
+      "coverage": {
+        "total": 198,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/198"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 7,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 8,
+      "coverage": {
+        "total": 109,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/109"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 9,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 10,
+      "coverage": {
+        "total": 80,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/80"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 11,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 12,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 13,
+      "coverage": {
+        "total": 264,
+        "missing": 15,
+        "coverage_block_rate": 0.9432,
+        "fraction_block": "15/264"
+      },
+      "missing_fourgrams_in_block": [
+        "systems AroundTown environmentwe",
+        "AroundTown environmentwe propose",
+        "environmentwe propose a",
+        "Same capability –AI",
+        "capability –AI classification",
+        "–AI classification The",
+        "SharePoint metadata write",
+        "metadata write classification",
+        "write classification results",
+        "read the replyTo",
+        "the replyTo avoid",
+        "replyTo avoid Microsoft",
+        "options 1 –Email",
+        "1 –Email The",
+        "–Email The agent"
+      ]
+    },
+    {
+      "block_index": 14,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 15,
+      "coverage": {
+        "total": 153,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/153"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 16,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "word-two-column-submission-sample",
+  "coverage": {
+    "coverage_rate": 0.8493,
+    "fraction": "138/916"
+  },
+  "noise": {
+    "total": 391,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/391"
+  },
+  "gt_word_count": 962,
+  "parser_word_count": 827,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 13,
+        "missing": 2,
+        "coverage_block_rate": 0.8462,
+        "fraction_block": "2/13"
+      },
+      "missing_fourgrams_in_block": [
+        "Proceedings Format Leave",
+        "Format Leave Authors"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 751,
+        "missing": 4,
+        "coverage_block_rate": 0.9947,
+        "fraction_block": "4/751"
+      },
+      "missing_fourgrams_in_block": [
+        "PAGE SIZE AND",
+        "SIZE AND COLUMNS",
+        "AND COLUMNS On",
+        "COLUMNS On each"
+      ]
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 21,
+        "missing": 2,
+        "coverage_block_rate": 0.9048,
+        "fraction_block": "2/21"
+      },
+      "missing_fourgrams_in_block": [
+        "Figure 1 Insert",
+        "1 Insert a"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 131,
+        "missing": 130,
+        "coverage_block_rate": 0.0076,
+        "fraction_block": "130/131"
+      },
+      "missing_fourgrams_in_block": [
+        "Permission to make",
+        "to make digital",
+        "make digital or",
+        "digital or hard",
+        "or hard copies",
+        "hard copies of",
+        "copies of all",
+        "of all or",
+        "all or part",
+        "or part of",
+        "part of this",
+        "of this work",
+        "this work for",
+        "work for personal",
+        "for personal or",
+        "personal or classroom",
+        "or classroom use",
+        "classroom use is",
+        "use is granted",
+        "is granted without",
+        "granted without fee",
+        "without fee provided",
+        "fee provided that",
+        "provided that copies",
+        "that copies are",
+        "copies are not",
+        "are not made",
+        "not made or",
+        "made or distributed",
+        "or distributed for",
+        "distributed for profit",
+        "for profit or",
+        "profit or commercial",
+        "or commercial advantage",
+        "commercial advantage and",
+        "advantage and that",
+        "and that copies",
+        "that copies bear",
+        "copies bear this",
+        "bear this notice",
+        "this notice and",
+        "notice and the",
+        "and the full",
+        "the full citation",
+        "full citation on",
+        "citation on the",
+        "on the first",
+        "first page Copyrights",
+        "page Copyrights for",
+        "Copyrights for components",
+        "for components of",
+        "components of this",
+        "this work owned",
+        "work owned by",
+        "owned by others",
+        "by others than",
+        "others than ACM",
+        "than ACM must",
+        "ACM must be",
+        "must be honored",
+        "be honored Abstracting",
+        "honored Abstracting with",
+        "Abstracting with credit",
+        "with credit is",
+        "credit is permitted",
+        "is permitted To",
+        "permitted To copy",
+        "To copy otherwise",
+        "copy otherwise or",
+        "otherwise or republish",
+        "or republish to",
+        "republish to post",
+        "to post on",
+        "post on servers",
+        "on servers or",
+        "servers or to",
+        "or to redistribute",
+        "to redistribute to",
+        "redistribute to lists",
+        "to lists requires",
+        "lists requires prior",
+        "requires prior specific",
+        "prior specific permission",
+        "specific permission andor",
+        "permission andor a",
+        "andor a fee",
+        "a fee Request",
+        "fee Request permissions",
+        "Request permissions from",
+        "permissions from Permissionsacmorg",
+        "from Permissionsacmorg UIST",
+        "Permissionsacmorg UIST 2020",
+        "UIST 2020 October",
+        "2020 October 20–23",
+        "October 20–23 2020",
+        "20–23 2020 Minneapolis",
+        "2020 Minneapolis MN",
+        "Minneapolis MN USA",
+        "MN USA ACM",
+        "USA ACM ©",
+        "ACM © 2020",
+        "© 2020 Copyright",
+        "2020 Copyright is",
+        "Copyright is held",
+        "is held by",
+        "held by the",
+        "by the ownerauthors",
+        "the ownerauthors Publication",
+        "ownerauthors Publication rights",
+        "Publication rights licensed",
+        "rights licensed to",
+        "licensed to ACM",
+        "to ACM ACM",
+        "ACM ACM ISBN",
+        "ACM ISBN 978145036708020041500",
+        "ISBN 978145036708020041500 DOI",
+        "978145036708020041500 DOI httpsdoiorg1011453313831XXXXXXX",
+        "DOI httpsdoiorg1011453313831XXXXXXX update",
+        "httpsdoiorg1011453313831XXXXXXX update the",
+        "update the above",
+        "the above block",
+        "above block and",
+        "block and DOI",
+        "and DOI per",
+        "DOI per your",
+        "per your rightsreview",
+        "your rightsreview confirmation",
+        "rightsreview confirmation provided",
+        "confirmation provided after",
+        "provided after acceptance"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "מסמך אפיון לפרויקט  Jeen",
+  "coverage": {
+    "coverage_rate": 0.9761,
+    "fraction": "16/670"
+  },
+  "noise": {
+    "total": 480,
+    "extra": 2,
+    "extra_words_total": [
+      "לאינטגרציהSAP",
+      "לדוגמהOAI"
+    ],
+    "noise_rate": 0.0042,
+    "fraction": "2/480"
+  },
+  "gt_word_count": 696,
+  "parser_word_count": 694,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 12,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/12"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 658,
+        "missing": 16,
+        "coverage_block_rate": 0.9757,
+        "fraction_block": "16/658"
+      },
+      "missing_fourgrams_in_block": [
+        "גישה לסוכן לדוגמה",
+        "לסוכן לדוגמה OAI",
+        "לדוגמה OAI אפליקציה",
+        "OAI אפליקציה אתר",
+        "תשובה צפויה מה",
+        "צפויה מה התקלה",
+        "והתקלה נסגרה טבלת",
+        "נסגרה טבלת המרות",
+        "דיסציפלינות שונות מילה",
+        "שונות מילה פירוש",
+        "השכונה המזרחית סוגי",
+        "המזרחית סוגי מידע",
+        "מערכות נדרשות לאינטגרציה",
+        "נדרשות לאינטגרציה SAP",
+        "לאינטגרציה SAP SharePoint",
+        "SAP SharePoint וכו"
+      ]
+    }
+  ]
+}

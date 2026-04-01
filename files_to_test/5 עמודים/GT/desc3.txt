@@ -1,0 +1,8 @@
+End Of Conversation Message
+Limit the number of messages, then show this message after the user hits the quota
+I was happy to assist you. To ask more questions, refresh the conversation ...
+Message limitation
+Time out
+1L
+Conversation length
+5

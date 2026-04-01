@@ -1,0 +1,39 @@
+python ParseTest.py .\files_to_test --verbose --output results.json
+
+
+
+Tasks:
+Implement an evaluation method that also supports images
+Add evaluation metrics for:	
+   -         Number of images extracted
+   -         Quality and accuracy of image descriptions
+Analyze how the RAG system parses images in order to:
+  -         Understand how images are extracted
+  -         Distinguish between image content and textual content
+
+
+=======================================================================================
+
+
+I have an evaluation script for a RAG parser (coverage, noise, matching).
+
+Now I want you to actually RUN the evaluation on my local files and give me the RESULTS (not code).
+
+----------------------------------------
+DATA LOCATION
+----------------------------------------
+
+All files are located in:
+
+C:\Users\BenGarusi\Desktop\Parsing Test
+
+Inside this folder there are multiple subfolders (ignore "test_data").
+
+Each relevant folder contains:
+- A folder named "GT"
+  → contains a .txt file which is the ground truth (GT)
+  → includes all the correct text from the document
+
+- In the same folder:
+  → the original document file (PDF / DOCX)
+

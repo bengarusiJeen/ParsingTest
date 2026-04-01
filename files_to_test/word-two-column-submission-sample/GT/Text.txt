@@ -1,0 +1,79 @@
+====
+SIGCHI Conference Proceedings Format
+Leave Authors Anonymous for Submission
+City, Country
+e-mail address
+Leave Authors Anonymous for Submission
+City, Country
+e-mail address
+Leave Authors Anonymous for Submission
+City, Country
+e-mail address
+====
+====
+ABSTRACT
+UPDATED—26 March 2026.
+This sample paper describes the formatting requirements for SIGCHI conference proceedings, and offers recommendations on writing for the worldwide SIGCHI readership.
+Please review this document even if you have submitted to SIGCHI conferences before, as some format details have changed relative to previous years. 
+Abstracts should be about 150 words and are required.
+Author Keywords
+Authors’ choice; of terms; separated; by semicolons; commas, within terms only; this section is required. 
+CSS Concepts
+• Human-centered computing~Human computer interaction (HCI); Haptic devices; User studies; Please use the 2012 Classifiers and see this link to embed them in the text: https://dl.acm.org/ccs/ccs_flat.cfm 
+INTRODUCTION
+This format is to be used for submissions that are published in the conference proceedings.
+We wish to give this volume a consistent, high-quality appearance.
+We therefore ask that authors follow some simple guidelines.
+You should format your paper exactly like this document.
+The easiest way to do this is to replace the content with your own material.
+This document describes how to prepare your submissions using Microsoft Word on a PC or Mac. 
+PAGE SIZE AND COLUMNS
+On each page your material should fit within a rectangle of 7 x 9.25 in (18 x 23.5 cm), centered on a US letter page (8.5x11 in), beginning 0.75 in (1.9 cm) from the top of the page, with a 0.33 in (0.85 cm) space between two 3.3 in (8.4 cm) columns.
+Right margins should be justified, not ragged.
+Please be sure your document and PDF are US letter and not A4.
+TYPESET TEXT
+The styles contained in this document have been modified from the default styles to reflect ACM formatting conventions.
+For example, content paragraphs like this one are formatted using the Normal style.
+Title and Authors
+Your paper’s title, authors, and affiliations should run across the full width of the page in a single column 7 in (17.8 cm) wide.
+The title should be in Helvetica or Arial 18-point bold (the Title style in this document).
+Authors’ names should be in Times New Roman or Times Roman 12-point bold (Author Name style), and affiliations in the font as 12-point regular (Author Affiliation style).
+To position names and addresses, use a single-row table with invisible borders, as in this document.
+Alternatively, if only one address is needed, use a centered tab stop to center all name and address text on the page; for two addresses, use two centered tab stops, and so on.
+For more than three authors, you may have to place some address information in a footnote, or in a named section at the end of your paper.
+Leave one 10-point line of white space below the last line of affiliations. 
+Adding and Removing Author Fields Above
+If you need a 4th block for an additional author with a different affiliation, click on the table, click “layout” under “table tools”, and click “insert left” or “insert right”.
+Then right-click anywhere on the table, click “Table Properties”, and within the “Table” tab, click the tab box for “Preferred Width” and enter “7”.
+If you need author blocks for only 1 or 2 authors, you should remove one column from the table.
+Right-click in the unwanted cell, click “Delete Cell”, click “Delete entire column”, then click “OK”.
+Repeat if necessary.
+Abstract and Keywords
+Every submission should begin with an abstract of about 150 words, followed by a set of keywords.
+The abstract and keywords should be placed in the left column of the first page under the left half of the title.
+The abstract should be a concise statement of the problem, approach, and conclusions of the work described.
+It should clearly state the paper’s contribution to the field of HCI.
+Normal or Body Text
+Please use 10-point Times New Roman or Times Roman font (the Normal style) or, if this is unavailable, another proportional font with serifs, as close as possible in appearance to Times New Roman 10-point.
+Other than Helvetica or Arial headings, please use sans-serif or non-proportional fonts only for special purposes, such as source code text.
+First Page Copyright Notice
+You will need to update the ACM copyright block with the assigned text and DOI during the ACM rightsreview process (see page 1, bottom of column 1).
+Accepted papers will be distributed in the conference publications.
+They will also be placed in the ACM Digital Library, where they will remain accessible to thousands of researchers and practitioners worldwide. ACM’s copyright and permissions policy is here:
+http://acm.org/publications/policies/copyright_policy
+Subsequent Pages
+On pages beyond the first, start at the top of the page and continue in double-column format.
+The two columns on the last page should be of approximately equal length.
+====
+====
+Figure 1. Insert a numbered caption below each figure/table.
+Times New Roman 9-point bold.
+One-line captions should be centered; multi-line should be justified.
+====
+====
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from Permissions@acm.org.
+UIST 2020, October 20–23, 2020, Minneapolis, MN, USA.
+ACM © 2020 Copyright is held by the owner/author(s). Publication rights licensed to ACM.  ACM ISBN 978-1-4503-6708-0/20/04...$15.00.
+DOI: https://doi.org/10.1145/3313831.XXXXXXX
+ *update the above block and DOI per your rightsreview confirmation (provided after acceptance)
+====

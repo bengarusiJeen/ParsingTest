@@ -1,0 +1,88 @@
+Documents Classification Multi-Agent Pipeline
+Automated SharePoint Data Management (Document Structuring & Metadata Tagging)
+Read Folder Content
+and Array Builder
+Classification
+Array Builder
+Agent
+Agent
+Agent
+Loop
+Array of Files Names
+List of files+users
+A
+A
+AI
+A
+1
+Read File Content
+Email Sending
+Email Reading
+Read Final
+Classifications
+Read Folder Files
+Names
+Build Array of Files
+Names
+1
+-
+Classification
+Re-Name File
+Log the list of files
+1
+Move File to Pending
+Move File to folders
+Log Files Classifications
+Target Folders
+Contract
+Energy
+Classifications
+Log Table
+Log Table
+* Primary KEY
+· File name (Original)
+* Status
+. Update date
+· Classification ("Contract", "Electricity bill" .. )
+Email API
+Secure connection to the organizational email system for:
+reading, searching, and sending emails
+Archive
+* Approved by the user
+· Approval Date
+* Renaming (suggested)
+· "Metadata Tagging"
+DB API
+Access via data-access APIs, allowing the agent to query.
+aggregate, and update domain data
+Notify Users
+and Re-Classification
+Renaming and
+Move to Folders
+Incoming / Unsorted
+Agent
+Agent
+Loop
+PDF
+EXCEL
+DOC
+PNG
+AI
+Approved
+Files
+Names
+Array
+File Name + Type
+Classification
+Re-Classification
+Build Array of Files
+Names
+I
+External Dependencies
+Sharepoint API
+Secure connection to the organizational SharePoint system
+Vector DB
+RAG
+Approved or
+New Classification
+Pending

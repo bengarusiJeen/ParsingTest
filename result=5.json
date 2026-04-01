@@ -1,0 +1,674 @@
+{
+  "summary": {
+    "documents_evaluated": 4,
+    "avg_coverage_rate": 0.8849,
+    "avg_noise_rate": 0.0158
+  }
+}
+==============================
+{
+  "doc_name": "5 עמודים",
+  "coverage": {
+    "coverage_rate": 0.7736,
+    "fraction": "96/424"
+  },
+  "noise": {
+    "total": 289,
+    "extra": 15,
+    "extra_words_total": [
+      "באמצעותTime",
+      "ם",
+      "קיבלהFalse",
+      "באמצעותMessage",
+      "תפעולInteractive",
+      "בשדהGuard",
+      "ערךFalse",
+      "ג",
+      "הרכיבי",
+      "קיבלהTrue",
+      "מצי",
+      "לClassifier",
+      "בTone",
+      "למצביTrueFalse",
+      "כדי"
+    ],
+    "noise_rate": 0.0519,
+    "fraction": "15/289"
+  },
+  "gt_word_count": 440,
+  "parser_word_count": 433,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "מדריך תפעול Interactive מורכב Jeenai"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 423,
+        "missing": 95,
+        "coverage_block_rate": 0.7754,
+        "fraction_block": "95/423"
+      },
+      "missing_fourgrams_in_block": [
+        "הרכיבים Tone מטרת הרכיב קביעת",
+        "message Guard התשובה תיגזר מהגדרות",
+        "מתקדמות בתפעול הרכיבים Tone מטרת",
+        "עריכה הגדרת מגבלת הודעות באמצעות",
+        "RAG במסגרת הInteractive לאחר שהמדריך",
+        "שונים שבהם יתקבל ערך False",
+        "ב Tone האם חובה או",
+        "של ערך False במצב כזה",
+        "Time Out אשר קובע את",
+        "להשתמש ב Toneכדי לעודד שאילת",
+        "מהmessage Guard פורמט Response Format",
+        "ניתן להשתמש ב Toneכדי לעודד",
+        "מציג את ההודעה שכתבנו בשדה",
+        "המשתמש קיבלה True אז היא",
+        "של המשתמש קיבלה True אז",
+        "אז היא תשלח ל Classifier",
+        "תשלח ל Classifier במידה והשאלה",
+        "התשובה מהmessage Guard פורמט Response",
+        "ה Message Guard End of",
+        "יברר פרטים לא נשתמש ב",
+        "בשיחה הגדרת מגבלת זמן באמצעות",
+        "למכסה מציג את ההודעה שכתבנו",
+        "מסמכים ניתן להשתמש ב Toneכדי",
+        "המשתמש קיבלה False אז נקבל",
+        "Classifier במידה והשאלה של המשתמש",
+        "ל Classifier במידה והשאלה של",
+        "הכללית שמוגדרת בשדה message Guard",
+        "בשדה message Guard התשובה תיגזר",
+        "Message Guard End of conversation",
+        "באמצעות Limitation Message אשר קובע",
+        "מגבלת זמן באמצעות Time Out",
+        "למלא את שדה ה Message",
+        "והשאלה של המשתמש קיבלה True",
+        "לא נשתמש ב Tone האם",
+        "להקשרים שונים שבהם יתקבל ערך",
+        "האפשריים של ערך False במצב",
+        "שמוגדרת בשדה message Guard התשובה",
+        "שבהם יתקבל ערך False כלומר",
+        "והשאלה של המשתמש קיבלה False",
+        "בסוף הפרומפט יופיעו הדוגמאות למצבי",
+        "למצבי FalseTrue דוגמאות אלו ישתנו",
+        "מגיע למכסה מציג את ההודעה",
+        "בתפעול הרכיבים Tone מטרת הרכיב",
+        "נשתמש ב Tone האם חובה",
+        "יתקבל ערך False כלומר במקום",
+        "יכולות מתקדמות בתפעול הרכיבים Tone",
+        "את ההודעה שכתבנו בשדה הטקסט",
+        "של המשתמש קיבלה False אז",
+        "במסגרת הInteractive לאחר שהמדריך הבסיסי",
+        "מהתרחישים האפשריים של ערך False",
+        "יופיעו הדוגמאות למצבי FalseTrue דוגמאות",
+        "קיבלה True אז היא תשלח",
+        "רכיבי ה RAG במסגרת הInteractive",
+        "ה RAG במסגרת הInteractive לאחר",
+        "נקבל את התשובה מהmessage Guard",
+        "הדוגמאות למצבי FalseTrue דוגמאות אלו",
+        "Guard End of conversation Message",
+        "Toneכדי לעודד שאילת שאלות מכוונות",
+        "להשתמש בתגובה הכללית שמוגדרת בשדה",
+        "False אז נקבל את התשובה",
+        "False במצב כזה כאשר התגובה",
+        "שהמשתמש מגיע למכסה מציג את",
+        "הInteractive לאחר שהמדריך הבסיסי סקר",
+        "הפרומפט יופיעו הדוגמאות למצבי FalseTrue",
+        "ומציג יכולות מתקדמות בתפעול הרכיבים",
+        "עם מסמכים ניתן להשתמש ב",
+        "את התשובה מהmessage Guard פורמט",
+        "שדה ה Message Guard End",
+        "באמצעות Time Out אשר קובע",
+        "Message אשר קובע את מספר",
+        "ב Toneכדי לעודד שאילת שאלות",
+        "FalseTrue דוגמאות אלו ישתנו בהתאם",
+        "Guard פורמט Response Format User",
+        "False כלומר במקום להשתמש בתגובה",
+        "הגדרת מגבלת זמן באמצעות Time",
+        "מגבלת הודעות באמצעות Limitation Message",
+        "במידה והשאלה של המשתמש קיבלה",
+        "היא תשלח ל Classifier במידה",
+        "הודעות באמצעות Limitation Message אשר",
+        "בתגובה הכללית שמוגדרת בשדה message",
+        "זמן באמצעות Time Out אשר",
+        "אחד מהתרחישים האפשריים של ערך",
+        "לאחר שהמשתמש מגיע למכסה מציג",
+        "ערך False כלומר במקום להשתמש",
+        "את שדה ה Message Guard",
+        "Limitation Message אשר קובע את",
+        "ההודעה שכתבנו בשדה הטקסט ברכיב",
+        "Guard התשובה תיגזר מהגדרות שונות",
+        "True אז היא תשלח ל",
+        "קיבלה False אז נקבל את",
+        "פרטים לא נשתמש ב Tone",
+        "אז נקבל את התשובה מהmessage",
+        "ערך False במצב כזה כאשר",
+        "Tone האם חובה או לא",
+        "הגדרת מגבלת הודעות באמצעות Limitation"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "AroundTown Focused POC SOW",
+  "coverage": {
+    "coverage_rate": 0.9608,
+    "fraction": "44/1122"
+  },
+  "noise": {
+    "total": 429,
+    "extra": 3,
+    "extra_words_total": [
+      "Simplifies",
+      "8",
+      "9"
+    ],
+    "noise_rate": 0.007,
+    "fraction": "3/429"
+  },
+  "gt_word_count": 1175,
+  "parser_word_count": 1190,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 165,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/165"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 134,
+        "missing": 10,
+        "coverage_block_rate": 0.9254,
+        "fraction_block": "10/134"
+      },
+      "missing_fourgrams_in_block": [
+        "per runSimplifies orchestration for PoC",
+        "triggers 2 Realtime parallel processingBatch",
+        "processingBatch processing up to X",
+        "2 Realtime parallel processingBatch processing",
+        "files per runSimplifies orchestration for",
+        "Realtime parallel processingBatch processing up",
+        "runSimplifies orchestration for PoC 3",
+        "to X files per runSimplifies",
+        "X files per runSimplifies orchestration",
+        "parallel processingBatch processing up to"
+      ]
+    },
+    {
+      "block_index": 5,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 6,
+      "coverage": {
+        "total": 206,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/206"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 7,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 8,
+      "coverage": {
+        "total": 107,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/107"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 9,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 10,
+      "coverage": {
+        "total": 78,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/78"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 11,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 12,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 13,
+      "coverage": {
+        "total": 265,
+        "missing": 25,
+        "coverage_block_rate": 0.9057,
+        "fraction_block": "25/265"
+      },
+      "missing_fourgrams_in_block": [
+        "write classification results to an",
+        "on external systems AroundTown environmentwe",
+        "replyTo avoid Microsoft Teams integration",
+        "systems AroundTown environmentwe propose a",
+        "external systems AroundTown environmentwe propose",
+        "two options 1 –Email The",
+        "Same capability –AI classification The",
+        "etc Same capability –AI classification",
+        "to SharePoint metadata write classification",
+        "–AI classification The agent will",
+        "read the replyTo avoid Microsoft",
+        "the replyTo avoid Microsoft Teams",
+        "metadata write classification results to",
+        "1 –Email The agent will",
+        "back to SharePoint metadata write",
+        "environmentwe propose a more focused",
+        "Documentation etc Same capability –AI",
+        "and read the replyTo avoid",
+        "classification and read the replyTo",
+        "options 1 –Email The agent",
+        "AroundTown environmentwe propose a more",
+        "suggest two options 1 –Email",
+        "–Email The agent will send",
+        "capability –AI classification The agent",
+        "SharePoint metadata write classification results"
+      ]
+    },
+    {
+      "block_index": 14,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    },
+    {
+      "block_index": 15,
+      "coverage": {
+        "total": 158,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/158"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 16,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "Date 20260213"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "word-two-column-submission-sample",
+  "coverage": {
+    "coverage_rate": 0.8471,
+    "fraction": "142/929"
+  },
+  "noise": {
+    "total": 391,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/391"
+  },
+  "gt_word_count": 962,
+  "parser_word_count": 827,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 13,
+        "missing": 4,
+        "coverage_block_rate": 0.6923,
+        "fraction_block": "4/13"
+      },
+      "missing_fourgrams_in_block": [
+        "Conference Proceedings Format Leave Authors",
+        "Format Leave Authors Anonymous for",
+        "SIGCHI Conference Proceedings Format Leave",
+        "Proceedings Format Leave Authors Anonymous"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 767,
+        "missing": 6,
+        "coverage_block_rate": 0.9922,
+        "fraction_block": "6/767"
+      },
+      "missing_fourgrams_in_block": [
+        "Mac PAGE SIZE AND COLUMNS",
+        "SIZE AND COLUMNS On each",
+        "AND COLUMNS On each page",
+        "COLUMNS On each page your",
+        "PAGE SIZE AND COLUMNS On",
+        "or Mac PAGE SIZE AND"
+      ]
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 19,
+        "missing": 2,
+        "coverage_block_rate": 0.8947,
+        "fraction_block": "2/19"
+      },
+      "missing_fourgrams_in_block": [
+        "Figure 1 Insert a numbered",
+        "1 Insert a numbered caption"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 130,
+        "missing": 130,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "130/130"
+      },
+      "missing_fourgrams_in_block": [
+        "owned by others than ACM",
+        "block and DOI per your",
+        "citation on the first page",
+        "USA ACM © 2020 Copyright",
+        "httpsdoiorg1011453313831XXXXXXX update the above block",
+        "ACM ISBN 978145036708020041500 DOI httpsdoiorg1011453313831XXXXXXX",
+        "for profit or commercial advantage",
+        "copies of all or part",
+        "a fee Request permissions from",
+        "must be honored Abstracting with",
+        "lists requires prior specific permission",
+        "rights licensed to ACM ACM",
+        "for personal or classroom use",
+        "DOI per your rightsreview confirmation",
+        "page Copyrights for components of",
+        "copies are not made or",
+        "is held by the ownerauthors",
+        "made or distributed for profit",
+        "from Permissionsacmorg UIST 2020 October",
+        "to make digital or hard",
+        "otherwise or republish to post",
+        "and the full citation on",
+        "2020 October 20–23 2020 Minneapolis",
+        "Permissionsacmorg UIST 2020 October 20–23",
+        "per your rightsreview confirmation provided",
+        "or hard copies of all",
+        "update the above block and",
+        "or distributed for profit or",
+        "personal or classroom use is",
+        "is permitted To copy otherwise",
+        "ACM must be honored Abstracting",
+        "others than ACM must be",
+        "prior specific permission andor a",
+        "by the ownerauthors Publication rights",
+        "use is granted without fee",
+        "MN USA ACM © 2020",
+        "held by the ownerauthors Publication",
+        "work for personal or classroom",
+        "credit is permitted To copy",
+        "advantage and that copies bear",
+        "requires prior specific permission andor",
+        "or commercial advantage and that",
+        "to ACM ACM ISBN 978145036708020041500",
+        "be honored Abstracting with credit",
+        "978145036708020041500 DOI httpsdoiorg1011453313831XXXXXXX update the",
+        "Request permissions from Permissionsacmorg UIST",
+        "and DOI per your rightsreview",
+        "rightsreview confirmation provided after acceptance",
+        "republish to post on servers",
+        "this work for personal or",
+        "and that copies bear this",
+        "ISBN 978145036708020041500 DOI httpsdoiorg1011453313831XXXXXXX update",
+        "digital or hard copies of",
+        "is granted without fee provided",
+        "copy otherwise or republish to",
+        "are not made or distributed",
+        "to lists requires prior specific",
+        "the ownerauthors Publication rights licensed",
+        "bear this notice and the",
+        "Minneapolis MN USA ACM ©",
+        "that copies are not made",
+        "or to redistribute to lists",
+        "profit or commercial advantage and",
+        "ACM © 2020 Copyright is",
+        "permissions from Permissionsacmorg UIST 2020",
+        "that copies bear this notice",
+        "to redistribute to lists requires",
+        "fee provided that copies are",
+        "commercial advantage and that copies",
+        "part of this work for",
+        "make digital or hard copies",
+        "hard copies of all or",
+        "or classroom use is granted",
+        "components of this work owned",
+        "notice and the full citation",
+        "than ACM must be honored",
+        "To copy otherwise or republish",
+        "by others than ACM must",
+        "Publication rights licensed to ACM",
+        "work owned by others than",
+        "of this work for personal",
+        "honored Abstracting with credit is",
+        "on servers or to redistribute",
+        "redistribute to lists requires prior",
+        "on the first page Copyrights",
+        "this notice and the full",
+        "distributed for profit or commercial",
+        "permitted To copy otherwise or",
+        "fee Request permissions from Permissionsacmorg",
+        "of all or part of",
+        "this work owned by others",
+        "2020 Copyright is held by",
+        "Permission to make digital or",
+        "not made or distributed for",
+        "UIST 2020 October 20–23 2020",
+        "licensed to ACM ACM ISBN",
+        "Abstracting with credit is permitted",
+        "or part of this work",
+        "classroom use is granted without",
+        "without fee provided that copies",
+        "for components of this work",
+        "copies bear this notice and",
+        "DOI httpsdoiorg1011453313831XXXXXXX update the above",
+        "Copyrights for components of this",
+        "with credit is permitted To",
+        "of this work owned by",
+        "to post on servers or",
+        "provided that copies are not",
+        "ACM ACM ISBN 978145036708020041500 DOI",
+        "first page Copyrights for components",
+        "2020 Minneapolis MN USA ACM",
+        "the first page Copyrights for",
+        "ownerauthors Publication rights licensed to",
+        "all or part of this",
+        "servers or to redistribute to",
+        "granted without fee provided that",
+        "full citation on the first",
+        "permission andor a fee Request",
+        "andor a fee Request permissions",
+        "the full citation on the",
+        "your rightsreview confirmation provided after",
+        "or republish to post on",
+        "20–23 2020 Minneapolis MN USA",
+        "October 20–23 2020 Minneapolis MN",
+        "above block and DOI per",
+        "the above block and DOI",
+        "© 2020 Copyright is held",
+        "post on servers or to",
+        "specific permission andor a fee",
+        "Copyright is held by the"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "מסמך אפיון לפרויקט  Jeen",
+  "coverage": {
+    "coverage_rate": 0.9582,
+    "fraction": "28/670"
+  },
+  "noise": {
+    "total": 480,
+    "extra": 2,
+    "extra_words_total": [
+      "לדוגמהOAI",
+      "לאינטגרציהSAP"
+    ],
+    "noise_rate": 0.0042,
+    "fraction": "2/480"
+  },
+  "gt_word_count": 696,
+  "parser_word_count": 694,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 10,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/10"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 660,
+        "missing": 28,
+        "coverage_block_rate": 0.9576,
+        "fraction_block": "28/660"
+      },
+      "missing_fourgrams_in_block": [
+        "מוביילמחשב ממשק גישה לסוכן לדוגמה",
+        "OAI אפליקציה אתר ארגוני מערכת",
+        "כולל תשובה צפויה מה התקלה",
+        "צפויה מה התקלה הנפוצה ביותר",
+        "שימון והתקלה נסגרה טבלת המרות",
+        "דיסציפלינות שונות מילה פירוש תחנה",
+        "או דיסציפלינות שונות מילה פירוש",
+        "גישה לסוכן לדוגמה OAI אפליקציה",
+        "המזין את השכונה המזרחית סוגי",
+        "נדרשות לאינטגרציה SAP SharePoint וכו",
+        "לאינטגרציה SAP SharePoint וכו האם",
+        "תשובה צפויה מה התקלה הנפוצה",
+        "המזרחית סוגי מידע קיימים האם",
+        "אילו מערכות נדרשות לאינטגרציה SAP",
+        "לסוכן לדוגמה OAI אפליקציה אתר",
+        "לדוגמה OAI אפליקציה אתר ארגוני",
+        "בוצע שימון והתקלה נסגרה טבלת",
+        "השכונה המזרחית סוגי מידע קיימים",
+        "נסגרה טבלת המרות מונחים מקצועיים",
+        "ממשק גישה לסוכן לדוגמה OAI",
+        "מערכות נדרשות לאינטגרציה SAP SharePoint",
+        "שונות מילה פירוש תחנה מתקן",
+        "הסוכן כולל תשובה צפויה מה",
+        "את השכונה המזרחית סוגי מידע",
+        "ואינטגרציות אילו מערכות נדרשות לאינטגרציה",
+        "מחלקות או דיסציפלינות שונות מילה",
+        "SAP SharePoint וכו האם יש",
+        "והתקלה נסגרה טבלת המרות מונחים"
+      ]
+    }
+  ]
+}
