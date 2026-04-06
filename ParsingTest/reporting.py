@@ -125,11 +125,11 @@ def save_json_report(results: List[DocumentResult], path: Path, n: int = 3) -> N
 
     SEP = "=" * 30
 
-    n       = len(results)
+    doc_count = len(results)
     summary = {
-        "documents_evaluated": n,
-        "avg_coverage_rate":   round(sum(r.coverage_pct for r in results) / n, 4),
-        "avg_noise_rate":      round(sum(r.noise_pct    for r in results) / n, 4),
+        "documents_evaluated": doc_count,
+        "avg_coverage_rate":   round(sum(r.coverage_pct for r in results) / doc_count, 4),
+        "avg_noise_rate":      round(sum(r.noise_pct    for r in results) / doc_count, 4),
     }
 
     lines: list[str] = []

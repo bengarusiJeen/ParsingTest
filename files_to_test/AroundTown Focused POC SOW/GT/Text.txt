@@ -27,7 +27,7 @@ To reduce complexity, friction, and implementation time, the PoC will intentiona
 Key Trade-Offs.
 Original Direction Focused PoC Alternative Rationale
 1 External trigger Manual or scheduled trigger (every X minutes) Avoids dependency on SharePoint or External triggers
-2 Real-time parallel processingBatch processing (up to X files per run)Simplifies orchestration for PoC.
+2 Real-time parallel processing Batch processing (up to X files per run) Simplifies orchestration for PoC.
 3 SharePoint storage & routing Jeen internal Azure Blob storage Demonstrates routing logic without external integration complexity.
 4 Teams Adaptive Card validation Email-based approval or DB-based approval Avoids Teams integration
 5 SharePoint metadata write-back Jeen internal database tables Maintains traceability without requiring SharePoint schema configuration.
@@ -102,7 +102,7 @@ Date: 2026-02-13
 ====
 ====
 5. Step by Step - Focused PoC Approach 
-To ensure fast delivery, reduced friction, and minimal dependency on external systems (AroundTown environment),we propose a more focused PoC version with fewer integrations.
+To ensure fast delivery, reduced friction, and minimal dependency on external systems (AroundTown environment), we propose a more focused PoC version with fewer integrations.
 This allows us to work with a smaller team and shorten the implementation timeline.
 # AroundTown Request Suggested Clarification
 1 Detect newly uploaded documents in SharePoint Batch reading of uploaded files every X minutes from an Azure Blob folder 1- A manual (or scheduled) trigger will run every X minute and collect up to 10 new files. 
@@ -112,9 +112,9 @@ For PoC we will process them in batch (not full real-time parallel automation).
 Same capability –AI classification The agent will classify documents into up to 5 predefined document types.
 This keeps the classification task focused and measurable.
 3 Extract defined key values / descriptions based on guidelines We need clarification for this requirement
-4 Write extracted values back to SharePoint metadata write classification results to an internal Jeen database To avoid SharePoint integration complexity in the PoC phase, results will be stored in a 
+4 Write extracted values back to SharePoint metadata Write classification results to an internal Jeen database To avoid SharePoint integration complexity in the PoC phase, results will be stored in a 
 dedicated internal “Classification_Management” database table in the Jeen DB.
-5 Human-in-the-loop validation via Teams Adaptive Card Send email with classification and read the replyTo avoid Microsoft Teams integration, we 
+5 Human-in-the-loop validation via Teams Adaptive Card Send email with classification and read the reply To avoid Microsoft Teams integration, we 
 suggest two options: 
 1 –Email: The agent will send a validation email from a dedicated Jeen mailbox.
  The system will monitor and parse replies to capture Approve/Reject responses. 

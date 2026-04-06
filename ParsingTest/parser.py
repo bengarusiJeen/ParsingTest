@@ -21,12 +21,21 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from utils import clean_text, tokenize
+from utils import tokenize
 
 
 # ── Swap this import to plug in a different parser ──────────────────────────
 # from my_friends_parser import parse
 # ────────────────────────────────────────────────────────────────────────────
+
+
+_OUTPUT_DIR = Path(r"C:\Users\BenGarusi\Desktop\Parsing Test\parsing_files")
+
+
+def _save_output(file_path: Path, text: str) -> None:
+    _OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    out = _OUTPUT_DIR / (file_path.stem + ".txt")
+    out.write_text(text, encoding="utf-8")
 
 
 def parse(file_path: str) -> str:
@@ -43,11 +52,11 @@ def parse(file_path: str) -> str:
 
     if ext == ".pdf":
         doc   = fitz.open(str(path))
-        pages = [clean_text(page.get_text()) for page in doc]
+        pages = [page.get_text() for page in doc]
         doc.close()
-        return "\n".join(pages)
+        result = "\n".join(pages)
 
-    if ext in (".docx", ".doc"):
+    elif ext in (".docx", ".doc"):
         doc   = _docx.Document(str(path))
         lines = [p.text for p in doc.paragraphs if p.text.strip()]
         for table in doc.tables:
@@ -56,12 +65,12 @@ def parse(file_path: str) -> str:
                     t = cell.text.strip()
                     if t:
                         lines.append(t)
-        return "\n".join(lines)
+        result = "\n".join(lines)
 
-    if ext == ".txt":
-        return path.read_text(encoding="utf-8")
+    elif ext == ".txt":
+        result = path.read_text(encoding="utf-8")
 
-    if ext == ".pptx":
+    elif ext == ".pptx":
         prs   = Presentation(str(path))
         lines = []
         for slide in prs.slides:
@@ -71,9 +80,9 @@ def parse(file_path: str) -> str:
                         t = para.text.strip()
                         if t:
                             lines.append(t)
-        return "\n".join(lines)
+        result = "\n".join(lines)
 
-    if ext == ".xlsx":
+    elif ext == ".xlsx":
         import openpyxl
         wb    = openpyxl.load_workbook(str(path), data_only=True)
         lines = []
@@ -82,9 +91,13 @@ def parse(file_path: str) -> str:
                 row_text = "  ".join(str(v) for v in row if v is not None)
                 if row_text.strip():
                     lines.append(row_text)
-        return "\n".join(lines)
+        result = "\n".join(lines)
 
-    raise NotImplementedError(
-        f"parse(): unsupported file type '{ext}'.\n"
-        f"File attempted: {file_path}"
-    )
+    else:
+        raise NotImplementedError(
+            f"parse(): unsupported file type '{ext}'.\n"
+            f"File attempted: {file_path}"
+        )
+
+    _save_output(path, result)
+    return result

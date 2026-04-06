@@ -1,0 +1,533 @@
+{
+  "summary": {
+    "documents_evaluated": 4,
+    "avg_coverage_rate": 0.9403,
+    "avg_noise_rate": 0.0049
+  }
+}
+==============================
+{
+  "doc_name": "5 עמודים",
+  "coverage": {
+    "coverage_rate": 0.9292,
+    "fraction": "30/424"
+  },
+  "noise": {
+    "total": 286,
+    "extra": 4,
+    "extra_words_total": [
+      "ם",
+      "ג",
+      "מצי",
+      "הרכיבי"
+    ],
+    "noise_rate": 0.014,
+    "fraction": "4/286"
+  },
+  "gt_word_count": 448,
+  "parser_word_count": 449,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 4,
+        "missing": 2,
+        "coverage_block_rate": 0.5,
+        "fraction_block": "2/4"
+      },
+      "missing_fourgrams_in_block": [
+        "interactive מורכב jeen",
+        "מורכב jeen ai"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 420,
+        "missing": 28,
+        "coverage_block_rate": 0.9333,
+        "fraction_block": "28/420"
+      },
+      "missing_fourgrams_in_block": [
+        # OCR Splits הרכיבים -> הרכיבי 
+        "מתקדמות בתפעול הרכיבים",
+        "בתפעול הרכיבים tone",
+        "הרכיבים tone מטרת",
+        # False True turned over and also in GT : message Guard and in Parser: Guard message
+        "הדוגמאות למצבי false",
+        "למצבי false true",
+        "false true דוגמאות",
+        "true דוגמאות אלו",
+        "התשובה מה message",
+        "מה message guard",
+        "message guard פורמט",
+        "guard פורמט response",
+        "שמוגדרת בשדה message",
+        "בשדה message guard",
+        "message guard התשובה",
+        "guard התשובה תיגזר",
+        "שדה ה message",
+        "ה message guard",
+        "message guard end",
+        "guard end of",
+        # OCR Splits מציג -> מצי+ג and also ההודעה -> ה + הודעה
+        "מגיע למכסה מציג",
+        "למכסה מציג את",
+        "מציג את ההודעה",
+        "את ההודעה שכתבנו",
+        "ההודעה שכתבנו בשדה",
+        # Limitation message is turn over in the parser.
+        "הודעות באמצעות limitation",
+        "באמצעות limitation message",
+        "limitation message אשר",
+        "message אשר קובע"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "AroundTown Focused POC SOW",
+  "coverage": {
+    "coverage_rate": 1.0,
+    "fraction": "0/1168"
+  },
+  "noise": {
+    "total": 365,
+    "extra": 2,
+    "extra_words_total": [
+      "9",
+      "8"
+    ],
+    "noise_rate": 0.0055,
+    "fraction": "2/365"
+  },
+  "gt_word_count": 1244,
+  "parser_word_count": 1253,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 175,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/175"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 145,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/145"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 5,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 6,
+      "coverage": {
+        "total": 208,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/208"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 7,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 8,
+      "coverage": {
+        "total": 111,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/111"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 9,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 10,
+      "coverage": {
+        "total": 84,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/84"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 11,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 12,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 13,
+      "coverage": {
+        "total": 270,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/270"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 14,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 15,
+      "coverage": {
+        "total": 157,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/157"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 16,
+      "coverage": {
+        "total": 2,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/2"
+      },
+      "missing_fourgrams_in_block": []
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "word-two-column-submission-sample",
+  "coverage": {
+    "coverage_rate": 0.8439,
+    "fraction": "152/974"
+  },
+  "noise": {
+    "total": 369,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/369"
+  },
+  "gt_word_count": 1023,
+  "parser_word_count": 870,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 14,
+        "missing": 2,
+        "coverage_block_rate": 0.8571,
+        "fraction_block": "2/14"
+      },
+      "missing_fourgrams_in_block": [
+        "proceedings format leave",
+        "format leave authors"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 786,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/786"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 25,
+        "missing": 2,
+        "coverage_block_rate": 0.92,
+        "fraction_block": "2/25"
+      },
+      "missing_fourgrams_in_block": [
+        "figure 1 insert",
+        "1 insert a"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 149,
+        "missing": 148,
+        "coverage_block_rate": 0.0067,
+        "fraction_block": "148/149"
+      },
+      # Missing the entire block 
+      "missing_fourgrams_in_block": [
+        "permission to make",
+        "to make digital",
+        "make digital or",
+        "digital or hard",
+        "or hard copies",
+        "hard copies of",
+        "copies of all",
+        "of all or",
+        "all or part",
+        "or part of",
+        "part of this",
+        "of this work",
+        "this work for",
+        "work for personal",
+        "for personal or",
+        "personal or classroom",
+        "or classroom use",
+        "classroom use is",
+        "use is granted",
+        "is granted without",
+        "granted without fee",
+        "without fee provided",
+        "fee provided that",
+        "provided that copies",
+        "that copies are",
+        "copies are not",
+        "are not made",
+        "not made or",
+        "made or distributed",
+        "or distributed for",
+        "distributed for profit",
+        "for profit or",
+        "profit or commercial",
+        "or commercial advantage",
+        "commercial advantage and",
+        "advantage and that",
+        "and that copies",
+        "that copies bear",
+        "copies bear this",
+        "bear this notice",
+        "this notice and",
+        "notice and the",
+        "and the full",
+        "the full citation",
+        "full citation on",
+        "citation on the",
+        "on the first",
+        "first page copyrights",
+        "page copyrights for",
+        "copyrights for components",
+        "for components of",
+        "components of this",
+        "this work owned",
+        "work owned by",
+        "owned by others",
+        "by others than",
+        "others than acm",
+        "than acm must",
+        "acm must be",
+        "must be honored",
+        "be honored abstracting",
+        "honored abstracting with",
+        "abstracting with credit",
+        "with credit is",
+        "credit is permitted",
+        "is permitted to",
+        "permitted to copy",
+        "to copy otherwise",
+        "copy otherwise or",
+        "otherwise or republish",
+        "or republish to",
+        "republish to post",
+        "to post on",
+        "post on servers",
+        "on servers or",
+        "servers or to",
+        "or to redistribute",
+        "to redistribute to",
+        "redistribute to lists",
+        "to lists requires",
+        "lists requires prior",
+        "requires prior specific",
+        "prior specific permission",
+        "specific permission and",
+        "permission and or",
+        "and or a",
+        "or a fee",
+        "a fee request",
+        "fee request permissions",
+        "request permissions from",
+        "permissions from permissionsacm",
+        "from permissionsacm org",
+        "permissionsacm org uist",
+        "org uist 2020",
+        "uist 2020 october",
+        "2020 october 20",
+        "october 20 23",
+        "20 23 2020",
+        "23 2020 minneapolis",
+        "2020 minneapolis mn",
+        "minneapolis mn usa",
+        "mn usa acm",
+        "usa acm ©",
+        "acm © 2020",
+        "© 2020 copyright",
+        "2020 copyright is",
+        "copyright is held",
+        "is held by",
+        "held by the",
+        "by the owner",
+        "the owner authors",
+        "owner authors publication",
+        "authors publication rights",
+        "publication rights licensed",
+        "rights licensed to",
+        "licensed to acm",
+        "to acm acm",
+        "acm acm isbn",
+        "acm isbn 978",
+        "isbn 978 1",
+        "978 1 4503",
+        "1 4503 6708",
+        "4503 6708 0",
+        "6708 0 20",
+        "0 20 04",
+        "20 04 15",
+        "04 15 00",
+        "15 00 doi",
+        "00 doi https",
+        "doi https doi",
+        "https doi org",
+        "doi org 10",
+        "org 10 1145",
+        "10 1145 3313831",
+        "1145 3313831 xxxxxxx",
+        "3313831 xxxxxxx update",
+        "xxxxxxx update the",
+        "update the above",
+        "the above block",
+        "above block and",
+        "block and doi",
+        "and doi per",
+        "doi per your",
+        "per your rightsreview",
+        "your rightsreview confirmation",
+        "rightsreview confirmation provided",
+        "confirmation provided after",
+        "provided after acceptance"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "מסמך אפיון לפרויקט  Jeen",
+  "coverage": {
+    "coverage_rate": 0.9882,
+    "fraction": "8/680"
+  },
+  "noise": {
+    "total": 484,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/484"
+  },
+  "gt_word_count": 706,
+  "parser_word_count": 706,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 12,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/12"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 668,
+        "missing": 8,
+        "coverage_block_rate": 0.988,
+        "fraction_block": "8/668"
+      },
+      # In docx file, the tables parse in the end of the file so all the triagrams that connect between the text and the tables are missing.
+      "missing_fourgrams_in_block": [
+        "תשובה צפויה מה",
+        "צפויה מה התקלה",
+        "והתקלה נסגרה טבלת",
+        "נסגרה טבלת המרות",
+        "דיסציפלינות שונות מילה",
+        "שונות מילה פירוש",
+        "השכונה המזרחית סוגי",
+        "המזרחית סוגי מידע"
+      ]
+    }
+  ]
+}

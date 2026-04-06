@@ -37,7 +37,7 @@ from models import BlockResult, DocumentResult, Score
 from ocr import pre_test
 from parser import parse
 from reporting import print_result, print_summary, save_json_report
-from utils import collect_files_dirs_to_test, find_document_file, tokenize
+from utils import collect_files_dirs_to_test, clean_text, find_document_file, normalize_punctuation, tokenize
 
 # ══════════════════════════════════════════════
 # Document evaluation
@@ -66,13 +66,13 @@ def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
     # ── Parse document ──────────────────────────────────────
     test_file   = find_document_file(file_dir)
     parser_text = parse(str(test_file))
-    parser_words = tokenize(parser_text)
+    parser_words = tokenize(normalize_punctuation(parser_text))
 
 
     # ── Build lookup sets ────────────────────────────────────
     all_gt_words_set    = {word for block in gt_blocks for word in block}
     parser_words_set    = set(parser_words)
-    parser_ngrams_set    = set(generate_ngrams(parser_words, n))
+    parser_ngrams_set   = set(generate_ngrams(parser_words, n))
 
     # ── Per-block coverage ───────────────────────────────────
     block_results: List[BlockResult] = []

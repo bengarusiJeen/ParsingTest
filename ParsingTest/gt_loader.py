@@ -58,7 +58,7 @@ def load_gt(gt_dir: Path) -> List[List[str]]:
             if in_block:
                 # closing marker — save the block if it has content
                 if current_block:
-                    blocks.append(tokenize("\n".join(current_block)))
+                    blocks.append(tokenize(clean_text("\n".join(current_block))))
                 current_block = []
             in_block = not in_block
             continue
@@ -68,6 +68,6 @@ def load_gt(gt_dir: Path) -> List[List[str]]:
 
     # guard: file ends without a closing ====
     if in_block and current_block:
-        blocks.append(tokenize("\n".join(current_block)))
+        blocks.append(tokenize(clean_text("\n".join(current_block))))
 
     return blocks

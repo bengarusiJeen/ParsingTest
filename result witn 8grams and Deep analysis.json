@@ -1,0 +1,602 @@
+{
+  "summary": {
+    "documents_evaluated": 4,
+    "avg_coverage_rate": 0.9124,
+    "avg_noise_rate": 0.0049
+  }
+}
+==============================
+{
+  "doc_name": "5 עמודים",
+  "coverage": {
+    "coverage_rate": 0.8525,
+    "fraction": "64/434"
+  },
+  "noise": {
+    "total": 286,
+    "extra": 4,
+    "extra_words_total": [
+      "מצי",
+      "ם",
+      "הרכיבי",
+      "ג"
+    ],
+    "noise_rate": 0.014,
+    "fraction": "4/286"
+  },
+  "gt_word_count": 448,
+  "parser_word_count": 449,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "מדריך תפעול interactive מורכב jeen ai"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 433,
+        "missing": 63,
+        "coverage_block_rate": 0.8545,
+        "fraction_block": "63/433"
+      },
+      #  This is due to the same errors that were in N=3.
+      "missing_fourgrams_in_block": [
+        "מדריך זה מרחיב ומציג יכולות מתקדמות בתפעול הרכיבים",
+        "זה מרחיב ומציג יכולות מתקדמות בתפעול הרכיבים tone",
+        "מרחיב ומציג יכולות מתקדמות בתפעול הרכיבים tone מטרת",
+        "ומציג יכולות מתקדמות בתפעול הרכיבים tone מטרת הרכיב",
+        "יכולות מתקדמות בתפעול הרכיבים tone מטרת הרכיב קביעת",
+        "מתקדמות בתפעול הרכיבים tone מטרת הרכיב קביעת סגנון",
+        "בתפעול הרכיבים tone מטרת הרכיב קביעת סגנון הדיבור",
+        "הרכיבים tone מטרת הרכיב קביעת סגנון הדיבור עולם",
+        "בכוכביות בנוסף בסוף הפרומפט יופיעו הדוגמאות למצבי false",
+        "בנוסף בסוף הפרומפט יופיעו הדוגמאות למצבי false true",
+        "בסוף הפרומפט יופיעו הדוגמאות למצבי false true דוגמאות",
+        "הפרומפט יופיעו הדוגמאות למצבי false true דוגמאות אלו",
+        "יופיעו הדוגמאות למצבי false true דוגמאות אלו ישתנו",
+        "הדוגמאות למצבי false true דוגמאות אלו ישתנו בהתאם",
+        "למצבי false true דוגמאות אלו ישתנו בהתאם לתחומי",
+        "false true דוגמאות אלו ישתנו בהתאם לתחומי העיסוק",
+        "true דוגמאות אלו ישתנו בהתאם לתחומי העיסוק של",
+        "קיבלה false אז נקבל את התשובה מה message",
+        "false אז נקבל את התשובה מה message guard",
+        "אז נקבל את התשובה מה message guard פורמט",
+        "נקבל את התשובה מה message guard פורמט response",
+        "את התשובה מה message guard פורמט response format",
+        "התשובה מה message guard פורמט response format user",
+        "מה message guard פורמט response format user users",
+        "message guard פורמט response format user users message",
+        "guard פורמט response format user users message true",
+        "כלומר במקום להשתמש בתגובה הכללית שמוגדרת בשדה message",
+        "במקום להשתמש בתגובה הכללית שמוגדרת בשדה message guard",
+        "להשתמש בתגובה הכללית שמוגדרת בשדה message guard התשובה",
+        "בתגובה הכללית שמוגדרת בשדה message guard התשובה תיגזר",
+        "הכללית שמוגדרת בשדה message guard התשובה תיגזר מהגדרות",
+        "שמוגדרת בשדה message guard התשובה תיגזר מהגדרות שונות",
+        "בשדה message guard התשובה תיגזר מהגדרות שונות שנכתבו",
+        "message guard התשובה תיגזר מהגדרות שונות שנכתבו בפרומפט",
+        "guard התשובה תיגזר מהגדרות שונות שנכתבו בפרומפט עבור",
+        "עצמו אין צורך למלא את שדה ה message",
+        "אין צורך למלא את שדה ה message guard",
+        "צורך למלא את שדה ה message guard end",
+        "למלא את שדה ה message guard end of",
+        "את שדה ה message guard end of conversation",
+        "שדה ה message guard end of conversation message",
+        "ה message guard end of conversation message מטרת",
+        "message guard end of conversation message מטרת הרכיב",
+        "guard end of conversation message מטרת הרכיב להגביל",
+        "או הגבלת הזמן לאחר שהמשתמש מגיע למכסה מציג",
+        "הגבלת הזמן לאחר שהמשתמש מגיע למכסה מציג את",
+        "הזמן לאחר שהמשתמש מגיע למכסה מציג את ההודעה",
+        "לאחר שהמשתמש מגיע למכסה מציג את ההודעה שכתבנו",
+        "שהמשתמש מגיע למכסה מציג את ההודעה שכתבנו בשדה",
+        "מגיע למכסה מציג את ההודעה שכתבנו בשדה הטקסט",
+        "למכסה מציג את ההודעה שכתבנו בשדה הטקסט ברכיב",
+        "מציג את ההודעה שכתבנו בשדה הטקסט ברכיב זה",
+        "את ההודעה שכתבנו בשדה הטקסט ברכיב זה אפשרויות",
+        "ההודעה שכתבנו בשדה הטקסט ברכיב זה אפשרויות עריכה",
+        "זה אפשרויות עריכה הגדרת מגבלת הודעות באמצעות limitation",
+        "אפשרויות עריכה הגדרת מגבלת הודעות באמצעות limitation message",
+        "עריכה הגדרת מגבלת הודעות באמצעות limitation message אשר",
+        "הגדרת מגבלת הודעות באמצעות limitation message אשר קובע",
+        "מגבלת הודעות באמצעות limitation message אשר קובע את",
+        "הודעות באמצעות limitation message אשר קובע את מספר",
+        "באמצעות limitation message אשר קובע את מספר ההודעות",
+        "limitation message אשר קובע את מספר ההודעות המרבי",
+        "message אשר קובע את מספר ההודעות המרבי בשיחה"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "AroundTown Focused POC SOW",
+  "coverage": {
+    "coverage_rate": 0.9922,
+    "fraction": "9/1157"
+    # This is because in GT the DATE block only includes the date, so it is saved in N-GRAM with all the words in the block because it cannot be divided into 8, and in Presser it is possible(its part of 8gram).
+  },
+  "noise": {
+    "total": 365,
+    "extra": 2,
+    "extra_words_total": [
+      "8",
+      "9"
+    ],
+    "noise_rate": 0.0055,
+    "fraction": "2/365"
+  },
+  "gt_word_count": 1244,
+  "parser_word_count": 1253,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 170,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/170"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 142,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/142"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 5,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 6,
+      "coverage": {
+        "total": 217,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/217"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 7,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 8,
+      "coverage": {
+        "total": 106,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/106"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 9,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 10,
+      "coverage": {
+        "total": 79,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/79"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 11,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 12,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 13,
+      "coverage": {
+        "total": 271,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/271"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 14,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    },
+    {
+      "block_index": 15,
+      "coverage": {
+        "total": 163,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/163"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 16,
+      "coverage": {
+        "total": 1,
+        "missing": 1,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "1/1"
+      },
+      "missing_fourgrams_in_block": [
+        "date 2026 02 13"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "word-two-column-submission-sample",
+  "coverage": {
+    "coverage_rate": 0.8462,
+    "fraction": "151/982"
+    # SAME MISTAKE AS IN N=3.
+  },
+  "noise": {
+    "total": 369,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/369"
+  },
+  "gt_word_count": 1023,
+  "parser_word_count": 870,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 14,
+        "missing": 4,
+        "coverage_block_rate": 0.7143,
+        "fraction_block": "4/14"
+      },
+      "missing_fourgrams_in_block": [
+        "sigchi conference proceedings format leave authors anonymous for",
+        "conference proceedings format leave authors anonymous for submission",
+        "proceedings format leave authors anonymous for submission city",
+        "format leave authors anonymous for submission city country"
+      ]
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 803,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/803"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 3,
+      "coverage": {
+        "total": 20,
+        "missing": 2,
+        "coverage_block_rate": 0.9,
+        "fraction_block": "2/20"
+      },
+      "missing_fourgrams_in_block": [
+        "figure 1 insert a numbered caption below each",
+        "1 insert a numbered caption below each figure"
+      ]
+    },
+    {
+      "block_index": 4,
+      "coverage": {
+        "total": 145,
+        "missing": 145,
+        "coverage_block_rate": 0.0,
+        "fraction_block": "145/145"
+      },
+      "missing_fourgrams_in_block": [
+        "permission to make digital or hard copies of",
+        "to make digital or hard copies of all",
+        "make digital or hard copies of all or",
+        "digital or hard copies of all or part",
+        "or hard copies of all or part of",
+        "hard copies of all or part of this",
+        "copies of all or part of this work",
+        "of all or part of this work for",
+        "all or part of this work for personal",
+        "or part of this work for personal or",
+        "part of this work for personal or classroom",
+        "of this work for personal or classroom use",
+        "this work for personal or classroom use is",
+        "work for personal or classroom use is granted",
+        "for personal or classroom use is granted without",
+        "personal or classroom use is granted without fee",
+        "or classroom use is granted without fee provided",
+        "classroom use is granted without fee provided that",
+        "use is granted without fee provided that copies",
+        "is granted without fee provided that copies are",
+        "granted without fee provided that copies are not",
+        "without fee provided that copies are not made",
+        "fee provided that copies are not made or",
+        "provided that copies are not made or distributed",
+        "that copies are not made or distributed for",
+        "copies are not made or distributed for profit",
+        "are not made or distributed for profit or",
+        "not made or distributed for profit or commercial",
+        "made or distributed for profit or commercial advantage",
+        "or distributed for profit or commercial advantage and",
+        "distributed for profit or commercial advantage and that",
+        "for profit or commercial advantage and that copies",
+        "profit or commercial advantage and that copies bear",
+        "or commercial advantage and that copies bear this",
+        "commercial advantage and that copies bear this notice",
+        "advantage and that copies bear this notice and",
+        "and that copies bear this notice and the",
+        "that copies bear this notice and the full",
+        "copies bear this notice and the full citation",
+        "bear this notice and the full citation on",
+        "this notice and the full citation on the",
+        "notice and the full citation on the first",
+        "and the full citation on the first page",
+        "the full citation on the first page copyrights",
+        "full citation on the first page copyrights for",
+        "citation on the first page copyrights for components",
+        "on the first page copyrights for components of",
+        "the first page copyrights for components of this",
+        "first page copyrights for components of this work",
+        "page copyrights for components of this work owned",
+        "copyrights for components of this work owned by",
+        "for components of this work owned by others",
+        "components of this work owned by others than",
+        "of this work owned by others than acm",
+        "this work owned by others than acm must",
+        "work owned by others than acm must be",
+        "owned by others than acm must be honored",
+        "by others than acm must be honored abstracting",
+        "others than acm must be honored abstracting with",
+        "than acm must be honored abstracting with credit",
+        "acm must be honored abstracting with credit is",
+        "must be honored abstracting with credit is permitted",
+        "be honored abstracting with credit is permitted to",
+        "honored abstracting with credit is permitted to copy",
+        "abstracting with credit is permitted to copy otherwise",
+        "with credit is permitted to copy otherwise or",
+        "credit is permitted to copy otherwise or republish",
+        "is permitted to copy otherwise or republish to",
+        "permitted to copy otherwise or republish to post",
+        "to copy otherwise or republish to post on",
+        "copy otherwise or republish to post on servers",
+        "otherwise or republish to post on servers or",
+        "or republish to post on servers or to",
+        "republish to post on servers or to redistribute",
+        "to post on servers or to redistribute to",
+        "post on servers or to redistribute to lists",
+        "on servers or to redistribute to lists requires",
+        "servers or to redistribute to lists requires prior",
+        "or to redistribute to lists requires prior specific",
+        "to redistribute to lists requires prior specific permission",
+        "redistribute to lists requires prior specific permission and",
+        "to lists requires prior specific permission and or",
+        "lists requires prior specific permission and or a",
+        "requires prior specific permission and or a fee",
+        "prior specific permission and or a fee request",
+        "specific permission and or a fee request permissions",
+        "permission and or a fee request permissions from",
+        "and or a fee request permissions from permissionsacm",
+        "or a fee request permissions from permissionsacm org",
+        "a fee request permissions from permissionsacm org uist",
+        "fee request permissions from permissionsacm org uist 2020",
+        "request permissions from permissionsacm org uist 2020 october",
+        "permissions from permissionsacm org uist 2020 october 20",
+        "from permissionsacm org uist 2020 october 20 23",
+        "permissionsacm org uist 2020 october 20 23 2020",
+        "org uist 2020 october 20 23 2020 minneapolis",
+        "uist 2020 october 20 23 2020 minneapolis mn",
+        "2020 october 20 23 2020 minneapolis mn usa",
+        "october 20 23 2020 minneapolis mn usa acm",
+        "20 23 2020 minneapolis mn usa acm ©",
+        "23 2020 minneapolis mn usa acm © 2020",
+        "2020 minneapolis mn usa acm © 2020 copyright",
+        "minneapolis mn usa acm © 2020 copyright is",
+        "mn usa acm © 2020 copyright is held",
+        "usa acm © 2020 copyright is held by",
+        "acm © 2020 copyright is held by the",
+        "© 2020 copyright is held by the owner",
+        "2020 copyright is held by the owner authors",
+        "copyright is held by the owner authors publication",
+        "is held by the owner authors publication rights",
+        "held by the owner authors publication rights licensed",
+        "by the owner authors publication rights licensed to",
+        "the owner authors publication rights licensed to acm",
+        "owner authors publication rights licensed to acm acm",
+        "authors publication rights licensed to acm acm isbn",
+        "publication rights licensed to acm acm isbn 978",
+        "rights licensed to acm acm isbn 978 1",
+        "licensed to acm acm isbn 978 1 4503",
+        "to acm acm isbn 978 1 4503 6708",
+        "acm acm isbn 978 1 4503 6708 0",
+        "acm isbn 978 1 4503 6708 0 20",
+        "isbn 978 1 4503 6708 0 20 04",
+        "978 1 4503 6708 0 20 04 15",
+        "1 4503 6708 0 20 04 15 00",
+        "4503 6708 0 20 04 15 00 doi",
+        "6708 0 20 04 15 00 doi https",
+        "0 20 04 15 00 doi https doi",
+        "20 04 15 00 doi https doi org",
+        "04 15 00 doi https doi org 10",
+        "15 00 doi https doi org 10 1145",
+        "00 doi https doi org 10 1145 3313831",
+        "doi https doi org 10 1145 3313831 xxxxxxx",
+        "https doi org 10 1145 3313831 xxxxxxx update",
+        "doi org 10 1145 3313831 xxxxxxx update the",
+        "org 10 1145 3313831 xxxxxxx update the above",
+        "10 1145 3313831 xxxxxxx update the above block",
+        "1145 3313831 xxxxxxx update the above block and",
+        "3313831 xxxxxxx update the above block and doi",
+        "xxxxxxx update the above block and doi per",
+        "update the above block and doi per your",
+        "the above block and doi per your rightsreview",
+        "above block and doi per your rightsreview confirmation",
+        "block and doi per your rightsreview confirmation provided",
+        "and doi per your rightsreview confirmation provided after",
+        "doi per your rightsreview confirmation provided after acceptance"
+      ]
+    }
+  ]
+}
+==============================
+{
+  "doc_name": "מסמך אפיון לפרויקט  Jeen",
+  "coverage": {
+    "coverage_rate": 0.9586,
+    "fraction": "28/677"
+    #SAME
+  },
+  "noise": {
+    "total": 484,
+    "extra": 0,
+    "extra_words_total": [],
+    "noise_rate": 0.0,
+    "fraction": "0/484"
+  },
+  "gt_word_count": 706,
+  "parser_word_count": 706,
+  "block_results": [
+    {
+      "block_index": 1,
+      "coverage": {
+        "total": 7,
+        "missing": 0,
+        "coverage_block_rate": 1.0,
+        "fraction_block": "0/7"
+      },
+      "missing_fourgrams_in_block": []
+    },
+    {
+      "block_index": 2,
+      "coverage": {
+        "total": 670,
+        "missing": 28,
+        "coverage_block_rate": 0.9582,
+        "fraction_block": "28/670"
+      },
+      "missing_fourgrams_in_block": [
+        "צפויים לשאול את הסוכן כולל תשובה צפויה מה",
+        "לשאול את הסוכן כולל תשובה צפויה מה התקלה",
+        "את הסוכן כולל תשובה צפויה מה התקלה הנפוצה",
+        "הסוכן כולל תשובה צפויה מה התקלה הנפוצה ביותר",
+        "כולל תשובה צפויה מה התקלה הנפוצה ביותר בתחנה",
+        "תשובה צפויה מה התקלה הנפוצה ביותר בתחנה y",
+        "צפויה מה התקלה הנפוצה ביותר בתחנה y לפי",
+        "רעשים חריגים במנוע בוצע שימון והתקלה נסגרה טבלת",
+        "חריגים במנוע בוצע שימון והתקלה נסגרה טבלת המרות",
+        "במנוע בוצע שימון והתקלה נסגרה טבלת המרות מונחים",
+        "בוצע שימון והתקלה נסגרה טבלת המרות מונחים מקצועיים",
+        "שימון והתקלה נסגרה טבלת המרות מונחים מקצועיים יתפרשו",
+        "והתקלה נסגרה טבלת המרות מונחים מקצועיים יתפרשו באופן",
+        "נסגרה טבלת המרות מונחים מקצועיים יתפרשו באופן שונה",
+        "שונה בין תחומים מחלקות או דיסציפלינות שונות מילה",
+        "בין תחומים מחלקות או דיסציפלינות שונות מילה פירוש",
+        "תחומים מחלקות או דיסציפלינות שונות מילה פירוש תחנה",
+        "מחלקות או דיסציפלינות שונות מילה פירוש תחנה מתקן",
+        "או דיסציפלינות שונות מילה פירוש תחנה מתקן שאיבה",
+        "דיסציפלינות שונות מילה פירוש תחנה מתקן שאיבה או",
+        "שונות מילה פירוש תחנה מתקן שאיבה או צומת",
+        "צינור המים הראשי המזין את השכונה המזרחית סוגי",
+        "המים הראשי המזין את השכונה המזרחית סוגי מידע",
+        "הראשי המזין את השכונה המזרחית סוגי מידע קיימים",
+        "המזין את השכונה המזרחית סוגי מידע קיימים האם",
+        "את השכונה המזרחית סוגי מידע קיימים האם המידע",
+        "השכונה המזרחית סוגי מידע קיימים האם המידע רגיש",
+        "המזרחית סוגי מידע קיימים האם המידע רגיש האם"
+      ]
+    }
+  ]
+}
