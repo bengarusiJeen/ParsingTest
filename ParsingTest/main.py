@@ -32,6 +32,7 @@ import argparse
 from typing import List
 
 import gt_loader
+from Diagnostics import run_diagnostics
 from metrics import compute_coverage, compute_noise, generate_ngrams
 from models import BlockResult, DocumentResult, Score
 from ocr import pre_test
@@ -39,11 +40,21 @@ from parser import parse
 from reporting import print_result, print_summary, save_json_report
 from utils import collect_files_dirs_to_test, clean_text, find_document_file, normalize_punctuation, tokenize
 
+
+def _is_punct_token(word: str) -> bool:
+    return bool(word) and all(not c.isalnum() for c in word)
+
+
+def _maybe_strip_punctuation_tokens(tokens: List[str], n: int) -> List[str]:
+    if n <= 4:
+        return tokens
+    return [w for w in tokens if not _is_punct_token(w)]
+
 # ══════════════════════════════════════════════
 # Document evaluation
 # ══════════════════════════════════════════════
 
-def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
+def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[str], Set[str], Set[str], str]:   
     """
     Evaluate a single document folder.
 
@@ -59,6 +70,7 @@ def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
 
     # ── Load GT ─────────────────────────────────────────────
     gt_blocks = gt_loader.load_gt(gt_dir)
+    gt_blocks = [_maybe_strip_punctuation_tokens(block, n) for block in gt_blocks]
     if not gt_blocks:
         print(f"[warn] {file_dir.name}: no ==== body blocks found in GT",
               file=sys.stderr)
@@ -67,12 +79,18 @@ def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
     test_file   = find_document_file(file_dir)
     parser_text = parse(str(test_file))
     parser_words = tokenize(normalize_punctuation(parser_text))
+    parser_words = _maybe_strip_punctuation_tokens(parser_words, n)
 
 
     # ── Build lookup sets ────────────────────────────────────
     all_gt_words_set    = {word for block in gt_blocks for word in block}
     parser_words_set    = set(parser_words)
     parser_ngrams_set   = set(generate_ngrams(parser_words, n))
+
+    # Diagnostics build
+    parser_bigrams_set = set(generate_ngrams(parser_words, 2))
+
+
 
     # ── Per-block coverage ───────────────────────────────────
     block_results: List[BlockResult] = []
@@ -94,7 +112,7 @@ def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
     total_failed  = sum(br.coverage_block_score.failed  for br in block_results)
     doc_coverage  = Score(checked=total_checked, failed=total_failed)
 
-    return DocumentResult(
+    res=DocumentResult(
         doc_name          = file_dir.name,
         doc_file          = str(test_file),
         coverage_score    = doc_coverage,
@@ -105,6 +123,15 @@ def evaluate_document(file_dir: Path, n: int = 3) -> DocumentResult:
         missing_triagams  = [w for br in block_results for w in br.missing_words],
         extra_words       = extra,
     )
+
+    file_ext = Path(str(test_file)).suffix.lower()
+
+    return res, parser_ngrams_set, parser_words_set,parser_bigrams_set, file_ext
+
+
+
+
+
 
 
 # ══════════════════════════════════════════════
@@ -159,10 +186,15 @@ def main() -> None:
         raise SystemExit("No valid document folders found.")
 
     results: List[DocumentResult] = []
+    parser_data: List[Tuple[Set[str], Set[str], Set[str], str]] = []
+
+
     for file_dir in files_dirs:
         try:
-            result = evaluate_document(file_dir, n=args.n)
+            result, p_ngrams_set, p_words_set, p_bigrams_set,f_ext  = evaluate_document(file_dir, n=args.n)
             results.append(result)
+            parser_data.append((p_ngrams_set, p_words_set, p_bigrams_set, f_ext))
+
             if not args.quiet:
                 print_result(result, verbose=args.verbose, n=args.n)
         except NotImplementedError as e:
@@ -174,8 +206,15 @@ def main() -> None:
     if results:
         print("=" * 30)
         print_summary(results)
+
+    # ── Results JSON (optional, CLI argument) ────────────────
     if args.output and results:
         save_json_report(results, args.output, n=args.n)
+
+    # ── Diagnostics JSON (always written, fixed filename) ────
+    if results:
+        run_diagnostics(results, parser_data, input_dir)
+
 
 
 if __name__ == "__main__":

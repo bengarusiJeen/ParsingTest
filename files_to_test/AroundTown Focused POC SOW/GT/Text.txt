@@ -24,7 +24,7 @@ Date: 2026-02-13
 ====
 2. Focused PoC Approach & Trade-Offs
 To reduce complexity, friction, and implementation time, the PoC will intentionally avoid direct integrations with AroundTown environment (e.g., SharePoint, Metadata write-back, Teams Adaptive Cards, external triggers, etc.).
-Key Trade-Offs.
+Key Trade-Offs
 Original Direction Focused PoC Alternative Rationale
 1 External trigger Manual or scheduled trigger (every X minutes) Avoids dependency on SharePoint or External triggers
 2 Real-time parallel processing Batch processing (up to X files per run) Simplifies orchestration for PoC.

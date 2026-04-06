@@ -16,22 +16,22 @@
     "total": 297,
     "extra": 16,
     "extra_words_total": [
-      "מצי",
-      "הרכיבי",
-      "תפעולinteractive",
+      "בtone",
+      "בflow",
       "קיבלהfalse",
       "למצביtrue",
-      "לclassifier",
+      "מצי",
+      "קיבלהtrue",
+      "ם",
+      "ג",
+      "באמצעותtime",
       "באמצעותmessage",
       "הflow",
-      "בtone",
-      "ם",
-      "באמצעותtime",
-      "ערךfalse",
-      "בflow",
-      "ג",
+      "הרכיבי",
       "בשדהguard",
-      "קיבלהtrue"
+      "ערךfalse",
+      "לclassifier",
+      "תפעולinteractive"
     ],
     "noise_rate": 0.0539,
     "fraction": "16/297"
@@ -242,8 +242,8 @@
     "total": 378,
     "extra": 2,
     "extra_words_total": [
-      "8",
-      "9"
+      "9",
+      "8"
     ],
     "noise_rate": 0.0053,
     "fraction": "2/378"
