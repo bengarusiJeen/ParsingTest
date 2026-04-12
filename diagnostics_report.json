@@ -1,12 +1,12 @@
 {
   "summary": {
-    "total_documents": 4,
-    "total_missing_ngrams": 389,
-    "MISSING_BLOCK_PARSE_total": 2,
-    "OCR_SPLIT_total": 3,
-    "MERGED_WORDS_total": 13,
-    "FORMATTING_ISSUES_total": 97,
-    "UNCLASSIFIED_total": 68
+    "total_documents": 5,
+    "total_missing_ngrams": 793,
+    "MISSING_BLOCK_PARSE_total": 3,
+    "OCR_SPLIT_total": 12,
+    "MERGED_WORDS_total": 31,
+    "FORMATTING_ISSUES_total": 219,
+    "UNCLASSIFIED_total": 173
   },
   "documents": [
     {
@@ -106,13 +106,6 @@
               ]
             },
             {
-              "merged_word": "באמצעותmessage",
-              "original": [
-                "באמצעות",
-                "message"
-              ]
-            },
-            {
               "merged_word": "בflow",
               "original": [
                 "ב",
@@ -124,6 +117,13 @@
               "original": [
                 "למצבי",
                 "true"
+              ]
+            },
+            {
+              "merged_word": "באמצעותmessage",
+              "original": [
+                "באמצעות",
+                "message"
               ]
             }
           ]
@@ -897,6 +897,1332 @@
         "UNCLASSIFIED": {
           "count": 0,
           "ngrams": []
+        }
+      }
+    },
+    {
+      "doc_name": "fail",
+      "file_ext": ".pdf",
+      "total_missing_ngrams": 404,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 1,
+          "blocks_number": [
+            8
+          ]
+        },
+        "OCR_SPLIT": {
+          "count": 9,
+          "issues": [
+            {
+              "word": "החברה",
+              "fragments": [
+                "החב",
+                "רה"
+              ]
+            },
+            {
+              "word": "דרישת",
+              "fragments": [
+                "דרי",
+                "שת"
+              ]
+            },
+            {
+              "word": "ואם",
+              "fragments": [
+                "ו",
+                "אם"
+              ]
+            },
+            {
+              "word": "יועצים",
+              "fragments": [
+                "יועצ",
+                "ים"
+              ]
+            },
+            {
+              "word": "החלטת",
+              "fragments": [
+                "החל",
+                "טת"
+              ]
+            },
+            {
+              "word": "המפעל",
+              "fragments": [
+                "ה",
+                "מפעל"
+              ]
+            },
+            {
+              "word": "בחטיבת",
+              "fragments": [
+                "ב",
+                "חטיבת"
+              ]
+            },
+            {
+              "word": "בהסכם",
+              "fragments": [
+                "בהס",
+                "כם"
+              ]
+            },
+            {
+              "word": "בבקשה",
+              "fragments": [
+                "ב",
+                "בקשה"
+              ]
+            }
+          ]
+        },
+        "MERGED_WORDS": {
+          "count": 18,
+          "issues": [
+            {
+              "merged_word": "נספח1",
+              "original": [
+                "נספח",
+                "1"
+              ]
+            },
+            {
+              "merged_word": "נספח2",
+              "original": [
+                "נספח",
+                "2"
+              ]
+            },
+            {
+              "merged_word": "נספח3",
+              "original": [
+                "נספח",
+                "3"
+              ]
+            },
+            {
+              "merged_word": "נספח4",
+              "original": [
+                "נספח",
+                "4"
+              ]
+            },
+            {
+              "merged_word": "נספח5",
+              "original": [
+                "נספח",
+                "5"
+              ]
+            },
+            {
+              "merged_word": "נספח6",
+              "original": [
+                "נספח",
+                "6"
+              ]
+            },
+            {
+              "merged_word": "נספח7",
+              "original": [
+                "נספח",
+                "7"
+              ]
+            },
+            {
+              "merged_word": "נספח8",
+              "original": [
+                "נספח",
+                "8"
+              ]
+            },
+            {
+              "merged_word": "נספח9",
+              "original": [
+                "נספח",
+                "9"
+              ]
+            },
+            {
+              "merged_word": "נספח10",
+              "original": [
+                "נספח",
+                "10"
+              ]
+            },
+            {
+              "merged_word": "נספח11",
+              "original": [
+                "נספח",
+                "11"
+              ]
+            },
+            {
+              "merged_word": "דף2",
+              "original": [
+                "דף",
+                "2"
+              ]
+            },
+            {
+              "merged_word": "בנספח9",
+              "original": [
+                "בנספח",
+                "9"
+              ]
+            },
+            {
+              "merged_word": "בנספח10",
+              "original": [
+                "בנספח",
+                "10"
+              ]
+            },
+            {
+              "merged_word": "דף3",
+              "original": [
+                "דף",
+                "3"
+              ]
+            },
+            {
+              "merged_word": "מתאריך",
+              "original": [
+                "מ",
+                "תאריך"
+              ]
+            },
+            {
+              "merged_word": "דף42",
+              "original": [
+                "דף",
+                "42"
+              ]
+            },
+            {
+              "merged_word": "דף59",
+              "original": [
+                "דף",
+                "59"
+              ]
+            }
+          ]
+        },
+        "FORMATTING_ISSUES": {
+          "count": 122,
+          "WORD_ORDER_REVERSAL": {
+            "count": 5,
+            "issues": [
+              {
+                "ngram": "\" מ נושא",
+                "type": "WORD_ORDER_REVERSAL",
+                "pair": [
+                  "מ",
+                  "נושא"
+                ],
+                "gt_text": "מ נושא",
+                "parser_text": "נושא מ",
+                "evidence": "Hebrew↔Hebrew pair ('מ', 'נושא'). Flipped pair 'נושא מ' confirmed in parser. Confidence: HIGH."
+              },
+              {
+                "ngram": ": רכש פרק",
+                "type": "WORD_ORDER_REVERSAL",
+                "pair": [
+                  "רכש",
+                  "פרק"
+                ],
+                "gt_text": "רכש פרק",
+                "parser_text": "פרק רכש",
+                "evidence": "Hebrew↔Hebrew pair ('רכש', 'פרק'). Flipped pair 'פרק רכש' confirmed in parser. Confidence: HIGH."
+              },
+              {
+                "ngram": "שם הפרק עדכון",
+                "type": "WORD_ORDER_REVERSAL",
+                "pair": [
+                  "שם",
+                  "הפרק"
+                ],
+                "gt_text": "שם הפרק עדכון",
+                "parser_text": "הפרק שם",
+                "evidence": "Hebrew↔Hebrew pair ('שם', 'הפרק'). Flipped pair 'הפרק שם' confirmed in parser. Confidence: HIGH."
+              },
+              {
+                "ngram": "תפוצה נוהל מבטל",
+                "type": "WORD_ORDER_REVERSAL",
+                "pair": [
+                  "נוהל",
+                  "מבטל"
+                ],
+                "gt_text": "תפוצה נוהל מבטל",
+                "parser_text": "מבטל נוהל",
+                "evidence": "Hebrew↔Hebrew pair ('נוהל', 'מבטל'). Flipped pair 'מבטל נוהל' confirmed in parser. Confidence: HIGH."
+              },
+              {
+                "ngram": "01 מתאריך 23",
+                "type": "WORD_ORDER_REVERSAL",
+                "pair": [
+                  "מתאריך",
+                  "23"
+                ],
+                "gt_text": "01 מתאריך 23",
+                "parser_text": "23 מתאריך",
+                "evidence": "Hebrew↔Hebrew pair ('מתאריך', '23'). Flipped pair '23 מתאריך' confirmed in parser. Confidence: HIGH."
+              }
+            ]
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 117,
+            "issues": [
+              {
+                "ngram": "נושא ראשי :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "נושא ראשי :",
+                "parser_text": "נושא ראשי",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נושא ראשי' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": רכש ולוגיסטיקה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": רכש ולוגיסטיקה",
+                "parser_text": "רכש ולוגיסטיקה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'רכש ולוגיסטיקה' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מספר הנוהל :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מספר הנוהל :",
+                "parser_text": "מספר הנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מספר הנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": 922 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": 922 .",
+                "parser_text": "922",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '922' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "נושא משנה :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "נושא משנה :",
+                "parser_text": "נושא משנה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נושא משנה' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "פרק : רכש",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "פרק : רכש",
+                "parser_text": "פרק רכש",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'פרק רכש' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": הנוגעים :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": הנוגעים :",
+                "parser_text": "הנוגעים",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הנוגעים' found contiguously inside parser flow after punctuation normalization. Punctuation [':', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": 07 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": 07 .",
+                "parser_text": "07",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '07' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "תוכן העניינים (",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "תוכן העניינים (",
+                "parser_text": "תוכן העניינים",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תוכן העניינים' found contiguously inside parser flow after punctuation normalization. Punctuation ['('] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "המשך ) מס",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "המשך ) מס",
+                "parser_text": "המשך מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'המשך מס' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") מס '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") מס '",
+                "parser_text": "מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מס' found contiguously inside parser flow after punctuation normalization. Punctuation [')', \"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "עדכון אחרון *",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "עדכון אחרון *",
+                "parser_text": "עדכון אחרון",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'עדכון אחרון' found contiguously inside parser flow after punctuation normalization. Punctuation ['*'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "אחרון * )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "אחרון * )",
+                "parser_text": "אחרון",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אחרון' found contiguously inside parser flow after punctuation normalization. Punctuation ['*', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "* ) 5",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "* ) 5",
+                "parser_text": "5",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '5' found contiguously inside parser flow after punctuation normalization. Punctuation ['*', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") 5 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") 5 .",
+                "parser_text": "5",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '5' found contiguously inside parser flow after punctuation normalization. Punctuation [')', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "/ מכרז נספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "/ מכרז נספח",
+                "parser_text": "מכרז נספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מכרז נספח' found contiguously inside parser flow after punctuation normalization. Punctuation ['/'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". 23 נספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". 23 נספח",
+                "parser_text": "23 נספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '23 נספח' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ובחירת ספק (",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ובחירת ספק (",
+                "parser_text": "ובחירת ספק",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ובחירת ספק' found contiguously inside parser flow after punctuation normalization. Punctuation ['('] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "נוסח מוצע )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "נוסח מוצע )",
+                "parser_text": "נוסח מוצע",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נוסח מוצע' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מוצע ) נספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מוצע ) נספח",
+                "parser_text": "מוצע נספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מוצע נספח' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הודעה למנכ \"",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הודעה למנכ \"",
+                "parser_text": "הודעה למנכ",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הודעה למנכ' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "למנכ \" ל",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "למנכ \" ל",
+                "parser_text": "למנכ ל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למנכ ל' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" ל בדבר",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" ל בדבר",
+                "parser_text": "ל בדבר",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ל בדבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "6 א '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "6 א '",
+                "parser_text": "6 א",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '6 א' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "א ' בקשה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "א ' בקשה",
+                "parser_text": "א בקשה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'א בקשה' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "' בקשה לקבלת",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "' בקשה לקבלת",
+                "parser_text": "בקשה לקבלת",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בקשה לקבלת' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "המחייב מכרז )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "המחייב מכרז )",
+                "parser_text": "המחייב מכרז",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'המחייב מכרז' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מכרז ) נספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מכרז ) נספח",
+                "parser_text": "מכרז נספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מכרז נספח' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "6 ב '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "6 ב '",
+                "parser_text": "6 ב",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '6 ב' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ב ' בקשה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ב ' בקשה",
+                "parser_text": "ב בקשה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ב בקשה' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הנוגעים לנוהל *",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הנוגעים לנוהל *",
+                "parser_text": "הנוגעים לנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הנוגעים לנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['*'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לנוהל * )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לנוהל * )",
+                "parser_text": "לנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['*', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "* ) אם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "* ) אם",
+                "parser_text": "אם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אם' found contiguously inside parser flow after punctuation normalization. Punctuation ['*', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") אם לא",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") אם לא",
+                "parser_text": "אם לא",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אם לא' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "נוהל מס '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "נוהל מס '",
+                "parser_text": "נוהל מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נוהל מס' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מס ' 922",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מס ' 922",
+                "parser_text": "מס 922",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מס 922' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "' 922 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "' 922 .",
+                "parser_text": "922",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '922' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\", '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "דף מס '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "דף מס '",
+                "parser_text": "דף מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'דף מס' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מס ' מתאריך",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מס ' מתאריך",
+                "parser_text": "מס מתאריך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מס מתאריך' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ההתקשרות עימם .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ההתקשרות עימם .",
+                "parser_text": "ההתקשרות עימם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ההתקשרות עימם' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "עימם . 2",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "עימם . 2",
+                "parser_text": "עימם 2",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'עימם 2' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "9 לנוהל )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "9 לנוהל )",
+                "parser_text": "9 לנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '9 לנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הזרימה ) בנספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הזרימה ) בנספח",
+                "parser_text": "הזרימה בנספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הזרימה בנספח' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") , בהתאם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") , בהתאם",
+                "parser_text": "בהתאם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בהתאם' found contiguously inside parser flow after punctuation normalization. Punctuation [')', ','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", בהתאם לכללים",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", בהתאם לכללים",
+                "parser_text": "בהתאם לכללים",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בהתאם לכללים' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "למפורט בנוהל ,",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "למפורט בנוהל ,",
+                "parser_text": "למפורט בנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למפורט בנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", 922 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", 922 .",
+                "parser_text": "922",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '922' found contiguously inside parser flow after punctuation normalization. Punctuation [',', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" תהליך הרכש",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" תהליך הרכש",
+                "parser_text": "תהליך הרכש",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תהליך הרכש' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ל , אם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ל , אם",
+                "parser_text": "ל אם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ל אם' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", אם באופן",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", אם באופן",
+                "parser_text": "אם באופן",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אם באופן' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הנוגעים . 4",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הנוגעים . 4",
+                "parser_text": "הנוגעים 4",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הנוגעים 4' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". 4 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". 4 .",
+                "parser_text": "4",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '4' found contiguously inside parser flow after punctuation normalization. Punctuation ['.', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "כרטיסי אשראי ,",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "כרטיסי אשראי ,",
+                "parser_text": "כרטיסי אשראי",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'כרטיסי אשראי' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "אשראי , יש",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "אשראי , יש",
+                "parser_text": "אשראי יש",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אשראי יש' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", יש לפעול",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", יש לפעול",
+                "parser_text": "יש לפעול",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'יש לפעול' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לנוהל בנספח .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לנוהל בנספח .",
+                "parser_text": "לנוהל בנספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לנוהל בנספח' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". 11 5",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". 11 5",
+                "parser_text": "11 5",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '11 5' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "11 5 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "11 5 .",
+                "parser_text": "11 5",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '11 5' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "המפורט בנוהל .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "המפורט בנוהל .",
+                "parser_text": "המפורט בנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'המפורט בנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". 922 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". 922 .",
+                "parser_text": "922",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '922' found contiguously inside parser flow after punctuation normalization. Punctuation ['.', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "במערכת sap ,",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "במערכת sap ,",
+                "parser_text": "במערכת sap",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'במערכת sap' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "sap , ינוהלו",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "sap , ינוהלו",
+                "parser_text": "sap ינוהלו",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'sap ינוהלו' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", ינוהלו במערכת",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", ינוהלו במערכת",
+                "parser_text": "ינוהלו במערכת",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ינוהלו במערכת' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") ועדה מס",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") ועדה מס",
+                "parser_text": "ועדה מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ועדה מס' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ועדה מס '",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ועדה מס '",
+                "parser_text": "ועדה מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ועדה מס' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\"] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מס ' :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מס ' :",
+                "parser_text": "מס",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מס' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\", ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "' : שם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "' : שם",
+                "parser_text": "שם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'שם' found contiguously inside parser flow after punctuation normalization. Punctuation [\"'\", ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "שם הספק :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "שם הספק :",
+                "parser_text": "שם הספק",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'שם הספק' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הספק : נושא",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הספק : נושא",
+                "parser_text": "הספק נושא",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הספק נושא' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": נושא ההתקשרות",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": נושא ההתקשרות",
+                "parser_text": "נושא ההתקשרות",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נושא ההתקשרות' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "תאריך : ג",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "תאריך : ג",
+                "parser_text": "תאריך ג",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תאריך ג' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": ג .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": ג .",
+                "parser_text": "ג",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ג' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". אחר :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". אחר :",
+                "parser_text": "אחר",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אחר' found contiguously inside parser flow after punctuation normalization. Punctuation ['.', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "אחר : 3",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "אחר : 3",
+                "parser_text": "אחר 3",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אחר 3' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": 3 .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": 3 .",
+                "parser_text": "3",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '3' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". תאריך :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". תאריך :",
+                "parser_text": "תאריך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תאריך' found contiguously inside parser flow after punctuation normalization. Punctuation ['.', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": חתימה :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": חתימה :",
+                "parser_text": "חתימה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'חתימה' found contiguously inside parser flow after punctuation normalization. Punctuation [':', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "חתימה : ד",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "חתימה : ד",
+                "parser_text": "חתימה ד",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'חתימה ד' found contiguously inside parser flow after punctuation normalization. Punctuation [':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": ד .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": ד .",
+                "parser_text": "ד",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ד' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הרכש במפעל /",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הרכש במפעל /",
+                "parser_text": "הרכש במפעל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הרכש במפעל' found contiguously inside parser flow after punctuation normalization. Punctuation ['/'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "א ] נספח",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "א ] נספח",
+                "parser_text": "א נספח",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'א נספח' found contiguously inside parser flow after punctuation normalization. Punctuation [']'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "] תאריך :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "] תאריך :",
+                "parser_text": "תאריך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תאריך' found contiguously inside parser flow after punctuation normalization. Punctuation [']', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "תאריך : [",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "תאריך : [",
+                "parser_text": "תאריך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תאריך' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '['] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": [ הערה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": [ הערה",
+                "parser_text": "הערה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הערה' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '['] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "למחוק מהמסמך ]",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "למחוק מהמסמך ]",
+                "parser_text": "למחוק מהמסמך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למחוק מהמסמך' found contiguously inside parser flow after punctuation normalization. Punctuation [']'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "מהמסמך ] .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "מהמסמך ] .",
+                "parser_text": "מהמסמך",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מהמסמך' found contiguously inside parser flow after punctuation normalization. Punctuation [']', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "] . מתבקשות",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "] . מתבקשות",
+                "parser_text": "מתבקשות",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מתבקשות' found contiguously inside parser flow after punctuation normalization. Punctuation [']', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". מתבקשות בזה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". מתבקשות בזה",
+                "parser_text": "מתבקשות בזה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מתבקשות בזה' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" א \"",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" א \"",
+                "parser_text": "א",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'א' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"', '\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "א \" )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "א \" )",
+                "parser_text": "א",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'א' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") [ או",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") [ או",
+                "parser_text": "או",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'או' found contiguously inside parser flow after punctuation normalization. Punctuation [')', '['] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "יש לבחור ]",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "יש לבחור ]",
+                "parser_text": "יש לבחור",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'יש לבחור' found contiguously inside parser flow after punctuation normalization. Punctuation [']'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לבחור ] למפעל",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לבחור ] למפעל",
+                "parser_text": "לבחור למפעל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לבחור למפעל' found contiguously inside parser flow after punctuation normalization. Punctuation [']'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "] למפעל :",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "] למפעל :",
+                "parser_text": "למפעל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למפעל' found contiguously inside parser flow after punctuation normalization. Punctuation [']', ':'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "למפעל : (",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "למפעל : (",
+                "parser_text": "למפעל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למפעל' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '('] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ": ( להלן",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ": ( להלן",
+                "parser_text": "להלן",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'להלן' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '('] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לחטיבת : (",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לחטיבת : (",
+                "parser_text": "לחטיבת",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לחטיבת' found contiguously inside parser flow after punctuation normalization. Punctuation [':', '('] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" החטיבה \"",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" החטיבה \"",
+                "parser_text": "החטיבה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'החטיבה' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"', '\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "החטיבה \" )",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "החטיבה \" )",
+                "parser_text": "החטיבה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'החטיבה' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" ) של",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" ) של",
+                "parser_text": "של",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'של' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"', ')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") של התעשייה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") של התעשייה",
+                "parser_text": "של התעשייה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'של התעשייה' found contiguously inside parser flow after punctuation normalization. Punctuation [')'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ") . בקשה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ") . בקשה",
+                "parser_text": "בקשה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בקשה' found contiguously inside parser flow after punctuation normalization. Punctuation [')', '.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". בקשה זו",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". בקשה זו",
+                "parser_text": "בקשה זו",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בקשה זו' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "בנוגע לה .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "בנוגע לה .",
+                "parser_text": "בנוגע לה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'בנוגע לה' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לה . הגשת",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לה . הגשת",
+                "parser_text": "לה הגשת",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לה הגשת' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". הגשת הצעה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". הגשת הצעה",
+                "parser_text": "הגשת הצעה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הגשת הצעה' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "תיבחר הצעתו .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "תיבחר הצעתו .",
+                "parser_text": "תיבחר הצעתו",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תיבחר הצעתו' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הצעתו . ככל",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הצעתו . ככל",
+                "parser_text": "הצעתו ככל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הצעתו ככל' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". ככל שניתן",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". ככל שניתן",
+                "parser_text": "ככל שניתן",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ככל שניתן' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הצעתו . למונחים",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הצעתו . למונחים",
+                "parser_text": "הצעתו למונחים",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הצעתו למונחים' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". למונחים שהוגדרו",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". למונחים שהוגדרו",
+                "parser_text": "למונחים שהוגדרו",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'למונחים שהוגדרו' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "זו , תהיה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "זו , תהיה",
+                "parser_text": "זו תהיה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'זו תהיה' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ", תהיה המשמעות",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ", תהיה המשמעות",
+                "parser_text": "תהיה המשמעות",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תהיה המשמעות' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": ". נוסח ההסכם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": ". נוסח ההסכם",
+                "parser_text": "נוסח ההסכם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'נוסח ההסכם' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "\" ל לתפעול",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "\" ל לתפעול",
+                "parser_text": "ל לתפעול",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ל לתפעול' found contiguously inside parser flow after punctuation normalization. Punctuation ['\"'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "ל לתפעול ,",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "ל לתפעול ,",
+                "parser_text": "ל לתפעול",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ל לתפעול' found contiguously inside parser flow after punctuation normalization. Punctuation [','] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "רכש ולוגיסטיקה .",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "רכש ולוגיסטיקה .",
+                "parser_text": "רכש ולוגיסטיקה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'רכש ולוגיסטיקה' found contiguously inside parser flow after punctuation normalization. Punctuation ['.'] likely caused the boundary shift (RTL displacement)."
+              }
+            ]
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 105,
+          "ngrams": [
+            "\" ) .",
+            "\" ) [",
+            "' מתאריך תאריך",
+            ", כללי תאריך",
+            ". 01 מתאריך",
+            ". 06 \"",
+            ". 06 6",
+            ". 08 מחליף",
+            ". 08 נושא",
+            ". 19 הנדון",
+            ". 23 דף",
+            "01 . 06",
+            "06 \" תהליך",
+            "06 6 .",
+            "08 מחליף דף",
+            "08 נושא משנה",
+            "1 . נוהל",
+            "1 מסמכי הצעות",
+            "10 לנוהל )",
+            "10 פנייה לספקים",
+            "11 נהלים עיקריים",
+            "19 הנדון :",
+            "2 . אחר",
+            "2 הרכב ועדות",
+            "2 מתוך 119",
+            "3 דוח השוואת",
+            "3 מתוך 119",
+            "4 . תאריך",
+            "4 סוגי עסקות",
+            "42 מתוך 119",
+            "5 ( המשך",
+            "5 טופס לאישור",
+            "59 מתוך 119",
+            "7 בקשה לקבלת",
+            "8 העדפת תוצרת",
+            "9 שלבים עיקריים",
+            ": בדיקה מספר",
+            "[ ולשימוש בהיקף",
+            "באמצעות גורמים אחרים",
+            "באמצעות כרטיסי אשראי",
+            "בדיקה מספר הנוהל",
+            "בהתאם למפורט בנוהל",
+            "במפעל / החטיבה",
+            "בנוהל , 922",
+            "בנוהל . 922",
+            "בנספח . 11",
+            "גדול מהסכום המחייב",
+            "גוף הרכש במפעל",
+            "ההתקשרות : תאריך",
+            "הוודעה 2 .",
+            "הוודעה אינה מאושרת",
+            "הוודעה לא לקבל",
+            "הוודעה מאושרת בהתאם",
+            "הישימים במערכת sap",
+            "המעין מכרזים לא",
+            "המציע תהיה התחייבות",
+            "המשך ) ועדה",
+            "הנדון : פנייה",
+            "הנוגעים : מנהלי",
+            "הנוגעים לנוהל בנספח",
+            "הנוהל : 922",
+            "העניינים ( המשך",
+            "הפרק עדכון אחרון",
+            "התחילה המקורי של",
+            "ואת תנאי ההסכם",
+            "ובכתב רגיל .",
+            "ולוגיסטיקה מספר הנוהל",
+            "ולשימוש בהיקף כספי",
+            "ידי המציע תהיה",
+            "ידי מציע תהיה",
+            "כללי תאריך תחילה",
+            "כלליים התעשייה האווירית",
+            "ללא סוגריים ובכתב",
+            "לתאריך התחילה המקורי",
+            "מ נושא ראשי",
+            "מהסכום המחייב מכרז",
+            "מכרז [ ולשימוש",
+            "מכרז ] תאריך",
+            "מכרזים לא יחולו",
+            "מעודכן לתאריך התחילה",
+            "מציע תהיה התחייבות",
+            "מקומי נוהל נוגע",
+            "משנה : רכש",
+            "מתאריך תאריך עדכון",
+            "מתוך 119 דפים",
+            "נהלים כלליים התעשייה",
+            "נוגע : הנוגעים",
+            "נוהל מבטל נוהל",
+            "סוגריים ובכתב רגיל",
+            "ספק ( נוסח",
+            "על רכש מספקים",
+            "ראשי : רכש",
+            "רכש באמצעות כרטיסי",
+            "רכש ולוגיסטיקה מספר",
+            "רכש מספקים בארץ",
+            "רכש מקומי נוהל",
+            "רכש פרק :",
+            "תהיה המשמעות שנקבעה",
+            "תהיה התחייבות מטעמו",
+            "תחילה : 07",
+            "תחילה : בדיקה",
+            "תיק הרכש נספח",
+            "תנאי ההסכם הנלווים",
+            "תרשים זרימה בנספח",
+            "תרשים זרימה נספח"
+          ]
         }
       }
     },

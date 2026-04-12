@@ -98,6 +98,7 @@ def _normalize_ngram_without_punct(ngram: str) -> str:
     return " ".join(word for word in ngram.split() if not _is_punct_token(word))
 
 
+# Checking if a phrase (e.g. flipped pair) appears in any parser ngram without punctuation.
 def _phrase_in_parser_ngrams(phrase: str, parser_ngrams_set: Set[str]) -> bool:
     if not phrase:
         return False
@@ -110,7 +111,7 @@ def _phrase_in_parser_ngrams(phrase: str, parser_ngrams_set: Set[str]) -> bool:
 # ══════════════════════════════════════════════════════════════════════════════
 # Detector 1 — Missing Block Parse
 # ══════════════════════════════════════════════════════════════════════════════
-
+# if more then 90% of a GT block's n-grams are missing from the parser output, we classify the entire block as a "MISSING_BLOCK_PARSE" and skip all its n-grams from subsequent
 def _detect_missing_blocks(
     block_results: List[BlockResult],
 ) -> Tuple[List[int], Set[str]]:
@@ -248,14 +249,11 @@ def _detect_merged_words(
                 "original":    [part1, part2],
             })
             break
-
-    return issues, classified
-
+    return issues, classified 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Detector 4 — Formatting Issues
 # ══════════════════════════════════════════════════════════════════════════════
-
 def _detect_formatting_issues(
     missing_ngrams:    List[str],
     parser_ngrams_set: Set[str],
@@ -272,7 +270,7 @@ def _detect_formatting_issues(
         when ALL its content words (non-punct tokens) exist individually in
         parser_words_set.
 
-        Two confidence levels:
+        Two confidence levels
           HIGH   — without_punct string also found as a complete parser ngram
           MEDIUM — content words all present individually but not as a complete
                    ngram (covers RTL punctuation displacement where the word
@@ -280,7 +278,7 @@ def _detect_formatting_issues(
 
         This is what clears the bulk of the unclassified list — ngrams like
         ". מה הרכיב", ": קביעת סגנון", "אינו חובה ." where the content is
-        correctly parsed but punctuation landed in a different position.
+        correctly parsed but punctuation landed in a different position
     """
     issues:     List[dict] = []
     classified: Set[str]   = set()
