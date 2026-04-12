@@ -19,9 +19,6 @@ To ensure a practical and efficient PoC delivery, we propose a focused implement
 while minimizing integration complexity with AroundTown’s production systems.
 ====
 ====
-Date: 2026-02-13
-====
-====
 2. Focused PoC Approach & Trade-Offs
 To reduce complexity, friction, and implementation time, the PoC will intentionally avoid direct integrations with AroundTown environment (e.g., SharePoint, Metadata write-back, Teams Adaptive Cards, external triggers, etc.).
 Key Trade-Offs
@@ -32,9 +29,6 @@ Original Direction Focused PoC Alternative Rationale
 4 Teams Adaptive Card validation Email-based approval or DB-based approval Avoids Teams integration
 5 SharePoint metadata write-back Jeen internal database tables Maintains traceability without requiring SharePoint schema configuration.
 This approach allows the PoC to be delivered with a smaller team, less friction, and shorter timeline while still validating the AI-driven workflow.
-====
-====
-Date: 2026-02-13
 ====
 ====
 3. Scope of Work
@@ -61,9 +55,6 @@ Option B – Database-based validation
 • After approval, each file will be moved to an internal Azure Blob folder based on its classification 
 ====
 ====
-Date: 2026-02-13
-====
-====
 • The target folders will be pre-created in advance, with one folder for each of the defined document types (up to 10 types).
 3.6 Logging & Audit Trail
 A dedicated internal Log table will be created to record all system and user actions throughout the workflow.
@@ -82,9 +73,6 @@ The log will capture:
 Solution Architecture
 ====
 ====
-Date: 2026-02-13
-====
-====
 4. Measurable Success Metrics
 As this is a Proof of Concept, performance targets are aligned with realistic PoC-level expectations.
 The PoC will be considered successful if the following criteria are met:
@@ -93,12 +81,6 @@ The PoC will be considered successful if the following criteria are met:
 • Fully operational human-in-the-loop validation flow
 • Predefined log table structure agreed with AroundTown (who / what / when / why)
 • Original file preserved and traceable throughout the workflow
-====
-====
-Date: 2026-02-13
-====
-====
-Date: 2026-02-13
 ====
 ====
 5. Step by Step - Focused PoC Approach 
@@ -121,9 +103,6 @@ suggest two options:
 2 – Database: The classifications are written into a database, and the user can approve or reclassify them there.
 ====
 ====
-Date: 2026-02-13
-====
-====
 6 Rename + move file to correct SharePoint library/folder Move file to an internal Azure Blob folder per classification (one folder per classification) To avoid SharePoint integration complexity in the PoC phase:
 we will use jeen Azure Blob storage. 
 Instead of moving files inside AroundTown SharePoint, files will be stored in Jeen’s internal Azure Blob folders.
@@ -140,7 +119,4 @@ Key Trade-Offs
 3 SharePoint storage & routing Jeen internal Azure Blob storage
 4 Teams Adaptive Card validation Email reply or DB-based approval
 5 SharePoint metadata write-back Jeen internal database tables
-====
-====
-Date: 2026-02-13
 ====

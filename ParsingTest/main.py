@@ -32,7 +32,7 @@ import argparse
 from typing import List
 
 import gt_loader
-from Diagnostics import run_diagnostics
+from diagnostics import run_diagnostics
 from metrics import compute_coverage, compute_noise, generate_ngrams
 from models import BlockResult, DocumentResult, Score
 from ocr import pre_test
@@ -78,7 +78,7 @@ def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[s
     # ── Parse document ──────────────────────────────────────
     test_file   = find_document_file(file_dir)
     parser_text = parse(str(test_file))
-    parser_words = tokenize(normalize_punctuation(parser_text))
+    parser_words = tokenize((parser_text))
     parser_words = _maybe_strip_punctuation_tokens(parser_words, n)
 
 

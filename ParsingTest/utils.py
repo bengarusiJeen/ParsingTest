@@ -156,7 +156,7 @@ def clean_text(text: str) -> str:
     Applied to BOTH parser output and GT text before tokenisation.
     Word-separator removal (hyphens, slashes, etc.) is GT-only and must be
     """
-    text = normalize_punctuation(text)
+    # text = normalize_punctuation(text)
     text = insert_script_boundary_spaces(text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
@@ -213,5 +213,5 @@ _PUNCT_TABLE = str.maketrans("", "", string.punctuation)
  
  
 def normalize_word(word: str) -> str:
-    return word.lower()
+    return word
  

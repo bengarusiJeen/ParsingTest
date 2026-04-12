@@ -96,10 +96,10 @@ def save_json_report(results: List[DocumentResult], path: Path, n: int = 3) -> N
         return {
             "block_index": br.block_index,
             "coverage": {
-                "total":               br.coverage_block_score.checked,
-                "missing":             br.coverage_block_score.failed,
-                "coverage_block_rate": br.coverage_block_score.rate,
-                "fraction_block":      br.coverage_block_score.fraction,
+                "unique_ngrams_checked_count":           br.coverage_block_score.checked,
+                "missing_unique_ngrams_count":           br.coverage_block_score.failed,
+                "coverage_rate":                         br.coverage_block_score.rate,
+                "total_missing_unique_ngrams_ratio":     br.coverage_block_score.fraction,
             },
             f"missing_{_ngram_label(n)}_in_block": br.missing_words,
         }
@@ -108,19 +108,21 @@ def save_json_report(results: List[DocumentResult], path: Path, n: int = 3) -> N
         return {
             "doc_name": r.doc_name,
             "coverage": {
-                "coverage_rate": r.coverage_pct,
-                "fraction":      r.coverage_score.fraction,
+                "coverage_rate":                          r.coverage_pct,
+                "unique_ngrams_checked_count":            r.coverage_score.checked,
+                "missing_unique_ngrams_count":            r.coverage_score.failed,
+                "total_missing_unique_ngrams_ratio":      r.coverage_score.fraction,
             },
             "noise": {
-                "total":             r.noise_score.checked,
-                "extra":             r.noise_score.failed,
-                "extra_words_total": r.extra_words,
-                "noise_rate":        r.noise_pct,
-                "fraction":          r.noise_score.fraction,
+                "unique_parser_words_checked": r.noise_score.checked,
+                "noise_words_count":           r.noise_score.failed,
+                "noise_words":                 r.extra_words,
+                "noise_rate":                  r.noise_pct,
+                "noise_ratio":                 r.noise_score.fraction,
             },
-            "gt_word_count":     r.gt_word_count,
-            "parser_word_count": r.parser_word_count,
-            "block_results":     [_block(br) for br in r.block_results],
+            "gt_total_words_non_unique":     r.gt_word_count,
+            "parser_total_words_non_unique": r.parser_word_count,
+            "block_results":                        [_block(br) for br in r.block_results],
         }
 
     SEP = "=" * 30
