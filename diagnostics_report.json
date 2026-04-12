@@ -24,50 +24,50 @@
           "count": 7,
           "issues": [
             {
-              "word": "מסמכים.",
-              "fragments": [
+              "original_word": "מסמכים.",
+              "fragments_in_parser": [
                 "מסמכים",
                 "."
               ]
             },
             {
-              "word": "Tone.",
-              "fragments": [
+              "original_word": "Tone.",
+              "fragments_in_parser": [
                 "Tone",
                 "."
               ]
             },
             {
-              "word": "חובה.",
-              "fragments": [
+              "original_word": "חובה.",
+              "fragments_in_parser": [
                 "חובה",
                 "."
               ]
             },
             {
-              "word": "ה-",
-              "fragments": [
+              "original_word": "ה-",
+              "fragments_in_parser": [
                 "ה",
                 "-"
               ]
             },
             {
-              "word": "מציג",
-              "fragments": [
+              "original_word": "מציג",
+              "fragments_in_parser": [
                 "מצי",
                 "ג"
               ]
             },
             {
-              "word": "ההודעה",
-              "fragments": [
+              "original_word": "ההודעה",
+              "fragments_in_parser": [
                 "ה",
                 "הודעה"
               ]
             },
             {
-              "word": "לדעת:",
-              "fragments": [
+              "original_word": "לדעת:",
+              "fragments_in_parser": [
                 "לדעת",
                 ":"
               ]
@@ -106,6 +106,13 @@
               ]
             },
             {
+              "merged_word": "בשדהGuard",
+              "original": [
+                "בשדה",
+                "Guard"
+              ]
+            },
+            {
               "merged_word": "בTone.",
               "original": [
                 "ב",
@@ -124,13 +131,6 @@
               "original": [
                 "ערך",
                 "False"
-              ]
-            },
-            {
-              "merged_word": "בשדהGuard",
-              "original": [
-                "בשדה",
-                "Guard"
               ]
             }
           ]
@@ -350,15 +350,15 @@
           "count": 2,
           "issues": [
             {
-              "word": "–AI",
-              "fragments": [
+              "original_word": "–AI",
+              "fragments_in_parser": [
                 "–",
                 "AI"
               ]
             },
             {
-              "word": "–Email:",
-              "fragments": [
+              "original_word": "–Email:",
+              "fragments_in_parser": [
                 "–",
                 "Email:"
               ]
@@ -412,162 +412,162 @@
           "count": 23,
           "issues": [
             {
-              "word": "מ-50,000",
-              "fragments": [
+              "original_word": "מ-50,000",
+              "fragments_in_parser": [
                 "מ-",
                 "50,000"
               ]
             },
             {
-              "word": "החברה",
-              "fragments": [
+              "original_word": "החברה",
+              "fragments_in_parser": [
                 "החב",
                 "רה"
               ]
             },
             {
-              "word": "1.",
-              "fragments": [
+              "original_word": "1.",
+              "fragments_in_parser": [
                 "1",
                 "."
               ]
             },
             {
-              "word": "2.",
-              "fragments": [
+              "original_word": "2.",
+              "fragments_in_parser": [
                 "2",
                 "."
               ]
             },
             {
-              "word": "בחברה\",",
-              "fragments": [
+              "original_word": "בחברה\",",
+              "fragments_in_parser": [
                 "בחברה\"",
                 ","
               ]
             },
             {
-              "word": "דרישת",
-              "fragments": [
+              "original_word": "דרישת",
+              "fragments_in_parser": [
                 "דרי",
                 "שת"
               ]
             },
             {
-              "word": "3.",
-              "fragments": [
+              "original_word": "3.",
+              "fragments_in_parser": [
                 "3",
                 "."
               ]
             },
             {
-              "word": "ואם",
-              "fragments": [
+              "original_word": "ואם",
+              "fragments_in_parser": [
                 "ו",
                 "אם"
               ]
             },
             {
-              "word": "4.",
-              "fragments": [
+              "original_word": "4.",
+              "fragments_in_parser": [
                 "4",
                 "."
               ]
             },
             {
-              "word": "יועצים,",
-              "fragments": [
+              "original_word": "יועצים,",
+              "fragments_in_parser": [
                 "יועצ",
                 "ים,"
               ]
             },
             {
-              "word": "אלה,",
-              "fragments": [
+              "original_word": "אלה,",
+              "fragments_in_parser": [
                 "אלה",
                 ","
               ]
             },
             {
-              "word": "5.",
-              "fragments": [
+              "original_word": "5.",
+              "fragments_in_parser": [
                 "5",
                 "."
               ]
             },
             {
-              "word": "6.",
-              "fragments": [
+              "original_word": "6.",
+              "fragments_in_parser": [
                 "6",
                 "."
               ]
             },
             {
-              "word": "במטה",
-              "fragments": [
+              "original_word": "במטה",
+              "fragments_in_parser": [
                 "ב",
                 "מטה"
               ]
             },
             {
-              "word": "נציג",
-              "fragments": [
+              "original_word": "נציג",
+              "fragments_in_parser": [
                 "נצ",
                 "יג"
               ]
             },
             {
-              "word": "(בוועדות",
-              "fragments": [
+              "original_word": "(בוועדות",
+              "fragments_in_parser": [
                 "(בוועדו",
                 "ת"
               ]
             },
             {
-              "word": "המפעל",
-              "fragments": [
+              "original_word": "המפעל",
+              "fragments_in_parser": [
                 "ה",
                 "מפעל"
               ]
             },
             {
-              "word": "החברה/ראש",
-              "fragments": [
+              "original_word": "החברה/ראש",
+              "fragments_in_parser": [
                 "החברה",
                 "/ראש"
               ]
             },
             {
-              "word": "בסכום",
-              "fragments": [
+              "original_word": "בסכום",
+              "fragments_in_parser": [
                 "ב",
                 "סכום"
               ]
             },
             {
-              "word": "והוראות",
-              "fragments": [
+              "original_word": "והוראות",
+              "fragments_in_parser": [
                 "והו",
                 "ראות"
               ]
             },
             {
-              "word": "והרכב",
-              "fragments": [
+              "original_word": "והרכב",
+              "fragments_in_parser": [
                 "והרכ",
                 "ב"
               ]
             },
             {
-              "word": "בחטיבת/לחטיבת:",
-              "fragments": [
+              "original_word": "בחטיבת/לחטיבת:",
+              "fragments_in_parser": [
                 "ב",
                 "חטיבת/לחטיבת:"
               ]
             },
             {
-              "word": "בהסכם",
-              "fragments": [
+              "original_word": "בהסכם",
+              "fragments_in_parser": [
                 "בהס",
                 "כם"
               ]
@@ -1129,8 +1129,8 @@
           "count": 1,
           "issues": [
             {
-              "word": "והתיעלות?",
-              "fragments": [
+              "original_word": "והתיעלות?",
+              "fragments_in_parser": [
                 "והתיעלות",
                 "?"
               ]

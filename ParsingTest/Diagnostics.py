@@ -161,8 +161,8 @@ def _detect_ocr_splits(
                     if word not in seen_words:
                         seen_words.add(word)
                         issues.append({
-                            "word":      word,
-                            "fragments": [prefix, suffix],
+                            "original_word":       word,
+                            "fragments_in_parser": [prefix, suffix],
                         })
                     break
             if ngram in classified:

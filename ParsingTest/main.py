@@ -219,3 +219,11 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+"""
+to run the server, use the command line:
+cd "C:/Users/BenGarusi/Desktop/Parsing Test"
+python frontend/server.py
+and then open http://localhost:5000 in a web browser to access the interface.
+
+"""

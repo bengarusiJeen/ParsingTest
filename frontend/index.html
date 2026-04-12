@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParserDiag — Evaluation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ──────────────────────────────────────── */
+    :root {
+      --bg:          #0a0a0c;
+      --surface:     #111114;
+      --surface-2:   #17171b;
+      --surface-3:   #1e1e23;
+      --border:      #22222a;
+      --border-2:    #2e2e38;
+
+      --text-1:      #eaeaee;
+      --text-2:      #7878a0;
+      --text-3:      #404058;
+
+      --accent:      #c0ff3c;
+      --accent-dim:  rgba(192,255,60,0.10);
+
+      --success:     #40c057;
+      --danger:      #ff4d6d;
+      --warning:     #ffd43b;
+      --info:        #74c0fc;
+
+      /* Diagnostic category colours */
+      --c-missing:   #ff4d6d;
+      --c-ocr:       #ff9843;
+      --c-merged:    #ffc107;
+      --c-format:    #40c057;
+      --c-unclass:   #5c5c80;
+
+      --f-display:   'Space Grotesk', sans-serif;
+      --f-body:      'Plus Jakarta Sans', sans-serif;
+      --f-mono:      'DM Mono', monospace;
+
+      --header-h:    64px;
+      --tabs-h:      50px;
+      --toggle-h:    50px;
+      --r-sm:        4px;
+      --r-md:        8px;
+      --r-lg:        12px;
+    }
+
+    /* ── Base ────────────────────────────────────────────────── */
+    html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--f-body);
+      background: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── App shell ──────────────────────────────────────────── */
+    #app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* ══════════════════════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════════════════ */
+    #header {
+      height: var(--header-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 14px;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.025em;
+      color: var(--text-1);
+      flex-shrink: 0;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: var(--r-md);
+      display: grid;
+      place-items: center;
+      color: #000;
+      font-size: 0.78rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .logo-badge {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      font-weight: 300;
+      color: var(--text-3);
+      padding: 2px 6px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+
+    .header-spacer { flex: 1; }
+
+    /* Status pill */
+    #status-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--text-2);
+      transition: all 0.3s;
+    }
+
+    #status-pill .s-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-3);
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+
+    #status-pill.s-loading .s-dot { background: var(--warning); animation: blink 0.9s infinite; }
+    #status-pill.s-ready   .s-dot { background: var(--success); }
+    #status-pill.s-error   .s-dot { background: var(--danger); }
+
+    @keyframes blink {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.3; transform:scale(0.65); }
+    }
+
+    /* Run button */
+    #run-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 18px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--r-md);
+      font-family: var(--f-display);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #run-btn:hover  { opacity: 0.88; }
+    #run-btn:active { transform: scale(0.96); }
+    #run-btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
+
+    #run-btn svg { flex-shrink: 0; }
+
+    .btn-spinner {
+      width: 13px; height: 13px;
+      border: 2px solid rgba(0,0,0,0.25);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Download buttons (shared style) */
+    .dl-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-md);
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .dl-btn:hover { color: var(--text-1); border-color: var(--text-3); }
+
+    /* ══════════════════════════════════════════════════════════
+       TABS BAR
+    ══════════════════════════════════════════════════════════ */
+    #tabs-bar {
+      display: none;
+      height: var(--tabs-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      align-items: flex-end;
+      padding: 0 20px;
+      gap: 2px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      z-index: 10;
+    }
+
+    #tabs-bar::-webkit-scrollbar { display: none; }
+
+    .file-tab {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      height: 38px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: var(--r-md) var(--r-md) 0 0;
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.15s, background 0.15s;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    .file-tab:hover { color: var(--text-1); background: var(--surface-2); }
+
+    .file-tab.active {
+      color: var(--text-1);
+      background: var(--bg);
+      border-color: var(--border);
+      margin-bottom: -1px;
+    }
+
+    .tab-sev-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    .tab-ext {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      padding: 1px 5px;
+      background: var(--surface-3);
+      border-radius: 3px;
+      color: var(--text-3);
+    }
+
+    /* Summary tab special style */
+    .file-tab.tab-summary {
+      color: var(--text-2);
+      border-left: none;
+      margin-right: 6px;
+      padding-right: 18px;
+      position: relative;
+    }
+
+    .file-tab.tab-summary::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: var(--border-2);
+    }
+
+    .file-tab.tab-summary .sum-icon {
+      font-size: 0.85rem;
+      color: var(--text-3);
+      transition: color 0.15s;
+    }
+
+    .file-tab.tab-summary:hover .sum-icon,
+    .file-tab.tab-summary.active .sum-icon {
+      color: var(--accent);
+    }
+
+    .file-tab.tab-summary.active {
+      color: var(--accent);
+      background: var(--bg);
+      border-color: var(--border);
+      border-bottom-color: var(--bg);
+    }
+
+    /* Doc attribution badge (used inside aggregated diagnostic items) */
+    .doc-badge {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      color: var(--text-2);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Aggregated diagnostic section header */
+    .agg-diag-hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 26px 0 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .agg-diag-hdr h2 {
+      font-family: var(--f-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-1);
+    }
+
+    .agg-diag-hdr .agg-sub {
+      font-size: 0.72rem;
+      color: var(--text-3);
+    }
+
+    /* ── Summary view ───────────────────────────────────────────── */
+    .summary-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .summary-body {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .summary-body { grid-template-columns: 1fr; }
+      .summary-metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* File health table */
+    .fh-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      animation: fadeUp 0.35s ease both;
+    }
+
+    .fh-table-header {
+      display: grid;
+      grid-template-columns: 1fr 90px 90px 60px;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-3);
+    }
+
+    .fh-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 90px 60px;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .fh-row:last-child { border-bottom: none; }
+    .fh-row:hover { background: var(--surface-2); }
+
+    .fh-name {
+      font-size: 0.78rem;
+      color: var(--text-1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fh-name-ext {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--text-3);
+      margin-left: 5px;
+    }
+
+    .fh-bar-wrap { display: flex; align-items: center; gap: 7px; }
+
+    .fh-bar-track {
+      flex: 1;
+      background: var(--surface-3);
+      border-radius: 3px;
+      height: 4px;
+      overflow: hidden;
+    }
+
+    .fh-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fh-pct {
+      font-family: var(--f-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: right;
+      min-width: 38px;
+    }
+
+    .fh-issues {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: var(--text-2);
+      text-align: right;
+    }
+
+    .fh-score {
+      font-family: var(--f-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Issue distribution panel */
+    .issue-dist {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 18px;
+      animation: fadeUp 0.4s ease 0.08s both;
+    }
+
+    .issue-dist-title {
+      font-family: var(--f-display);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dist-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .dist-row:last-child { margin-bottom: 0; }
+
+    .dist-label {
+      font-size: 0.72rem;
+      color: var(--text-2);
+      width: 100px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dist-bar-track {
+      flex: 1;
+      background: var(--surface-3);
+      border-radius: 3px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .dist-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1) var(--bar-delay, 0s);
+    }
+
+    .dist-count {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--text-2);
+      min-width: 28px;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       TOGGLE BAR
+    ══════════════════════════════════════════════════════════ */
+    #toggle-bar {
+      display: none;
+      height: var(--toggle-h);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      padding: 0 20px;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .rpt-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .rpt-opt {
+      padding: 5px 14px;
+      border-radius: calc(var(--r-md) - 2px);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+    }
+
+    .rpt-opt.active {
+      background: var(--surface-3);
+      color: var(--text-1);
+      border: 1px solid var(--border-2);
+    }
+
+    .rpt-opt:not(.active):hover { color: var(--text-1); }
+
+    .toggle-spacer { flex: 1; }
+
+    /* ══════════════════════════════════════════════════════════
+       MAIN CONTENT
+    ══════════════════════════════════════════════════════════ */
+    #content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px;
+      scroll-behavior: smooth;
+    }
+
+    /* ── Empty state ─────────────────────────────────────────── */
+    #empty-state {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .empty-hexagon {
+      width: 72px; height: 72px;
+      border: 2px dashed var(--border-2);
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: var(--text-3);
+      font-size: 1.6rem;
+    }
+
+    .empty-title {
+      font-family: var(--f-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      color: var(--text-1);
+    }
+
+    .empty-sub {
+      font-size: 0.875rem;
+      color: var(--text-2);
+      line-height: 1.65;
+      max-width: 400px;
+    }
+
+    .empty-sub strong { color: var(--accent); font-weight: 600; }
+
+    /* ── Loading state ───────────────────────────────────────── */
+    #loading-state {
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .load-spinner {
+      width: 36px; height: 36px;
+      border: 2px solid var(--border-2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .load-title {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+
+    #stdout-log {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 14px 18px;
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      width: min(600px, 100%);
+      max-height: 220px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ── Error state ─────────────────────────────────────────── */
+    #error-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 14px;
+    }
+
+    .error-box {
+      background: rgba(255,77,109,0.06);
+      border: 1px solid rgba(255,77,109,0.3);
+      border-radius: var(--r-lg);
+      padding: 16px 20px;
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: #ff7a92;
+      white-space: pre-wrap;
+      max-width: 580px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    /* ── Report panel ────────────────────────────────────────── */
+    #report-panel { display: none; animation: fadeIn 0.3s ease; }
+
+    /* ══════════════════════════════════════════════════════════
+       GENERAL REPORT
+    ══════════════════════════════════════════════════════════ */
+
+    /* Metrics row */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .metric-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+
+    .mc-coverage::after  { background: var(--success); }
+    .mc-noise::after     { background: var(--danger); }
+    .mc-gt::after        { background: var(--info); }
+    .mc-parser::after    { background: var(--warning); }
+
+    .metric-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: var(--f-display);
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text-1);
+    }
+
+    .metric-value .unit {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-2);
+    }
+
+    .metric-sub {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      color: var(--text-3);
+      margin-top: 7px;
+    }
+
+    /* Section wrapper */
+    .report-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    /* Section header */
+    .sec-hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sec-hdr h3 {
+      font-family: var(--f-display);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+    }
+
+    .sec-count {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      color: var(--text-2);
+    }
+
+    .sec-hdr-spacer { flex: 1; }
+
+    /* Block table */
+    .block-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 96px 68px;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 4px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      border-radius: var(--r-sm);
+      transition: background 0.12s;
+    }
+
+    .block-row:last-of-type { border-bottom: none; }
+    .block-row:hover { background: var(--surface-2); padding: 9px 8px; margin: 0 -4px; }
+
+    .blk-label {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: var(--text-2);
+    }
+
+    .blk-bar-track {
+      background: var(--surface-3);
+      border-radius: 3px;
+      height: 5px;
+      overflow: hidden;
+    }
+
+    .blk-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .blk-ratio {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--text-2);
+      text-align: right;
+    }
+
+    .blk-pct {
+      font-family: var(--f-display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Expandable block missing ngrams */
+    .blk-missing {
+      display: none;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 8px 4px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .blk-missing.open { display: flex; }
+    .blk-missing:last-child { border-bottom: none; }
+
+    /* Tag base */
+    .tag {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: var(--r-sm);
+      border: 1px solid;
+      white-space: nowrap;
+    }
+
+    .tag-noise   { color: #8888a8; border-color: var(--border-2); background: var(--surface-2); }
+    .tag-missing { color: #ff8a9e; border-color: rgba(255,77,109,0.3); background: rgba(255,77,109,0.07); }
+    .tag-ngram   { color: var(--text-2); border-color: var(--border); background: var(--surface-2); }
+
+    /* Noise word cloud */
+    .word-cloud { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    /* ══════════════════════════════════════════════════════════
+       DIAGNOSTIC REPORT
+    ══════════════════════════════════════════════════════════ */
+
+    /* Accordion card */
+    .diag-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      margin-bottom: 10px;
+      overflow: hidden;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .diag-hdr {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.12s;
+    }
+
+    .diag-hdr:hover { background: var(--surface-2); }
+
+    /* Bold coloured left border — the signature design element */
+    .diag-stripe {
+      width: 4px;
+      height: 38px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .diag-num {
+      font-family: var(--f-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      min-width: 44px;
+      line-height: 1;
+    }
+
+    .diag-meta { flex: 1; }
+
+    .diag-meta-name {
+      font-family: var(--f-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+    }
+
+    .diag-meta-desc {
+      font-size: 0.7rem;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    .diag-chevron {
+      color: var(--text-3);
+      font-size: 0.7rem;
+      transition: transform 0.22s ease;
+    }
+
+    .diag-card.open .diag-chevron { transform: rotate(180deg); }
+
+    /* Animated accordion body */
+    .diag-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .diag-card.open .diag-body { max-height: 3000px; }
+
+    .diag-inner {
+      padding: 0 18px 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .diag-empty {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      padding: 14px 0 4px;
+    }
+
+    /* Block number pills (Missing Block) */
+    .block-pills { display: flex; flex-wrap: wrap; gap: 7px; padding-top: 14px; }
+
+    .block-pill {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      border-radius: var(--r-md);
+      background: rgba(255,77,109,0.10);
+      border: 1px solid rgba(255,77,109,0.28);
+      color: #ff8a9e;
+    }
+
+    /* Issue list container */
+    .issue-list { display: flex; flex-direction: column; gap: 7px; padding-top: 12px; }
+
+    /* OCR split item */
+    .ocr-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 13px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .ocr-word { font-family: var(--f-mono); font-size: 0.8rem; color: var(--text-1); }
+
+    .arr { color: var(--text-3); font-size: 0.75rem; }
+
+    .ocr-frags { display: flex; align-items: center; gap: 5px; }
+
+    .frag-chip {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--r-sm);
+      background: rgba(255,152,67,0.10);
+      border: 1px solid rgba(255,152,67,0.28);
+      color: #ffb07a;
+    }
+
+    .chip-plus { font-size: 0.65rem; color: var(--text-3); }
+
+    /* Merge item */
+    .merge-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 13px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .orig-chips { display: flex; align-items: center; gap: 5px; }
+
+    .orig-chip {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--r-sm);
+      background: rgba(255,193,7,0.10);
+      border: 1px solid rgba(255,193,7,0.28);
+      color: #ffe066;
+    }
+
+    .merged-chip {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--r-sm);
+      background: rgba(255,193,7,0.18);
+      border: 1px solid rgba(255,193,7,0.50);
+      color: #ffd43b;
+    }
+
+    /* Formatting sub-section header */
+    .sub-hdr {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-3);
+      padding-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .sub-hdr span {
+      font-family: var(--f-mono);
+      color: var(--c-format);
+      font-weight: 400;
+    }
+
+    /* Formatting issue item */
+    .fmt-item {
+      padding: 11px 13px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .fmt-badge {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .fmt-badge.reversal {
+      background: rgba(64,192,87,0.10);
+      border: 1px solid rgba(64,192,87,0.28);
+      color: #69db7c;
+    }
+
+    .fmt-badge.punct {
+      background: rgba(116,192,252,0.10);
+      border: 1px solid rgba(116,192,252,0.28);
+      color: #74c0fc;
+    }
+
+    .fmt-cmp {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 7px;
+    }
+
+    .fmt-side { display: flex; flex-direction: column; gap: 3px; }
+
+    .fmt-side-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-3);
+    }
+
+    .fmt-text {
+      font-family: var(--f-mono);
+      font-size: 0.78rem;
+    }
+
+    .fmt-text.gt     { color: var(--success); }
+    .fmt-text.parser { color: var(--danger); }
+
+    .fmt-cmp-arrow { color: var(--text-3); margin-top: 14px; font-size: 0.8rem; }
+
+    .fmt-evidence {
+      font-size: 0.7rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      padding-top: 7px;
+      border-top: 1px solid var(--border);
+    }
+
+    .conf-badge {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    .conf-badge.HIGH   { background: rgba(64,192,87,0.12);  color: #69db7c; }
+    .conf-badge.MEDIUM { background: rgba(255,212,59,0.12); color: #ffe066; }
+
+    /* Unclassified ngram cloud */
+    .ngram-cloud { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 12px; }
+
+    /* ══════════════════════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+      #content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header id="header">
+    <div class="logo">
+      <div class="logo-mark">P</div>
+      ParserDiag
+      <span class="logo-badge">POC</span>
+    </div>
+
+    <div class="header-spacer"></div>
+
+    <div id="status-pill" class="s-idle">
+      <span class="s-dot"></span>
+      <span id="status-text">Idle</span>
+    </div>
+
+    <button id="run-btn" onclick="runEvaluation()">
+      <!-- play icon -->
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/>
+      </svg>
+      Start Evaluation
+    </button>
+  </header>
+
+  <!-- ── File tabs ────────────────────────────────────────────── -->
+  <div id="tabs-bar"><!-- populated by JS --></div>
+
+  <!-- ── Report toggle + download buttons ─────────────────────── -->
+  <div id="toggle-bar">
+    <div class="rpt-toggle">
+      <div class="rpt-opt active" data-report="general"    onclick="setReport('general')">General Report</div>
+      <div class="rpt-opt"        data-report="diagnostic" onclick="setReport('diagnostic')">Diagnostic Report</div>
+    </div>
+    <div class="toggle-spacer"></div>
+    <a id="dl-general" class="dl-btn" download="general_report.json" title="Download general report JSON">
+      <!-- download icon -->
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      general_report.json
+    </a>
+    <a id="dl-diag" class="dl-btn" download="diagnostics_report.json" title="Download diagnostics report JSON">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      diagnostics_report.json
+    </a>
+  </div>
+
+  <!-- ── Main content ─────────────────────────────────────────── -->
+  <main id="content">
+
+    <!-- Empty state -->
+    <div id="empty-state">
+      <div class="empty-hexagon">◈</div>
+      <div class="empty-title">No evaluation data</div>
+      <div class="empty-sub">
+        Click <strong>Start Evaluation</strong> to run the parser against your
+        test documents. Both a general coverage report and a detailed diagnostic
+        report will be generated.
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loading-state">
+      <div class="load-spinner"></div>
+      <div class="load-title">Running evaluation…</div>
+      <pre id="stdout-log"> </pre>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-state">
+      <div style="font-family:var(--f-display);font-size:1rem;font-weight:600;color:var(--danger)">Evaluation failed</div>
+      <pre id="error-log" class="error-box"></pre>
+    </div>
+
+    <!-- Report panel -->
+    <div id="report-panel"></div>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════ -->
+<script>
+/* ── State ─────────────────────────────────────────────────────── */
+const S = {
+  status:       'idle',   // idle | loading | ready | error
+  general:      null,
+  diagnostic:   null,
+  activeDoc:    0,
+  activeReport: 'general',
+};
+
+/* ── Bootstrap: try to load cached results ─────────────────────── */
+(async () => {
+  try {
+    const res = await fetch('/api/results');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === 'ok') loadResults(data);
+    }
+  } catch (_) { /* server may not be up yet */ }
+})();
+
+/* ── Run evaluation ─────────────────────────────────────────────── */
+async function runEvaluation() {
+  setStatus('loading');
+
+  const btn = $('run-btn');
+  btn.disabled = true;
+  btn.innerHTML = `<span class="btn-spinner"></span> Running…`;
+
+  show('loading-state');
+  hide('empty-state');
+  hide('error-state');
+  hide('report-panel');
+  hide('tabs-bar');
+  hide('toggle-bar');
+
+  try {
+    const res  = await fetch('/api/evaluate', { method: 'POST' });
+    const data = await res.json();
+
+    if (data.stdout) $('stdout-log').textContent = data.stdout;
+
+    if (data.status === 'ok') {
+      loadResults(data);
+    } else {
+      showError(data.stderr || data.error || `Exit code ${data.returncode}`);
+    }
+  } catch (e) {
+    showError('Could not reach the server.\nMake sure frontend/server.py is running.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+      <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/></svg>
+      Start Evaluation`;
+  }
+}
+
+/* ── Load results ───────────────────────────────────────────────── */
+function loadResults(data) {
+  S.general    = data.general;
+  S.diagnostic = data.diagnostic;
+  S.activeDoc  = 'summary';
+  setStatus('ready');
+  buildDownloadLinks(data);
+  renderTabs();
+  renderToggle();
+  renderReport();
+}
+
+/* ── Status ─────────────────────────────────────────────────────── */
+function setStatus(s) {
+  S.status = s;
+  const pill   = $('status-pill');
+  const labels = { idle: 'Idle', loading: 'Running…', ready: 'Results ready', error: 'Error' };
+  pill.className    = `s-${s}`;
+  $('status-text').textContent = labels[s] || s;
+}
+
+function showError(msg) {
+  setStatus('error');
+  hide('loading-state');
+  $('error-log').textContent = msg;
+  show('error-state', 'flex');
+}
+
+/* ── Build download links ───────────────────────────────────────── */
+function buildDownloadLinks(data) {
+  function makeHref(obj) {
+    return 'data:application/json;charset=utf-8,' +
+      encodeURIComponent(JSON.stringify(obj, null, 2));
+  }
+  if (data.general)    $('dl-general').href = makeHref(data.general);
+  if (data.diagnostic) $('dl-diag').href    = makeHref(data.diagnostic);
+}
+
+/* ── Tabs ───────────────────────────────────────────────────────── */
+function renderTabs() {
+  const bar  = $('tabs-bar');
+  const docs = S.diagnostic?.documents ?? [];
+
+  bar.innerHTML = '';
+  bar.style.display = 'flex';
+
+  /* Summary tab — always first */
+  const sumTab = document.createElement('div');
+  sumTab.className = `file-tab tab-summary${S.activeDoc === 'summary' ? ' active' : ''}`;
+  sumTab.onclick = () => selectDoc('summary');
+  sumTab.title = 'Cross-document summary';
+  sumTab.innerHTML = `<span class="sum-icon">◈</span><span>All Files</span>`;
+  bar.appendChild(sumTab);
+
+  docs.forEach((doc, i) => {
+    const score = docScore(doc);
+    const color = scoreColor(score);
+    const tab   = document.createElement('div');
+    tab.className = `file-tab${i === S.activeDoc ? ' active' : ''}`;
+    tab.style.animationDelay = `${(i + 1) * 0.06}s`;
+    tab.onclick = () => selectDoc(i);
+    tab.title   = doc.doc_name;
+    tab.innerHTML =
+      `<span class="tab-sev-dot" style="background:${color}"></span>` +
+      `<span style="max-width:130px;overflow:hidden;text-overflow:ellipsis">${esc(trunc(doc.doc_name, 18))}</span>` +
+      `<span class="tab-ext">${esc(doc.file_ext)}</span>`;
+    bar.appendChild(tab);
+  });
+}
+
+/* ── Toggle ─────────────────────────────────────────────────────── */
+function renderToggle() {
+  $('toggle-bar').style.display = S.activeDoc === 'summary' ? 'none' : 'flex';
+  syncToggle();
+}
+
+function syncToggle() {
+  document.querySelectorAll('.rpt-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.report === S.activeReport);
+  });
+}
+
+/* ── Select doc / report type ───────────────────────────────────── */
+function selectDoc(i) {
+  S.activeDoc = i;
+  /* show/hide the General/Diagnostic toggle — not relevant for summary */
+  $('toggle-bar').style.display = (i === 'summary') ? 'none' : 'flex';
+  renderTabs();
+  renderReport();
+}
+
+function setReport(type) {
+  S.activeReport = type;
+  syncToggle();
+  renderReport();
+}
+
+/* ── Render report ──────────────────────────────────────────────── */
+function renderReport() {
+  hide('empty-state');
+  hide('loading-state');
+  hide('error-state');
+
+  const panel = $('report-panel');
+  panel.style.display = 'block';
+
+  if (S.activeDoc === 'summary')         renderSummary(panel);
+  else if (S.activeReport === 'general') renderGeneral(panel);
+  else                                   renderDiagnostic(panel);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SUMMARY VIEW
+══════════════════════════════════════════════════════════════════ */
+function renderSummary(panel) {
+  const genDocs  = S.general?.documents  ?? [];
+  const diagDocs = S.diagnostic?.documents ?? [];
+  const n        = genDocs.length;
+
+  if (!n) {
+    panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No data available.</p>`;
+    return;
+  }
+
+  /* ── Aggregate numbers ── */
+  let totalCov     = 0;
+  let totalIssues  = 0;
+  let criticalFiles = 0;
+  const issueCounts = { MISSING_BLOCK_PARSE: 0, OCR_SPLIT: 0, MERGED_WORDS: 0, FORMATTING_ISSUES: 0, UNCLASSIFIED: 0 };
+
+  genDocs.forEach((doc, i) => {
+    totalCov += doc.coverage.coverage_rate;
+    if (doc.coverage.coverage_rate < 0.5) criticalFiles++;
+  });
+
+  diagDocs.forEach(doc => {
+    const dp = doc.detected_problems;
+    issueCounts.MISSING_BLOCK_PARSE += dp.MISSING_BLOCK_PARSE?.count ?? 0;
+    issueCounts.OCR_SPLIT           += dp.OCR_SPLIT?.count ?? 0;
+    issueCounts.MERGED_WORDS        += dp.MERGED_WORDS?.count ?? 0;
+    issueCounts.FORMATTING_ISSUES   += dp.FORMATTING_ISSUES?.count ?? 0;
+    issueCounts.UNCLASSIFIED        += dp.UNCLASSIFIED?.count ?? 0;
+    totalIssues += (dp.MISSING_BLOCK_PARSE?.count ?? 0)
+                 + (dp.OCR_SPLIT?.count ?? 0)
+                 + (dp.MERGED_WORDS?.count ?? 0)
+                 + (dp.FORMATTING_ISSUES?.count ?? 0);
+  });
+
+  const avgCov    = (totalCov / n * 100).toFixed(1);
+  const avgColor  = totalCov / n >= 0.8 ? 'var(--success)'
+                  : totalCov / n >= 0.5 ? 'var(--warning)'
+                  : 'var(--danger)';
+
+  /* Worst file */
+  let worstIdx = 0, worstCov = 1;
+  genDocs.forEach((doc, i) => {
+    if (doc.coverage.coverage_rate < worstCov) { worstCov = doc.coverage.coverage_rate; worstIdx = i; }
+  });
+  const worstName = genDocs[worstIdx]?.doc_name ?? '—';
+
+  /* ── Build per-file rows ── */
+  const fileRows = genDocs.map((doc, i) => {
+    const cov   = doc.coverage.coverage_rate;
+    const pct   = (cov * 100).toFixed(1);
+    const color = cov >= 0.8 ? 'var(--success)' : cov >= 0.5 ? 'var(--warning)' : 'var(--danger)';
+    const diagDoc = diagDocs[i];
+    const issues = diagDoc
+      ? (diagDoc.detected_problems.MISSING_BLOCK_PARSE?.count ?? 0)
+      + (diagDoc.detected_problems.OCR_SPLIT?.count ?? 0)
+      + (diagDoc.detected_problems.MERGED_WORDS?.count ?? 0)
+      + (diagDoc.detected_problems.FORMATTING_ISSUES?.count ?? 0)
+      : 0;
+    const score = diagDoc ? docScore(diagDoc) : Math.round(cov * 100);
+    const scoreColor_ = scoreColor(score);
+    const ext = diagDoc?.file_ext ?? '';
+    const name = trunc(doc.doc_name, 28);
+    return `
+      <div class="fh-row" onclick="selectDoc(${i})" title="${esc(doc.doc_name)}">
+        <div class="fh-name">${esc(name)}<span class="fh-name-ext">${esc(ext)}</span></div>
+        <div class="fh-bar-wrap">
+          <div class="fh-bar-track">
+            <div class="fh-bar-fill" style="background:${color}" data-w="${pct}"></div>
+          </div>
+          <div class="fh-pct" style="color:${color}">${pct}%</div>
+        </div>
+        <div class="fh-issues" style="color:${issues > 0 ? 'var(--danger)' : 'var(--text-3)'}">${issues > 0 ? issues : '—'}</div>
+        <div class="fh-score" style="color:${scoreColor_}">${score}</div>
+      </div>`;
+  }).join('');
+
+  /* ── Issue distribution bars ── */
+  const maxIssue = Math.max(1, ...Object.values(issueCounts));
+  const distCategories = [
+    { label: 'Missing Block', count: issueCounts.MISSING_BLOCK_PARSE, color: 'var(--c-missing)', delay: '0s' },
+    { label: 'OCR Split',     count: issueCounts.OCR_SPLIT,           color: 'var(--c-ocr)',     delay: '0.06s' },
+    { label: 'Merged Words',  count: issueCounts.MERGED_WORDS,        color: 'var(--c-merged)',  delay: '0.12s' },
+    { label: 'Formatting',    count: issueCounts.FORMATTING_ISSUES,   color: 'var(--c-format)',  delay: '0.18s' },
+    { label: 'Unclassified',  count: issueCounts.UNCLASSIFIED,        color: 'var(--c-unclass)', delay: '0.24s' },
+  ];
+
+  const distHTML = distCategories.map(c => `
+    <div class="dist-row">
+      <div class="dist-label">${c.label}</div>
+      <div class="dist-bar-track">
+        <div class="dist-bar-fill" style="background:${c.color};--bar-delay:${c.delay}" data-w="${(c.count / maxIssue * 100).toFixed(1)}"></div>
+      </div>
+      <div class="dist-count">${c.count}</div>
+    </div>`).join('');
+
+  /* ── Aggregated diagnostic section ── */
+  const aggDiagHTML = buildAggDiagHTML(diagDocs, issueCounts);
+
+  panel.innerHTML = `
+    <div class="summary-metrics">
+      <div class="metric-card mc-coverage" style="animation-delay:0s">
+        <div class="metric-label">Avg Coverage</div>
+        <div class="metric-value" style="color:${avgColor}">${avgCov}<span class="unit">%</span></div>
+        <div class="metric-sub">across ${n} document${n !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.06s">
+        <div class="metric-label">Total Issues</div>
+        <div class="metric-value" style="color:${totalIssues > 0 ? 'var(--danger)' : 'var(--success)'}">${totalIssues}</div>
+        <div class="metric-sub">detected problems</div>
+      </div>
+      <div class="metric-card mc-gt" style="animation-delay:.12s">
+        <div class="metric-label">Documents</div>
+        <div class="metric-value">${n}</div>
+        <div class="metric-sub">files evaluated</div>
+      </div>
+      <div class="metric-card mc-parser" style="animation-delay:.18s">
+        <div class="metric-label">Critical Files</div>
+        <div class="metric-value" style="color:${criticalFiles > 0 ? 'var(--danger)' : 'var(--success)'}">${criticalFiles}</div>
+        <div class="metric-sub">coverage &lt; 50%</div>
+      </div>
+    </div>
+
+    <div class="summary-body">
+      <div class="fh-table">
+        <div class="fh-table-header">
+          <div>Document</div>
+          <div>Coverage</div>
+          <div style="text-align:right">Issues</div>
+          <div style="text-align:right">Score</div>
+        </div>
+        ${fileRows}
+      </div>
+
+      <div class="issue-dist">
+        <div class="issue-dist-title">Issue Distribution</div>
+        ${distHTML}
+      </div>
+    </div>
+
+    <div class="agg-diag-hdr">
+      <h2>Diagnostic Report — All Files</h2>
+      <span class="agg-sub">${totalIssues} issues across ${n} document${n !== 1 ? 's' : ''}</span>
+    </div>
+
+    ${aggDiagHTML}`;
+
+  /* Animate bars after paint */
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fh-bar-fill, .dist-bar-fill').forEach(el =>
+      el.style.width = el.dataset.w + '%'
+    );
+  });
+}
+
+/* ── Build aggregated diagnostic HTML for summary view ──────────── */
+function buildAggDiagHTML(diagDocs, issueCounts) {
+  /* Collect all issues across docs, tagging each with a doc badge */
+  const allMissing   = [];
+  const allOcr       = [];
+  const allMerged    = [];
+  const allReversals = [];
+  const allPunct     = [];
+  const allUnclass   = [];
+
+  diagDocs.forEach(doc => {
+    const dp    = doc.detected_problems;
+    const badge = `<span class="doc-badge">${esc(trunc(doc.doc_name, 20))}</span>`;
+
+    (dp.MISSING_BLOCK_PARSE?.blocks_number ?? []).forEach(bn =>
+      allMissing.push({ block: bn, badge })
+    );
+    (dp.OCR_SPLIT?.issues ?? []).forEach(issue =>
+      allOcr.push({ ...issue, badge })
+    );
+    (dp.MERGED_WORDS?.issues ?? []).forEach(issue =>
+      allMerged.push({ ...issue, badge })
+    );
+    (dp.FORMATTING_ISSUES?.WORD_ORDER_REVERSAL?.issues ?? []).forEach(issue =>
+      allReversals.push({ ...issue, badge })
+    );
+    (dp.FORMATTING_ISSUES?.MISPLACED_PUNCTUATION?.issues ?? []).forEach(issue =>
+      allPunct.push({ ...issue, badge })
+    );
+    (dp.UNCLASSIFIED?.ngrams ?? []).forEach(ng =>
+      allUnclass.push({ ng, badge })
+    );
+  });
+
+  const fmtCount = issueCounts.FORMATTING_ISSUES;
+
+  /* Missing blocks */
+  const missingBody = allMissing.length
+    ? `<div class="block-pills">
+        ${allMissing.map(({ block, badge }) =>
+          `<div style="display:flex;align-items:center;gap:6px">${badge}<span class="block-pill">Block ${block}</span></div>`
+        ).join('')}
+      </div>`
+    : '';
+
+  /* OCR splits */
+  const ocrBody = allOcr.length
+    ? `<div class="issue-list">
+        ${allOcr.map(issue => {
+          const word  = issue.original_word ?? issue.word ?? '?';
+          const frags = issue.fragments_in_parser ?? issue.fragments ?? [];
+          return `
+            <div class="ocr-item">
+              ${issue.badge}
+              <span class="ocr-word" dir="auto">${esc(word)}</span>
+              <span class="arr">→</span>
+              <div class="ocr-frags">
+                ${frags.map((f, i) =>
+                  `${i > 0 ? '<span class="chip-plus">+</span>' : ''}` +
+                  `<span class="frag-chip" dir="auto">${esc(f)}</span>`
+                ).join('')}
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`
+    : '';
+
+  /* Merged words */
+  const mergedBody = allMerged.length
+    ? `<div class="issue-list">
+        ${allMerged.map(issue => {
+          const orig = issue.original ?? [];
+          return `
+            <div class="merge-item">
+              ${issue.badge}
+              <div class="orig-chips">
+                ${orig.map((p, i) =>
+                  `${i > 0 ? '<span class="chip-plus">+</span>' : ''}` +
+                  `<span class="orig-chip" dir="auto">${esc(p)}</span>`
+                ).join('')}
+              </div>
+              <span class="arr">→</span>
+              <span class="merged-chip" dir="auto">${esc(issue.merged_word)}</span>
+            </div>`;
+        }).join('')}
+      </div>`
+    : '';
+
+  /* Formatting issues */
+  let fmtBody = '';
+  if (allReversals.length) {
+    fmtBody += `<div class="sub-hdr">Word Order Reversals <span>${allReversals.length}</span></div>
+      <div class="issue-list">
+        ${allReversals.map(issue => {
+          const conf = issue.confidence
+            ? `<span class="conf-badge ${issue.confidence}">${issue.confidence}</span>` : '';
+          return `
+            <div class="fmt-item">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <span class="fmt-badge reversal">Word Order</span>${issue.badge}
+              </div>
+              <div class="fmt-cmp">
+                <div class="fmt-side">
+                  <div class="fmt-side-label">GT</div>
+                  <div class="fmt-text gt" dir="auto">${esc(issue.gt_text ?? issue.ngram ?? '')}</div>
+                </div>
+                <div class="fmt-cmp-arrow">→</div>
+                <div class="fmt-side">
+                  <div class="fmt-side-label">Parser</div>
+                  <div class="fmt-text parser" dir="auto">${esc(issue.parser_text ?? '')}</div>
+                </div>
+              </div>
+              ${issue.evidence ? `<div class="fmt-evidence">${esc(issue.evidence)}${conf}</div>` : ''}
+            </div>`;
+        }).join('')}
+      </div>`;
+  }
+  if (allPunct.length) {
+    fmtBody += `<div class="sub-hdr">Misplaced Punctuation <span>${allPunct.length}</span></div>
+      <div class="issue-list">
+        ${allPunct.map(issue => {
+          const conf = issue.confidence
+            ? `<span class="conf-badge ${issue.confidence}">${issue.confidence}</span>` : '';
+          return `
+            <div class="fmt-item">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <span class="fmt-badge punct">Punctuation</span>${issue.badge}
+              </div>
+              <div class="fmt-cmp">
+                <div class="fmt-side">
+                  <div class="fmt-side-label">GT</div>
+                  <div class="fmt-text gt" dir="auto">${esc(issue.gt_text ?? issue.ngram ?? '')}</div>
+                </div>
+                <div class="fmt-cmp-arrow">→</div>
+                <div class="fmt-side">
+                  <div class="fmt-side-label">Parser</div>
+                  <div class="fmt-text parser" dir="auto">${esc(issue.parser_text ?? '')}</div>
+                </div>
+              </div>
+              ${issue.evidence ? `<div class="fmt-evidence">${esc(issue.evidence)}${conf}</div>` : ''}
+            </div>`;
+        }).join('')}
+      </div>`;
+  }
+
+  /* Unclassified */
+  const unclassBody = allUnclass.length
+    ? `<div style="padding-top:12px">
+        ${diagDocs.map(doc => {
+          const ngrams = doc.detected_problems.UNCLASSIFIED?.ngrams ?? [];
+          if (!ngrams.length) return '';
+          return `
+            <div style="margin-bottom:12px">
+              <div style="font-size:0.68rem;color:var(--text-3);margin-bottom:6px;font-family:var(--f-mono)">${esc(doc.doc_name)}</div>
+              <div class="ngram-cloud">
+                ${ngrams.map(ng => `<span class="tag tag-ngram" dir="auto">${esc(ng)}</span>`).join('')}
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`
+    : '';
+
+  return diagCard('agg-mb',    'var(--c-missing)', issueCounts.MISSING_BLOCK_PARSE,
+           'Missing Block Parse',    'Blocks where ≤10% of GT content was found — all files', .00, missingBody)
+       + diagCard('agg-ocr',   'var(--c-ocr)',     issueCounts.OCR_SPLIT,
+           'OCR Split',              'GT words split into fragments by the parser — all files', .05, ocrBody)
+       + diagCard('agg-merge', 'var(--c-merged)',  issueCounts.MERGED_WORDS,
+           'Merged Words',           'Two adjacent GT words concatenated into one token — all files', .10, mergedBody)
+       + diagCard('agg-fmt',   'var(--c-format)',  fmtCount,
+           'Formatting Issues',      'Word order reversals and misplaced punctuation — all files', .15, fmtBody)
+       + diagCard('agg-unc',   'var(--c-unclass)', issueCounts.UNCLASSIFIED,
+           'Unclassified',           'Missing ngrams that no detector could explain — all files', .20, unclassBody);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   GENERAL REPORT
+══════════════════════════════════════════════════════════════════ */
+function renderGeneral(panel) {
+  const docs = S.general?.documents ?? [];
+  const doc  = docs[S.activeDoc];
+
+  if (!doc) {
+    panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No general report data for this document.</p>`;
+    return;
+  }
+
+  const covPct   = (doc.coverage.coverage_rate * 100).toFixed(1);
+  const noisePct = (doc.noise.noise_rate * 100).toFixed(1);
+  const covColor = doc.coverage.coverage_rate >= 0.8 ? 'var(--success)'
+                 : doc.coverage.coverage_rate >= 0.5 ? 'var(--warning)'
+                 : 'var(--danger)';
+
+  panel.innerHTML =
+    /* Metrics row */
+    `<div class="metrics-row">
+      <div class="metric-card mc-coverage" style="animation-delay:0s">
+        <div class="metric-label">Coverage</div>
+        <div class="metric-value" style="color:${covColor}">${covPct}<span class="unit">%</span></div>
+        <div class="metric-sub">${esc(doc.coverage.total_missing_unique_ngrams_ratio)} trigrams missing</div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.06s">
+        <div class="metric-label">Noise</div>
+        <div class="metric-value" style="color:var(--danger)">${noisePct}<span class="unit">%</span></div>
+        <div class="metric-sub">${esc(doc.noise.noise_ratio)} parser words are noise</div>
+      </div>
+      <div class="metric-card mc-gt" style="animation-delay:.12s">
+        <div class="metric-label">GT Words</div>
+        <div class="metric-value">${fmt(doc.gt_total_words_non_unique)}</div>
+        <div class="metric-sub">ground truth tokens</div>
+      </div>
+      <div class="metric-card mc-parser" style="animation-delay:.18s">
+        <div class="metric-label">Parser Words</div>
+        <div class="metric-value">${fmt(doc.parser_total_words_non_unique)}</div>
+        <div class="metric-sub">parser output tokens</div>
+      </div>
+    </div>`
+
+    /* Block breakdown */
+  + `<div class="report-section" style="animation-delay:.08s">
+      <div class="sec-hdr">
+        <h3>Block Coverage Breakdown</h3>
+        <span class="sec-count">${doc.block_results.length} blocks</span>
+      </div>
+      ${doc.block_results.map((b, bi) => blockRowHTML(b, bi)).join('')}
+    </div>`
+
+    /* Noise words */
+  + (doc.noise.noise_words.length
+      ? `<div class="report-section" style="animation-delay:.16s">
+          <div class="sec-hdr">
+            <h3>Noise Words</h3>
+            <span class="sec-count">${doc.noise.noise_words_count}</span>
+          </div>
+          <div class="word-cloud">
+            ${doc.noise.noise_words.map(w =>
+              `<span class="tag tag-noise" dir="auto">${esc(w)}</span>`
+            ).join('')}
+          </div>
+        </div>`
+      : '');
+
+  /* Animate bars after paint */
+  requestAnimationFrame(() =>
+    document.querySelectorAll('.blk-bar-fill').forEach(el =>
+      el.style.width = el.dataset.w + '%'
+    )
+  );
+}
+
+function blockRowHTML(block, idx) {
+  const rate  = block.coverage.coverage_rate;
+  const pct   = (rate * 100).toFixed(1);
+  const color = rate >= 0.8 ? 'var(--success)'
+              : rate >= 0.5 ? 'var(--warning)'
+              : 'var(--danger)';
+  const missing = getMissingNgrams(block);
+
+  return `
+    <div class="block-row" onclick="toggleBlockMissing(this)">
+      <div class="blk-label">Block ${block.block_index}</div>
+      <div class="blk-bar-track">
+        <div class="blk-bar-fill" style="background:${color}" data-w="${pct}"></div>
+      </div>
+      <div class="blk-ratio">${esc(block.coverage.total_missing_unique_ngrams_ratio)}</div>
+      <div class="blk-pct" style="color:${color}">${pct}%</div>
+    </div>
+    ${missing.length
+      ? `<div class="blk-missing">
+          ${missing.map(w =>
+            `<span class="tag tag-missing" dir="auto">${esc(w)}</span>`
+          ).join('')}
+        </div>`
+      : ''}`;
+}
+
+function toggleBlockMissing(row) {
+  const next = row.nextElementSibling;
+  if (next?.classList.contains('blk-missing')) next.classList.toggle('open');
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DIAGNOSTIC REPORT
+══════════════════════════════════════════════════════════════════ */
+function renderDiagnostic(panel) {
+  const docs = S.diagnostic?.documents ?? [];
+  const doc  = docs[S.activeDoc];
+
+  if (!doc) {
+    panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No diagnostic data for this document.</p>`;
+    return;
+  }
+
+  const dp = doc.detected_problems;
+
+  panel.innerHTML =
+    diagCard('mb',      'var(--c-missing)', dp.MISSING_BLOCK_PARSE.count,
+             'Missing Block Parse',
+             'Blocks where ≤10% of GT content was found in parser output', .00,
+             missingBlocksHTML(dp.MISSING_BLOCK_PARSE))
+  + diagCard('ocr',    'var(--c-ocr)',     dp.OCR_SPLIT.count,
+             'OCR Split',
+             'GT words split into two consecutive fragments by the parser', .05,
+             ocrSplitsHTML(dp.OCR_SPLIT))
+  + diagCard('merge',  'var(--c-merged)',  dp.MERGED_WORDS.count,
+             'Merged Words',
+             'Two adjacent GT words concatenated into one token', .10,
+             mergedWordsHTML(dp.MERGED_WORDS))
+  + diagCard('fmt',    'var(--c-format)',  dp.FORMATTING_ISSUES.count,
+             'Formatting Issues',
+             'Word order reversals and misplaced punctuation tokens', .15,
+             formattingHTML(dp.FORMATTING_ISSUES))
+  + diagCard('unc',    'var(--c-unclass)', dp.UNCLASSIFIED.count,
+             'Unclassified',
+             'Missing ngrams that no detector could explain', .20,
+             unclassifiedHTML(dp.UNCLASSIFIED));
+}
+
+function diagCard(id, color, count, name, desc, delay, body) {
+  return `
+    <div class="diag-card" id="dc-${id}" style="animation-delay:${delay}s">
+      <div class="diag-hdr" onclick="toggleDiagCard('${id}')">
+        <div class="diag-stripe" style="background:${color}"></div>
+        <div class="diag-num"   style="color:${color}">${count}</div>
+        <div class="diag-meta">
+          <div class="diag-meta-name">${esc(name)}</div>
+          <div class="diag-meta-desc">${esc(desc)}</div>
+        </div>
+        <div class="diag-chevron">▼</div>
+      </div>
+      <div class="diag-body">
+        <div class="diag-inner">
+          ${count === 0
+            ? `<div class="diag-empty">No issues detected.</div>`
+            : body}
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleDiagCard(id) {
+  document.getElementById(`dc-${id}`).classList.toggle('open');
+}
+
+/* Missing block parse */
+function missingBlocksHTML(data) {
+  return `<div class="block-pills">
+    ${data.blocks_number.map(n => `<span class="block-pill">Block ${n}</span>`).join('')}
+  </div>`;
+}
+
+/* OCR splits */
+function ocrSplitsHTML(data) {
+  return `<div class="issue-list">
+    ${data.issues.map(issue => {
+      const word  = issue.original_word ?? issue.word ?? '?';
+      const frags = issue.fragments_in_parser ?? issue.fragments ?? [];
+      return `
+        <div class="ocr-item">
+          <span class="ocr-word" dir="auto">${esc(word)}</span>
+          <span class="arr">→</span>
+          <div class="ocr-frags">
+            ${frags.map((f, i) =>
+              `${i > 0 ? '<span class="chip-plus">+</span>' : ''}` +
+              `<span class="frag-chip" dir="auto">${esc(f)}</span>`
+            ).join('')}
+          </div>
+        </div>`;
+    }).join('')}
+  </div>`;
+}
+
+/* Merged words */
+function mergedWordsHTML(data) {
+  return `<div class="issue-list">
+    ${data.issues.map(issue => {
+      const orig = issue.original ?? [];
+      return `
+        <div class="merge-item">
+          <div class="orig-chips">
+            ${orig.map((p, i) =>
+              `${i > 0 ? '<span class="chip-plus">+</span>' : ''}` +
+              `<span class="orig-chip" dir="auto">${esc(p)}</span>`
+            ).join('')}
+          </div>
+          <span class="arr" style="color:var(--text-3)">→</span>
+          <span class="merged-chip" dir="auto">${esc(issue.merged_word)}</span>
+        </div>`;
+    }).join('')}
+  </div>`;
+}
+
+/* Formatting issues */
+function formattingHTML(data) {
+  const reversals = data.WORD_ORDER_REVERSAL?.issues   ?? [];
+  const punct     = data.MISPLACED_PUNCTUATION?.issues ?? [];
+
+  let html = '';
+
+  if (reversals.length) {
+    html += `<div class="sub-hdr">Word Order Reversals <span>${reversals.length}</span></div>
+             <div class="issue-list">${reversals.map(fmtItemHTML).join('')}</div>`;
+  }
+  if (punct.length) {
+    html += `<div class="sub-hdr">Misplaced Punctuation <span>${punct.length}</span></div>
+             <div class="issue-list">${punct.map(fmtItemHTML).join('')}</div>`;
+  }
+
+  return html;
+}
+
+function fmtItemHTML(issue) {
+  const isRev     = issue.type === 'WORD_ORDER_REVERSAL';
+  const confBadge = issue.confidence
+    ? `<span class="conf-badge ${issue.confidence}">${issue.confidence}</span>` : '';
+
+  return `
+    <div class="fmt-item">
+      <span class="fmt-badge ${isRev ? 'reversal' : 'punct'}">${isRev ? 'Word Order' : 'Punctuation'}</span>
+      <div class="fmt-cmp">
+        <div class="fmt-side">
+          <div class="fmt-side-label">GT</div>
+          <div class="fmt-text gt" dir="auto">${esc(issue.gt_text ?? issue.ngram ?? '')}</div>
+        </div>
+        <div class="fmt-cmp-arrow">→</div>
+        <div class="fmt-side">
+          <div class="fmt-side-label">Parser</div>
+          <div class="fmt-text parser" dir="auto">${esc(issue.parser_text ?? '')}</div>
+        </div>
+      </div>
+      ${issue.evidence
+        ? `<div class="fmt-evidence">${esc(issue.evidence)}${confBadge}</div>`
+        : ''}
+    </div>`;
+}
+
+/* Unclassified */
+function unclassifiedHTML(data) {
+  return `<div class="ngram-cloud">
+    ${data.ngrams.map(ng =>
+      `<span class="tag tag-ngram" dir="auto">${esc(ng)}</span>`
+    ).join('')}
+  </div>`;
+}
+
+/* ── Utilities ──────────────────────────────────────────────────── */
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function trunc(s, n) { return s.length > n ? s.slice(0, n) + '…' : s; }
+
+function fmt(n) { return Number(n).toLocaleString(); }
+
+function $(id) { return document.getElementById(id); }
+
+function show(id, display = 'block') { $(id).style.display = display; }
+function hide(id)                     { $(id).style.display = 'none'; }
+
+function getMissingNgrams(block) {
+  const key = Object.keys(block).find(k => k.startsWith('missing_') && k.endsWith('_in_block'));
+  return key ? block[key] : [];
+}
+
+function docScore(doc) {
+  const total = doc.total_missing_ngrams;
+  if (!total) return 100;
+  return Math.round(((total - doc.detected_problems.UNCLASSIFIED.count) / total) * 100);
+}
+
+function scoreColor(score) {
+  return score >= 75 ? 'var(--success)'
+       : score >= 40 ? 'var(--warning)'
+       :               'var(--danger)';
+}
+</script>
+</body>
+</html>

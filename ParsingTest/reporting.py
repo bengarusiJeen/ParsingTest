@@ -122,10 +122,8 @@ def save_json_report(results: List[DocumentResult], path: Path, n: int = 3) -> N
             },
             "gt_total_words_non_unique":     r.gt_word_count,
             "parser_total_words_non_unique": r.parser_word_count,
-            "block_results":                        [_block(br) for br in r.block_results],
+            "block_results":                [_block(br) for br in r.block_results],
         }
-
-    SEP = "=" * 30
 
     doc_count = len(results)
     summary = {
@@ -134,11 +132,13 @@ def save_json_report(results: List[DocumentResult], path: Path, n: int = 3) -> N
         "avg_noise_rate":      round(sum(r.noise_pct    for r in results) / doc_count, 4),
     }
 
-    lines: list[str] = []
-    lines.append(json.dumps({"summary": summary}, ensure_ascii=False, indent=2))
-    for r in results:
-        lines.append(SEP)
-        lines.append(json.dumps(_doc(r), ensure_ascii=False, indent=2))
+    report = {
+        "summary":   summary,
+        "documents": [_doc(r) for r in results],
+    }
 
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
     print(f"\n[✓] JSON report saved to {path}")
