@@ -21,12 +21,16 @@ from pathlib import Path
 from flask import Flask, jsonify, send_from_directory
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-ROOT         = Path(__file__).parent.parent          # project root
-FRONTEND_DIR = Path(__file__).parent                 # frontend/
-MAIN_SCRIPT  = ROOT / "ParsingTest" / "main.py"
-FILES_DIR    = ROOT / "files_to_test"
-GENERAL_JSON = ROOT / "general_report.json"
-DIAG_JSON    = ROOT / "diagnostics_report.json"
+ROOT            = Path(__file__).parent.parent          # project root
+FRONTEND_DIR    = Path(__file__).parent                 # frontend/
+MAIN_SCRIPT     = ROOT / "ParsingTest" / "main.py"
+FILES_DIR       = ROOT / "files_to_test"
+GENERAL_JSON    = ROOT / "general_report.json"
+DIAG_JSON       = ROOT / "diagnostics_report.json"
+GENERAL_PP_JSON = ROOT / "postprocessing-general_report.json"
+DIAG_PP_JSON    = ROOT / "postprocessing-diagnostics_report.json"
+GENERAL_PP_JSON_LEGACY = ROOT / "general_report-postprocessing.json"
+DIAG_PP_JSON_LEGACY    = ROOT / "diagnostics_report-postprocessing.json"
 
 app = Flask(__name__, static_folder=str(FRONTEND_DIR))
 
@@ -41,6 +45,15 @@ def _load_json(path: Path) -> dict | None:
         return json.loads(path.read_text(encoding="utf-8", errors="replace"))
     except (json.JSONDecodeError, OSError):
         return None
+
+
+def _load_json_any(paths: list[Path]) -> dict | None:
+    """Read first available JSON from a list of candidate paths."""
+    for path in paths:
+        data = _load_json(path)
+        if data is not None:
+            return data
+    return None
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -73,32 +86,40 @@ def evaluate():
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
 
-    general    = _load_json(GENERAL_JSON)
-    diagnostic = _load_json(DIAG_JSON)
+    general       = _load_json(GENERAL_JSON)
+    diagnostic    = _load_json(DIAG_JSON)
+    general_pp    = _load_json_any([GENERAL_PP_JSON, GENERAL_PP_JSON_LEGACY])
+    diagnostic_pp = _load_json_any([DIAG_PP_JSON, DIAG_PP_JSON_LEGACY])
 
     return jsonify({
-        "status":     "ok" if proc.returncode == 0 else "error",
-        "returncode": proc.returncode,
-        "stdout":     proc.stdout,
-        "stderr":     proc.stderr,
-        "general":    general,
-        "diagnostic": diagnostic,
+        "status":        "ok" if proc.returncode == 0 else "error",
+        "returncode":    proc.returncode,
+        "stdout":        proc.stdout,
+        "stderr":        proc.stderr,
+        "general":       general,
+        "diagnostic":    diagnostic,
+        "general_pp":    general_pp,
+        "diagnostic_pp": diagnostic_pp,
     })
 
 
 @app.route("/api/results", methods=["GET"])
 def results():
     """Return cached reports without re-running the evaluation."""
-    general    = _load_json(GENERAL_JSON)
-    diagnostic = _load_json(DIAG_JSON)
+    general       = _load_json(GENERAL_JSON)
+    diagnostic    = _load_json(DIAG_JSON)
+    general_pp    = _load_json_any([GENERAL_PP_JSON, GENERAL_PP_JSON_LEGACY])
+    diagnostic_pp = _load_json_any([DIAG_PP_JSON, DIAG_PP_JSON_LEGACY])
 
     if general is None and diagnostic is None:
         return jsonify({"status": "no_results"}), 404
 
     return jsonify({
-        "status":     "ok",
-        "general":    general,
-        "diagnostic": diagnostic,
+        "status":        "ok",
+        "general":       general,
+        "diagnostic":    diagnostic,
+        "general_pp":    general_pp,
+        "diagnostic_pp": diagnostic_pp,
     })
 
 

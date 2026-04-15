@@ -40,6 +40,7 @@ def generate_ngrams(words: List[str], n: int = 3) -> List[str]:
 def compute_coverage(
     block_words: List[str],
     parser_ngrams_set: Set[str],
+    parser_words_set: Set[str] | None = None,
     n: int = 3,
 ) -> Tuple[Score, List[str]]:
     """
@@ -54,6 +55,28 @@ def compute_coverage(
     """
     if not block_words:
         return Score(checked=0, failed=0), []
+
+    # When a GT block is shorter than the requested n-gram size, fall back to
+    # word-level checks so short blocks still get evaluated instead of being
+    # treated as an automatic miss.
+    if len(block_words) < n:
+        if parser_words_set is None:
+            phrase = " ".join(block_words)
+            if phrase in parser_ngrams_set:
+                return Score(checked=1, failed=0), []
+            return Score(checked=1, failed=1), [phrase]
+
+        seen_words: set[str] = set()
+        missing_words: list[str] = []
+        for word in block_words:
+            if word in seen_words:
+                continue
+            seen_words.add(word)
+            if word not in parser_words_set:
+                missing_words.append(word)
+
+        score = Score(checked=len(seen_words), failed=len(missing_words))
+        return score, missing_words
 
     gt_ngrams_ordered = generate_ngrams(block_words, n)
     gt_unique_ngrams  = set(gt_ngrams_ordered)

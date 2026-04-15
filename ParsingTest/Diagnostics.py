@@ -25,23 +25,25 @@ Four detectors, executed in this order — each acting as a pre-filter for the n
                                ngram scope is attributed.
 
     4. FORMATTING_ISSUES     — two sub-types:
-                                                             • WORD_ORDER_REVERSAL — fires ONLY when the
-                                                                 flipped pair is confirmed in parser ngrams and
-                                                                 the original order is not also present once
-                                                                 punctuation is normalized away.
-                                                                 This prevents colon/period moves from being
-                                                                 mislabeled as a word-order reversal.
+                               • WORD_ORDER_REVERSAL — three passes:
+                                   Pass 0: FULL_PHRASE_REVERSAL — entire
+                                     content-word sequence reversed (≥3 words),
+                                     HIGH confidence.
+                                   Pass 1: PAIRWISE_REVERSAL — symmetric
+                                     bigram-to-bigram check; original pair absent
+                                     AND flipped pair present in parser ngrams.
+                                     HIGH for Hebrew↔Latin, MEDIUM for same-script.
+                                     Ngrams are always classified even when the
+                                     same pair was already reported, preventing
+                                     leaks into UNCLASSIFIED.
                                • MISPLACED_PUNCTUATION — improved detector:
                                  an ngram that contains at least one punctuation
-                                 token is flagged when ALL its content words
-                                 (non-punctuation tokens) exist individually in
-                                 parser_words_set. This catches the RTL
-                                 punctuation placement problem where the parser
-                                 moves . : ] to a different position than the GT.
-                                 Previously only checked if without_punct existed
-                                 as a complete ngram — now checks each content
-                                 word individually, which is reliable even when
-                                 the word combination isn't an ngram by itself.
+                                 token is flagged when its content words appear
+                                 contiguously in the parser flow after punctuation
+                                 normalisation. HIGH when the content string is a
+                                 complete parser ngram; MEDIUM when it is a
+                                 substring of a normalised parser ngram (RTL
+                                 punctuation displacement).
 
     5. UNCLASSIFIED          — ngrams that none of the detectors explained.
 
@@ -64,8 +66,9 @@ from models import BlockResult, DocumentResult
 from utils import _is_hebrew, _is_latin
 
 # ── Tunable constants ────────────────────────────────────────────────────────
-MISSING_BLOCK_THRESHOLD = 0.10
-DIAGNOSTICS_FILENAME    = "diagnostics_report.json"
+MISSING_BLOCK_THRESHOLD    = 0.10
+DIAGNOSTICS_FILENAME       = "diagnostics_report.json"
+DIAGNOSTICS_PP_FILENAME    = "postprocessing-diagnostics_report.json"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -257,34 +260,43 @@ def _detect_merged_words(
 def _detect_formatting_issues(
     missing_ngrams:    List[str],
     parser_ngrams_set: Set[str],
-    parser_words_set:  Set[str],
 ) -> Tuple[List[dict], Set[str]]:
     """
     WORD_ORDER_REVERSAL
-        Fires ONLY when the flipped pair is confirmed in parser ngrams (HIGH).
-        Pass 1: adjacent non-punct pairs, mixed-script first.
-        Pass 2: punctuation-between-reversed-words (strips punct, checks flip).
+        Three passes in priority order, all using symmetric bigram-to-bigram
+        comparisons to avoid false positives from accidental substring matches.
 
-    MISPLACED_PUNCTUATION — improved detector
-        An ngram containing at least one punctuation token is classified here
-        when ALL its content words (non-punct tokens) exist individually in
-        parser_words_set.
+        Pass 0 — Full-Phrase Reversal (≥ 3 content words)
+            Checks whether the entire content-word sequence reversed appears
+            in normalized parser ngrams while the original order does not.
+            Classified as subtype FULL_PHRASE_REVERSAL, confidence HIGH.
 
-        Two confidence levels
-          HIGH   — without_punct string also found as a complete parser ngram
-          MEDIUM — content words all present individually but not as a complete
-                   ngram (covers RTL punctuation displacement where the word
-                   combination spans a different ngram boundary in the parser)
+        Pass 1 — Pairwise Bigram Reversal (adjacent content-word pairs)
+            For each adjacent content-word pair (w1, w2):
+              • original pair  f"{w1} {w2}" must NOT be in parser ngrams
+              • flipped  pair  f"{w2} {w1}" MUST be in parser ngrams
+            Both sides are 2-word strings checked against the same normalized
+            ngram set — symmetric, apples-to-apples.
+            Mixed-script pairs (Hebrew↔Latin) are prioritised and earn HIGH
+            confidence; same-script pairs earn MEDIUM confidence.
 
-        This is what clears the bulk of the unclassified list — ngrams like
-        ". מה הרכיב", ": קביעת סגנון", "אינו חובה ." where the content is
-        correctly parsed but punctuation landed in a different position
+            Leak fix: even when the reversed pair has already been reported
+            (seen_reversal_pairs), the current ngram is still added to
+            classified/seen so it does not fall through to UNCLASSIFIED.
+
+    MISPLACED_PUNCTUATION
+        An ngram with at least one punctuation token is classified here when
+        its content words appear contiguously in the parser flow after
+        punctuation normalisation.
+        HIGH   — content string is a complete ngram in parser.
+        MEDIUM — content string is a substring of a normalised parser ngram
+                 (RTL punctuation displacement).
     """
     issues:     List[dict] = []
     classified: Set[str]   = set()
     seen:       Set[str]   = set()
     seen_reversal_pairs: Set[Tuple[str, str]] = set()
-    normalized_parser_ngrams = {
+    normalized_parser_ngrams: Set[str] = {
         _normalize_ngram_without_punct(pg)
         for pg in parser_ngrams_set
     }
@@ -293,70 +305,100 @@ def _detect_formatting_issues(
         if ngram in seen:
             continue
 
-        words = ngram.split()
+        words         = ngram.split()
+        content_words = [w for w in words if not _is_punct_token(w)]
+        punct_tokens  = [w for w in words if     _is_punct_token(w)]
 
-        # ── Sub-detector A : Word Order Reversal ─────────────
-        if len(words) >= 2:
-            non_punct_words = [w for w in words if not _is_punct_token(w)]
-            original_phrase = " ".join(non_punct_words)
+        # ── Sub-detector A : Word Order Reversal ─────────────────────────────
+        if len(content_words) >= 2:
 
-            # Pass 1: adjacent pairs (mixed-script priority)
+            # ── Pass 0: Full-phrase reversal (≥ 3 content words) ─────────────
+            if len(content_words) >= 3:
+                original_phrase = " ".join(content_words)
+                reversed_phrase = " ".join(reversed(content_words))
+                orig_in_parser  = _phrase_in_parser_ngrams(original_phrase, normalized_parser_ngrams)
+                rev_in_parser   = _phrase_in_parser_ngrams(reversed_phrase,  normalized_parser_ngrams)
+                if rev_in_parser and not orig_in_parser:
+                    seen.add(ngram)
+                    classified.add(ngram)
+                    issues.append({
+                        "ngram":       ngram,
+                        "type":        "WORD_ORDER_REVERSAL",
+                        "subtype":     "FULL_PHRASE_REVERSAL",
+                        "gt_text":     original_phrase,
+                        "parser_text": reversed_phrase,
+                        "confidence":  "HIGH",
+                        "evidence": (
+                            f"Full phrase '{original_phrase}' appears reversed as "
+                            f"'{reversed_phrase}' in parser. Confidence: HIGH."
+                        ),
+                    })
+
+            if ngram in seen:
+                continue
+
+            # ── Pass 1: Pairwise bigram reversal ─────────────────────────────
+            # Build pairs from content_words (punct already stripped).
+            # Mixed-script pairs are inserted at the front so they are
+            # evaluated first and earn HIGH confidence.
             pairs_to_check: List[Tuple[int, str, str]] = []
-            for i in range(len(words) - 1):
-                w1, w2 = words[i], words[i + 1]
-                if _is_punct_token(w1) or _is_punct_token(w2):
-                    continue
+            for i in range(len(content_words) - 1):
+                w1, w2 = content_words[i], content_words[i + 1]
                 if _is_mixed_boundary(w1, w2):
                     pairs_to_check.insert(0, (i, w1, w2))
                 else:
                     pairs_to_check.append((i, w1, w2))
 
             for i, w1, w2 in pairs_to_check:
-                flipped        = f"{w2} {w1}"
-                pair_key       = (w1, w2)
-                if pair_key in seen_reversal_pairs:
-                    continue
-                original_in_parser = _phrase_in_parser_ngrams(
-                    original_phrase, normalized_parser_ngrams
-                )
-                flip_in_parser = _phrase_in_parser_ngrams(
-                    flipped, normalized_parser_ngrams
-                )
-                if flip_in_parser and not original_in_parser:
+                original_pair = f"{w1} {w2}"
+                flipped_pair  = f"{w2} {w1}"
+                pair_key      = (w1, w2)
+
+                # Symmetric bigram-to-bigram check (both sides are 2-word strings).
+                orig_pair_in_parser = _phrase_in_parser_ngrams(original_pair, normalized_parser_ngrams)
+                flip_pair_in_parser = _phrase_in_parser_ngrams(flipped_pair,  normalized_parser_ngrams)
+
+                if flip_pair_in_parser and not orig_pair_in_parser:
                     boundary_type = (
                         "Hebrew↔Latin"  if _is_mixed_boundary(w1, w2) else
                         "Latin↔Latin"   if (_word_is_latin(w1) and _word_is_latin(w2)) else
                         "Hebrew↔Hebrew"
                     )
+                    confidence = "HIGH" if _is_mixed_boundary(w1, w2) else "MEDIUM"
+
+                    # Always classify the ngram — even if this exact pair was
+                    # already reported — so it never leaks into UNCLASSIFIED.
                     seen.add(ngram)
                     classified.add(ngram)
-                    issues.append({
-                        "ngram": ngram,
-                        "type":  "WORD_ORDER_REVERSAL",
-                        "pair":  [w1, w2],
-                        "gt_text": original_phrase,
-                        "parser_text": flipped,
-                        "evidence": (
-                            f"{boundary_type} pair ('{w1}', '{w2}'). "
-                            f"Flipped pair '{flipped}' confirmed in parser. "
-                            f"Confidence: HIGH."
-                        ),
-                    })
-                    seen_reversal_pairs.add(pair_key)
-                    break
-            if ngram in seen:
-                continue
 
-        # ── Sub-detector B : Misplaced Punctuation ───────────
-        punct_tokens   = [w for w in words if _is_punct_token(w)]
-        content_words  = [w for w in words if not _is_punct_token(w)]
+                    # Only append a new issue entry for unseen pairs to avoid
+                    # duplicate reports in the output.
+                    if pair_key not in seen_reversal_pairs:
+                        issues.append({
+                            "ngram":       ngram,
+                            "type":        "WORD_ORDER_REVERSAL",
+                            "subtype":     "PAIRWISE_REVERSAL",
+                            "pair":        [w1, w2],
+                            "gt_text":     original_pair,
+                            "parser_text": flipped_pair,
+                            "confidence":  confidence,
+                            "evidence": (
+                                f"{boundary_type} pair ('{w1}', '{w2}'). "
+                                f"Original '{original_pair}' absent from parser; "
+                                f"flipped '{flipped_pair}' confirmed. "
+                                f"Confidence: {confidence}."
+                            ),
+                        })
+                        seen_reversal_pairs.add(pair_key)
+                    break  # one confirmed reversal per ngram is sufficient
 
+        if ngram in seen:
+            continue
+
+        # ── Sub-detector B : Misplaced Punctuation ───────────────────────────
         if punct_tokens and content_words:
-            without_punct = " ".join(content_words)
-            # Tight gate: require local contiguous evidence in parser flow.
-            phrase_in_parser = _phrase_in_parser_ngrams(
-                without_punct, normalized_parser_ngrams
-            )
+            without_punct    = " ".join(content_words)
+            phrase_in_parser = _phrase_in_parser_ngrams(without_punct, normalized_parser_ngrams)
 
             if phrase_in_parser:
                 if without_punct in parser_ngrams_set:
@@ -428,7 +470,7 @@ def _diagnose_document(
 
     # ── 4. Formatting Issues ─────────────────────────────────
     fmt_issues, fmt_classified = _detect_formatting_issues(
-        remaining, parser_ngrams_set, parser_words_set
+        remaining, parser_ngrams_set
     )
     remaining = [ng for ng in remaining if ng not in fmt_classified]
 
@@ -480,20 +522,25 @@ def _diagnose_document(
 # ══════════════════════════════════════════════════════════════════════════════
 
 def run_diagnostics(
-    results:     List[DocumentResult],
-    parser_data: List[Tuple[Set[str], Set[str], Set[str], str]],
-    input_dir:   Path,
+    results:         List[DocumentResult],
+    parser_data:     List[Tuple[Set[str], Set[str], Set[str], str]],
+    input_dir:       Path,
+    output_filename: str = DIAGNOSTICS_FILENAME,
 ) -> None:
     """
-    Run diagnostics on all documents and write diagnostics_report.json.
+    Run diagnostics on all documents and write a diagnostics JSON report.
 
     Args:
-        results      — list of DocumentResult from evaluate_document()
-        parser_data  — list of
-                         (parser_ngrams_set, parser_words_set,
-                          parser_bigrams_set, file_ext)
-                       in the same order as results
-        input_dir    — the CLI input directory; report is written next to it
+        results          — list of DocumentResult from evaluate_document()
+        parser_data      — list of
+                             (parser_ngrams_set, parser_words_set,
+                              parser_bigrams_set, file_ext)
+                           in the same order as results
+        input_dir        — the CLI input directory; report is written next to it
+        output_filename  — name of the JSON file to write (default:
+                           ``diagnostics_report.json``; pass
+                           ``DIAGNOSTICS_PP_FILENAME`` for the
+                           postprocessing report)
     """
     doc_reports: List[dict] = []
 
@@ -528,7 +575,7 @@ def run_diagnostics(
         "documents": doc_reports,
     }
 
-    out_path = input_dir.parent / DIAGNOSTICS_FILENAME
+    out_path = input_dir.parent / output_filename
     out_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2),
         encoding="utf-8",

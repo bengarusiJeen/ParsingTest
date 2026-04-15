@@ -20,7 +20,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from utils import clean_text, tokenize
+from utils import clean_text, normalize_gt_punctuation, tokenize
 
 # ══════════════════════════════════════════════
 # GT loader
@@ -58,7 +58,8 @@ def load_gt(gt_dir: Path) -> List[List[str]]:
             if in_block:
                 # closing marker — save the block if it has content
                 if current_block:
-                    blocks.append(tokenize(clean_text("\n".join(current_block))))
+                    normalized_block = normalize_gt_punctuation("\n".join(current_block))
+                    blocks.append(tokenize(clean_text(normalized_block)))
                 current_block = []
             in_block = not in_block
             continue
@@ -68,6 +69,7 @@ def load_gt(gt_dir: Path) -> List[List[str]]:
 
     # guard: file ends without a closing ====
     if in_block and current_block:
-        blocks.append(tokenize(clean_text("\n".join(current_block))))
+        normalized_block = normalize_gt_punctuation("\n".join(current_block))
+        blocks.append(tokenize(clean_text(normalized_block)))
 
     return blocks

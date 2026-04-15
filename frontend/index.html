@@ -1131,10 +1131,149 @@
       to   { opacity: 1; }
     }
 
+    /* ── Summary sub-tabs ──────────────────────────────────────── */
+    .sum-subtabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 3px;
+      width: fit-content;
+    }
+
+    .sum-opt {
+      padding: 5px 16px;
+      border-radius: calc(var(--r-md) - 2px);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .sum-opt.sum-opt-active {
+      background: var(--surface-3);
+      color: var(--text-1);
+      border-color: var(--border-2);
+    }
+
+    .sum-opt:not(.sum-opt-active):hover { color: var(--text-1); }
+
+    /* ── Comparison chart ──────────────────────────────────────── */
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 60px;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cmp-row:last-child { border-bottom: none; }
+
+    .cmp-name {
+      font-size: 0.75rem;
+      color: var(--text-1);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cmp-bars { display: flex; flex-direction: column; gap: 6px; }
+
+    .cmp-bar-group { display: flex; align-items: center; gap: 7px; }
+
+    .cmp-bar-label-sm {
+      font-size: 0.6rem;
+      color: var(--text-3);
+      width: 38px;
+      flex-shrink: 0;
+      font-family: var(--f-mono);
+    }
+
+    .cmp-bar-track {
+      flex: 1;
+      background: var(--surface-3);
+      border-radius: 3px;
+      height: 5px;
+      overflow: hidden;
+    }
+
+    .cmp-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cmp-bar-val {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .cmp-delta {
+      font-family: var(--f-display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ── Diagnostic comparison rows ────────────────────────────── */
+    .diag-cmp-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .diag-cmp-row:last-child { border-bottom: none; }
+
+    .diag-cmp-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 150px;
+      font-size: 0.78rem;
+      color: var(--text-1);
+    }
+
+    .diag-cmp-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .diag-cmp-count {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      color: var(--text-2);
+      min-width: 72px;
+    }
+
+    .diag-cmp-arrow { color: var(--text-3); font-size: 0.8rem; }
+
+    .diag-cmp-resolution {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 768px) {
       .metrics-row { grid-template-columns: repeat(2, 1fr); }
       #content { padding: 16px; }
+      .cmp-row { grid-template-columns: 120px 1fr 50px; }
     }
   </style>
 </head>
@@ -1171,12 +1310,13 @@
   <!-- ── Report toggle + download buttons ─────────────────────── -->
   <div id="toggle-bar">
     <div class="rpt-toggle">
-      <div class="rpt-opt active" data-report="general"    onclick="setReport('general')">General Report</div>
-      <div class="rpt-opt"        data-report="diagnostic" onclick="setReport('diagnostic')">Diagnostic Report</div>
+      <div class="rpt-opt active" data-report="general"         onclick="setReport('general')">General Report</div>
+      <div class="rpt-opt"        data-report="diagnostic"      onclick="setReport('diagnostic')">Diagnostic Report</div>
+      <div class="rpt-opt"        data-report="postprocessing"  onclick="setReport('postprocessing')">Postprocessing</div>
     </div>
     <div class="toggle-spacer"></div>
+    <!-- Standard report downloads (visible when General or Diagnostic is active) -->
     <a id="dl-general" class="dl-btn" download="general_report.json" title="Download general report JSON">
-      <!-- download icon -->
       <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
         <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -1187,6 +1327,19 @@
         <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       diagnostics_report.json
+    </a>
+    <!-- Postprocessing report downloads (visible when Postprocessing is active) -->
+    <a id="dl-general-pp" class="dl-btn" download="general_report-postprocessing.json" title="Download postprocessing general report JSON" style="display:none">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      general_report-postprocessing.json
+    </a>
+    <a id="dl-diag-pp" class="dl-btn" download="diagnostics_report-postprocessing.json" title="Download postprocessing diagnostics report JSON" style="display:none">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <path d="M5.5 1V7M5.5 7L3 4.5M5.5 7L8 4.5M1 9.5H10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      diagnostics_report-postprocessing.json
     </a>
   </div>
 
@@ -1229,11 +1382,14 @@
 <script>
 /* ── State ─────────────────────────────────────────────────────── */
 const S = {
-  status:       'idle',   // idle | loading | ready | error
-  general:      null,
-  diagnostic:   null,
-  activeDoc:    0,
-  activeReport: 'general',
+  status:           'idle',   // idle | loading | ready | error
+  general:          null,
+  diagnostic:       null,
+  general_pp:       null,     // postprocessing general report
+  diagnostic_pp:    null,     // postprocessing diagnostics report
+  activeDoc:        0,
+  activeReport:     'general',
+  activeSummaryTab: 'files',  // 'files' | 'global'
 };
 
 /* ── Bootstrap: try to load cached results ─────────────────────── */
@@ -1285,9 +1441,11 @@ async function runEvaluation() {
 
 /* ── Load results ───────────────────────────────────────────────── */
 function loadResults(data) {
-  S.general    = data.general;
-  S.diagnostic = data.diagnostic;
-  S.activeDoc  = 'summary';
+  S.general       = data.general;
+  S.diagnostic    = data.diagnostic;
+  S.general_pp    = data.general_pp    ?? null;
+  S.diagnostic_pp = data.diagnostic_pp ?? null;
+  S.activeDoc     = 'summary';
   setStatus('ready');
   buildDownloadLinks(data);
   renderTabs();
@@ -1317,8 +1475,10 @@ function buildDownloadLinks(data) {
     return 'data:application/json;charset=utf-8,' +
       encodeURIComponent(JSON.stringify(obj, null, 2));
   }
-  if (data.general)    $('dl-general').href = makeHref(data.general);
-  if (data.diagnostic) $('dl-diag').href    = makeHref(data.diagnostic);
+  if (data.general)       $('dl-general').href    = makeHref(data.general);
+  if (data.diagnostic)    $('dl-diag').href        = makeHref(data.diagnostic);
+  if (data.general_pp)    $('dl-general-pp').href  = makeHref(data.general_pp);
+  if (data.diagnostic_pp) $('dl-diag-pp').href     = makeHref(data.diagnostic_pp);
 }
 
 /* ── Tabs ───────────────────────────────────────────────────────── */
@@ -1355,19 +1515,30 @@ function renderTabs() {
 
 /* ── Toggle ─────────────────────────────────────────────────────── */
 function renderToggle() {
-  $('toggle-bar').style.display = S.activeDoc === 'summary' ? 'none' : 'flex';
+  $('toggle-bar').style.display = 'flex';
   syncToggle();
 }
 
 function syncToggle() {
+  const isPP = S.activeReport === 'postprocessing';
   document.querySelectorAll('.rpt-opt').forEach(el => {
     el.classList.toggle('active', el.dataset.report === S.activeReport);
   });
+  /* Swap download buttons depending on active report type */
+  $('dl-general').style.display    = isPP ? 'none'  : 'flex';
+  $('dl-diag').style.display       = isPP ? 'none'  : 'flex';
+  $('dl-general-pp').style.display = isPP ? 'flex'  : 'none';
+  $('dl-diag-pp').style.display    = isPP ? 'flex'  : 'none';
 }
 
 /* ── Select doc / report type ───────────────────────────────────── */
 function selectDoc(i) {
   S.activeDoc = i;
+  /* Returning to All Files always resets to the base overview state */
+  if (i === 'summary') {
+    S.activeReport     = 'general';
+    S.activeSummaryTab = 'files';
+  }
   /* show/hide the General/Diagnostic toggle — not relevant for summary */
   $('toggle-bar').style.display = (i === 'summary') ? 'none' : 'flex';
   renderTabs();
@@ -1389,23 +1560,61 @@ function renderReport() {
   const panel = $('report-panel');
   panel.style.display = 'block';
 
-  if (S.activeDoc === 'summary')         renderSummary(panel);
-  else if (S.activeReport === 'general') renderGeneral(panel);
-  else                                   renderDiagnostic(panel);
+  if (S.activeReport === 'postprocessing') {
+    if (S.activeDoc === 'summary') renderPostprocessingSummary(panel);
+    else                           renderPostprocessing(panel);
+  } else if (S.activeDoc === 'summary') {
+    renderSummary(panel);
+  } else if (S.activeReport === 'general') {
+    renderGeneral(panel);
+  } else {
+    renderDiagnostic(panel);
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════
    SUMMARY VIEW
 ══════════════════════════════════════════════════════════════════ */
+function setSummaryTab(tab) {
+  S.activeSummaryTab = tab;
+  renderReport();
+}
+
 function renderSummary(panel) {
   const genDocs  = S.general?.documents  ?? [];
-  const diagDocs = S.diagnostic?.documents ?? [];
   const n        = genDocs.length;
+  const hasPP    = (S.general_pp?.documents ?? []).length > 0;
 
   if (!n) {
     panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No data available.</p>`;
     return;
   }
+
+  const tabsHTML = hasPP
+    ? `<div class="sum-subtabs">
+        <div class="sum-opt${S.activeSummaryTab === 'files'  ? ' sum-opt-active' : ''}" onclick="setSummaryTab('files')">File Overview</div>
+        <div class="sum-opt${S.activeSummaryTab === 'global' ? ' sum-opt-active' : ''}" onclick="setSummaryTab('global')">Global Summary</div>
+       </div>`
+    : '';
+
+  const contentHTML = (S.activeSummaryTab === 'global' && hasPP)
+    ? buildGlobalSummaryHTML()
+    : buildFileOverviewHTML();
+
+  panel.innerHTML = tabsHTML + contentHTML;
+
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fh-bar-fill, .dist-bar-fill, .cmp-bar-fill').forEach(el =>
+      el.style.width = (el.dataset.w || '0') + '%'
+    );
+  });
+}
+
+/* Extracted content of the original summary (file health table + dist + agg diag) */
+function buildFileOverviewHTML() {
+  const genDocs  = S.general?.documents  ?? [];
+  const diagDocs = S.diagnostic?.documents ?? [];
+  const n        = genDocs.length;
 
   /* ── Aggregate numbers ── */
   let totalCov     = 0;
@@ -1495,7 +1704,7 @@ function renderSummary(panel) {
   /* ── Aggregated diagnostic section ── */
   const aggDiagHTML = buildAggDiagHTML(diagDocs, issueCounts);
 
-  panel.innerHTML = `
+  return `
     <div class="summary-metrics">
       <div class="metric-card mc-coverage" style="animation-delay:0s">
         <div class="metric-label">Avg Coverage</div>
@@ -1542,13 +1751,204 @@ function renderSummary(panel) {
     </div>
 
     ${aggDiagHTML}`;
+}
 
-  /* Animate bars after paint */
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.fh-bar-fill, .dist-bar-fill').forEach(el =>
-      el.style.width = el.dataset.w + '%'
-    );
-  });
+/* ══════════════════════════════════════════════════════════════════
+   GLOBAL SUMMARY — Before vs After Postprocessing
+══════════════════════════════════════════════════════════════════ */
+function buildGlobalSummaryHTML() {
+  const stdDocs = S.general?.documents    ?? [];
+  const ppDocs  = S.general_pp?.documents ?? [];
+  const stdDiag = S.diagnostic?.documents    ?? [];
+  const ppDiag  = S.diagnostic_pp?.documents ?? [];
+  const n       = ppDocs.length;
+
+  if (!n) return `<p style="color:var(--text-3);padding:8px">No postprocessing data available.</p>`;
+
+  /* ── Global averages ── */
+  let sumCovBefore = 0, sumCovAfter = 0, sumNoiseBefore = 0, sumNoiseAfter = 0;
+  stdDocs.forEach(d => { sumCovBefore += d.coverage.coverage_rate; sumNoiseBefore += d.noise.noise_rate; });
+  ppDocs.forEach(d  => { sumCovAfter  += d.coverage.coverage_rate; sumNoiseAfter  += d.noise.noise_rate; });
+
+  const avgCovBefore    = sumCovBefore    / n;
+  const avgCovAfter     = sumCovAfter     / n;
+  const avgNoiseBefore  = sumNoiseBefore  / n;
+  const avgNoiseAfter   = sumNoiseAfter   / n;
+
+  const covDelta   = ((avgCovAfter  - avgCovBefore)   * 100).toFixed(1);
+  const noiseDelta = ((avgNoiseAfter - avgNoiseBefore) * 100).toFixed(1);
+
+  function covCol(r) {
+    return r >= 0.8 ? 'var(--success)' : r >= 0.5 ? 'var(--warning)' : 'var(--danger)';
+  }
+
+  /* ── Score cards ── */
+  const scoreCards = `
+    <div class="metrics-row" style="margin-bottom:24px">
+      <div class="metric-card mc-coverage" style="animation-delay:0s">
+        <div class="metric-label">Coverage — Before</div>
+        <div class="metric-value" style="color:${covCol(avgCovBefore)}">${(avgCovBefore*100).toFixed(1)}<span class="unit">%</span></div>
+        <div class="metric-sub">baseline average</div>
+      </div>
+      <div class="metric-card mc-coverage" style="animation-delay:.06s;border-color:rgba(192,255,60,0.35)">
+        <div class="metric-label">Coverage — After</div>
+        <div class="metric-value" style="color:${covCol(avgCovAfter)}">${(avgCovAfter*100).toFixed(1)}<span class="unit">%</span></div>
+        <div class="metric-sub" style="color:${covDelta >= 0 ? 'var(--success)' : 'var(--danger)'}">
+          ${covDelta >= 0 ? '+' : ''}${covDelta}% vs baseline
+        </div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.12s">
+        <div class="metric-label">Noise Rate — Before</div>
+        <div class="metric-value" style="color:var(--danger)">${(avgNoiseBefore*100).toFixed(1)}<span class="unit">%</span></div>
+        <div class="metric-sub">baseline average</div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.18s;border-color:rgba(192,255,60,0.35)">
+        <div class="metric-label">Noise Rate — After</div>
+        <div class="metric-value" style="color:var(--danger)">${(avgNoiseAfter*100).toFixed(1)}<span class="unit">%</span></div>
+        <div class="metric-sub" style="color:${noiseDelta <= 0 ? 'var(--success)' : 'var(--danger)'}">
+          ${noiseDelta >= 0 ? '+' : ''}${noiseDelta}% vs baseline
+        </div>
+      </div>
+    </div>`;
+
+  /* ── Coverage comparison chart ── */
+  const covRows = ppDocs.map((ppDoc, i) => {
+    const stdDoc = stdDocs[i];
+    const before = stdDoc ? stdDoc.coverage.coverage_rate * 100 : 0;
+    const after  = ppDoc.coverage.coverage_rate * 100;
+    const delta  = (after - before).toFixed(1);
+    const dColor = delta > 0 ? 'var(--success)' : delta < 0 ? 'var(--danger)' : 'var(--text-3)';
+    return `
+      <div class="cmp-row">
+        <div class="cmp-name" title="${esc(ppDoc.doc_name)}">${esc(trunc(ppDoc.doc_name, 22))}</div>
+        <div class="cmp-bars">
+          <div class="cmp-bar-group">
+            <div class="cmp-bar-label-sm">Before</div>
+            <div class="cmp-bar-track">
+              <div class="cmp-bar-fill" style="background:var(--text-3);opacity:0.55" data-w="${before.toFixed(1)}"></div>
+            </div>
+            <div class="cmp-bar-val" style="color:${covCol(before/100)}">${before.toFixed(1)}%</div>
+          </div>
+          <div class="cmp-bar-group">
+            <div class="cmp-bar-label-sm">After</div>
+            <div class="cmp-bar-track">
+              <div class="cmp-bar-fill" style="background:${covCol(after/100)}" data-w="${after.toFixed(1)}"></div>
+            </div>
+            <div class="cmp-bar-val" style="color:${covCol(after/100)}">${after.toFixed(1)}%</div>
+          </div>
+        </div>
+        <div class="cmp-delta" style="color:${dColor}">${delta >= 0 ? '+' : ''}${delta}%</div>
+      </div>`;
+  }).join('');
+
+  /* ── Noise comparison chart ── */
+  const maxNoise = Math.max(
+    ...ppDocs.map((d, i) => Math.max(d.noise.noise_rate, stdDocs[i]?.noise?.noise_rate ?? 0)),
+    0.01
+  ) * 100;
+
+  const noiseRows = ppDocs.map((ppDoc, i) => {
+    const stdDoc = stdDocs[i];
+    const before = stdDoc ? stdDoc.noise.noise_rate * 100 : 0;
+    const after  = ppDoc.noise.noise_rate * 100;
+    const delta  = (after - before).toFixed(1);
+    // For noise: decrease is good
+    const dColor = delta < 0 ? 'var(--success)' : delta > 0 ? 'var(--danger)' : 'var(--text-3)';
+    const afterBarColor = delta <= 0 ? 'var(--success)' : 'var(--danger)';
+    return `
+      <div class="cmp-row">
+        <div class="cmp-name" title="${esc(ppDoc.doc_name)}">${esc(trunc(ppDoc.doc_name, 22))}</div>
+        <div class="cmp-bars">
+          <div class="cmp-bar-group">
+            <div class="cmp-bar-label-sm">Before</div>
+            <div class="cmp-bar-track">
+              <div class="cmp-bar-fill" style="background:rgba(255,77,109,0.45)" data-w="${(before/maxNoise*100).toFixed(1)}"></div>
+            </div>
+            <div class="cmp-bar-val" style="color:var(--danger)">${before.toFixed(1)}%</div>
+          </div>
+          <div class="cmp-bar-group">
+            <div class="cmp-bar-label-sm">After</div>
+            <div class="cmp-bar-track">
+              <div class="cmp-bar-fill" style="background:${afterBarColor}" data-w="${(after/maxNoise*100).toFixed(1)}"></div>
+            </div>
+            <div class="cmp-bar-val" style="color:${afterBarColor}">${after.toFixed(1)}%</div>
+          </div>
+        </div>
+        <div class="cmp-delta" style="color:${dColor}">${delta >= 0 ? '+' : ''}${delta}%</div>
+      </div>`;
+  }).join('');
+
+  /* ── Diagnostic improvement analysis ── */
+  const diagCategories = [
+    { key: 'MISSING_BLOCK_PARSE', name: 'Missing Blocks', color: 'var(--c-missing)' },
+    { key: 'OCR_SPLIT',           name: 'OCR Splits',     color: 'var(--c-ocr)'     },
+    { key: 'MERGED_WORDS',        name: 'Merged Words',   color: 'var(--c-merged)'  },
+    { key: 'FORMATTING_ISSUES',   name: 'Formatting',     color: 'var(--c-format)'  },
+    { key: 'UNCLASSIFIED',        name: 'Unclassified',   color: 'var(--c-unclass)' },
+  ];
+
+  const diagRows = diagCategories.map(cat => {
+    const before = stdDiag.reduce((s, d) => s + (d.detected_problems[cat.key]?.count ?? 0), 0);
+    const after  = ppDiag.reduce( (s, d) => s + (d.detected_problems[cat.key]?.count ?? 0), 0);
+    const diff   = before - after;
+    const pct    = before > 0 ? (diff / before * 100).toFixed(0) : null;
+    const afterColor = after < before ? 'var(--success)' : after > before ? 'var(--danger)' : 'var(--text-2)';
+
+    let resLabel = '';
+    let resBg    = 'background:var(--surface-3);color:var(--text-3)';
+    if (pct !== null) {
+      if (diff > 0) {
+        resLabel = `${pct}% resolved`;
+        resBg    = 'background:rgba(64,192,87,0.12);color:#69db7c';
+      } else if (diff < 0) {
+        resLabel = `${Math.abs(pct)}% increase`;
+        resBg    = 'background:rgba(255,77,109,0.12);color:#ff8a9e';
+      } else {
+        resLabel = 'no change';
+      }
+    } else {
+      resLabel = 'no data';
+    }
+
+    return `
+      <div class="diag-cmp-row">
+        <div class="diag-cmp-name">
+          <div class="diag-cmp-dot" style="background:${cat.color}"></div>
+          ${esc(cat.name)}
+        </div>
+        <div class="diag-cmp-count">${before} issue${before !== 1 ? 's' : ''}</div>
+        <div class="diag-cmp-arrow">→</div>
+        <div class="diag-cmp-count" style="color:${afterColor}">${after} issue${after !== 1 ? 's' : ''}</div>
+        <div class="diag-cmp-resolution" style="${resBg}">${resLabel}</div>
+      </div>`;
+  }).join('');
+
+  return scoreCards
+    + `<div class="report-section" style="animation-delay:.08s">
+        <div class="sec-hdr">
+          <h3>Coverage — Before vs After</h3>
+          <span class="sec-count">${n} document${n !== 1 ? 's' : ''}</span>
+        </div>
+        ${covRows}
+      </div>
+
+      <div class="report-section" style="animation-delay:.14s">
+        <div class="sec-hdr">
+          <h3>Noise Rate — Before vs After</h3>
+          <span class="sec-count">${n} document${n !== 1 ? 's' : ''}</span>
+        </div>
+        ${noiseRows}
+      </div>
+
+      <div class="report-section" style="animation-delay:.20s">
+        <div class="sec-hdr">
+          <h3>Diagnostic Improvement Analysis</h3>
+          <span class="sec-count">all categories</span>
+        </div>
+        <div style="padding-top:4px">
+          ${diagRows}
+        </div>
+      </div>`;
 }
 
 /* ── Build aggregated diagnostic HTML for summary view ──────────── */
@@ -1726,6 +2126,207 @@ function buildAggDiagHTML(diagDocs, issueCounts) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   POSTPROCESSING — per-document view (mirrors General Report)
+══════════════════════════════════════════════════════════════════ */
+function renderPostprocessing(panel) {
+  const docs = S.general_pp?.documents ?? [];
+  const doc  = docs[S.activeDoc];
+
+  if (!doc) {
+    panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No postprocessing data for this document. Run the evaluation first.</p>`;
+    return;
+  }
+
+  /* Score delta vs standard run */
+  const stdDoc       = (S.general?.documents ?? [])[S.activeDoc];
+  const stdCov       = stdDoc?.coverage?.coverage_rate ?? null;
+  const stdNoiseRate = stdDoc?.noise?.noise_rate ?? null;
+  const covRate      = doc.coverage.coverage_rate;
+  const noiseRate    = doc.noise.noise_rate;
+  const noisePct     = (noiseRate * 100).toFixed(1);
+  const covPct       = (covRate * 100).toFixed(1);
+  const covColor     = covRate >= 0.8 ? 'var(--success)' : covRate >= 0.5 ? 'var(--warning)' : 'var(--danger)';
+
+  const deltaHTML = stdCov !== null
+    ? (() => {
+        const delta = ((covRate - stdCov) * 100).toFixed(1);
+        const sign  = delta >= 0 ? '+' : '';
+        const color = delta > 0 ? 'var(--success)' : delta < 0 ? 'var(--danger)' : 'var(--text-3)';
+        return `<span style="font-size:0.85rem;color:${color};margin-left:8px">(${sign}${delta}% vs standard)</span>`;
+      })()
+    : '';
+
+  const noiseDeltaHTML = stdNoiseRate !== null
+    ? (() => {
+        const delta = ((noiseRate - stdNoiseRate) * 100).toFixed(1);
+        const sign  = delta >= 0 ? '+' : '';
+        // Noise decrease = good (green), noise increase = bad (red)
+        const color = delta < 0 ? 'var(--success)' : delta > 0 ? 'var(--danger)' : 'var(--text-3)';
+        return `<span style="font-size:0.85rem;color:${color};margin-left:8px">(${sign}${delta}% vs standard)</span>`;
+      })()
+    : '';
+
+  panel.innerHTML =
+    `<div class="metrics-row">
+      <div class="metric-card mc-coverage" style="animation-delay:0s">
+        <div class="metric-label">Coverage (PP)</div>
+        <div class="metric-value" style="color:${covColor}">${covPct}<span class="unit">%</span></div>
+        <div class="metric-sub">${esc(doc.coverage.total_missing_unique_ngrams_ratio)} trigrams missing${deltaHTML}</div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.06s">
+        <div class="metric-label">Noise (PP)</div>
+        <div class="metric-value" style="color:var(--danger)">${noisePct}<span class="unit">%</span></div>
+        <div class="metric-sub">${esc(doc.noise.noise_ratio)} parser words are noise${noiseDeltaHTML}</div>
+      </div>
+      <div class="metric-card mc-gt" style="animation-delay:.12s">
+        <div class="metric-label">GT Words</div>
+        <div class="metric-value">${fmt(doc.gt_total_words_non_unique)}</div>
+        <div class="metric-sub">ground truth tokens</div>
+      </div>
+      <div class="metric-card mc-parser" style="animation-delay:.18s">
+        <div class="metric-label">Parser Words</div>
+        <div class="metric-value">${fmt(doc.parser_total_words_non_unique)}</div>
+        <div class="metric-sub">after postprocessing</div>
+      </div>
+    </div>`
+
+  + `<div class="report-section" style="animation-delay:.08s">
+      <div class="sec-hdr">
+        <h3>Block Coverage Breakdown (PP)</h3>
+        <span class="sec-count">${doc.block_results.length} blocks</span>
+      </div>
+      ${doc.block_results.map((b, bi) => blockRowHTML(b, bi)).join('')}
+    </div>`
+
+  + (doc.noise.noise_words.length
+      ? `<div class="report-section" style="animation-delay:.16s">
+          <div class="sec-hdr">
+            <h3>Noise Words (PP)</h3>
+            <span class="sec-count">${doc.noise.noise_words_count}</span>
+          </div>
+          <div class="word-cloud">
+            ${doc.noise.noise_words.map(w =>
+              `<span class="tag tag-noise" dir="auto">${esc(w)}</span>`
+            ).join('')}
+          </div>
+        </div>`
+      : '');
+
+  /* ── Embedded PP Diagnostic Report ── */
+  const ppDiagDoc = (S.diagnostic_pp?.documents ?? [])[S.activeDoc];
+  if (ppDiagDoc) {
+    panel.innerHTML +=
+      `<div style="margin-top:28px">
+        <div class="agg-diag-hdr">
+          <h2>Diagnostic Report — Post-Processed</h2>
+          <span class="agg-sub">issues remaining after postprocessing</span>
+        </div>
+        ${buildDiagCardsHTML(ppDiagDoc, 'ppd')}
+      </div>`;
+  }
+
+  requestAnimationFrame(() =>
+    document.querySelectorAll('.blk-bar-fill').forEach(el =>
+      el.style.width = el.dataset.w + '%'
+    )
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   POSTPROCESSING — summary view
+══════════════════════════════════════════════════════════════════ */
+function renderPostprocessingSummary(panel) {
+  const ppDocs  = S.general_pp?.documents  ?? [];
+  const stdDocs = S.general?.documents     ?? [];
+  const n       = ppDocs.length;
+
+  if (!n) {
+    panel.innerHTML = `<p style="color:var(--text-3);padding:8px">No postprocessing data available. Run the evaluation first.</p>`;
+    return;
+  }
+
+  let totalCov = 0, stdTotalCov = 0, criticalFiles = 0;
+  ppDocs.forEach((doc, i) => {
+    totalCov += doc.coverage.coverage_rate;
+    if (doc.coverage.coverage_rate < 0.5) criticalFiles++;
+    stdTotalCov += stdDocs[i]?.coverage?.coverage_rate ?? 0;
+  });
+
+  const avgCov    = (totalCov / n * 100).toFixed(1);
+  const avgStdCov = (stdTotalCov / n * 100).toFixed(1);
+  const delta     = (totalCov / n * 100 - stdTotalCov / n * 100).toFixed(1);
+  const deltaSign = delta >= 0 ? '+' : '';
+  const deltaColor= delta > 0 ? 'var(--success)' : delta < 0 ? 'var(--danger)' : 'var(--text-3)';
+  const avgColor  = totalCov / n >= 0.8 ? 'var(--success)'
+                  : totalCov / n >= 0.5 ? 'var(--warning)'
+                  : 'var(--danger)';
+
+  const fileRows = ppDocs.map((doc, i) => {
+    const cov     = doc.coverage.coverage_rate;
+    const stdCov  = stdDocs[i]?.coverage?.coverage_rate ?? null;
+    const pct     = (cov * 100).toFixed(1);
+    const color   = cov >= 0.8 ? 'var(--success)' : cov >= 0.5 ? 'var(--warning)' : 'var(--danger)';
+    const dlt     = stdCov !== null ? ((cov - stdCov) * 100).toFixed(1) : null;
+    const dltHTML = dlt !== null
+      ? `<span style="font-size:0.68rem;color:${dlt > 0 ? 'var(--success)' : dlt < 0 ? 'var(--danger)' : 'var(--text-3)'}">${dlt >= 0 ? '+' : ''}${dlt}%</span>`
+      : '';
+    const name = trunc(doc.doc_name, 28);
+    return `
+      <div class="fh-row" onclick="selectDoc(${i})" title="${esc(doc.doc_name)}">
+        <div class="fh-name">${esc(name)}</div>
+        <div class="fh-bar-wrap">
+          <div class="fh-bar-track">
+            <div class="fh-bar-fill" style="background:${color}" data-w="${pct}"></div>
+          </div>
+          <div class="fh-pct" style="color:${color}">${pct}%</div>
+        </div>
+        <div class="fh-issues" style="text-align:right">${dltHTML}</div>
+        <div class="fh-score" style="color:${color}">${pct}</div>
+      </div>`;
+  }).join('');
+
+  panel.innerHTML =
+    `<div class="summary-metrics">
+      <div class="metric-card mc-coverage" style="animation-delay:0s">
+        <div class="metric-label">Avg Coverage (PP)</div>
+        <div class="metric-value" style="color:${avgColor}">${avgCov}<span class="unit">%</span></div>
+        <div class="metric-sub">across ${n} document${n !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="metric-card mc-noise" style="animation-delay:.06s">
+        <div class="metric-label">vs Standard</div>
+        <div class="metric-value" style="color:${deltaColor}">${deltaSign}${delta}<span class="unit">%</span></div>
+        <div class="metric-sub">coverage improvement</div>
+      </div>
+      <div class="metric-card mc-gt" style="animation-delay:.12s">
+        <div class="metric-label">Standard Avg</div>
+        <div class="metric-value">${avgStdCov}<span class="unit">%</span></div>
+        <div class="metric-sub">baseline coverage</div>
+      </div>
+      <div class="metric-card mc-parser" style="animation-delay:.18s">
+        <div class="metric-label">Critical Files</div>
+        <div class="metric-value" style="color:${criticalFiles > 0 ? 'var(--danger)' : 'var(--success)'}">${criticalFiles}</div>
+        <div class="metric-sub">coverage &lt; 50% after PP</div>
+      </div>
+    </div>
+
+    <div class="fh-table">
+      <div class="fh-table-header">
+        <div>Document</div>
+        <div>PP Coverage</div>
+        <div style="text-align:right">Delta</div>
+        <div style="text-align:right">Score</div>
+      </div>
+      ${fileRows}
+    </div>`;
+
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fh-bar-fill').forEach(el =>
+      el.style.width = el.dataset.w + '%'
+    );
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
    GENERAL REPORT
 ══════════════════════════════════════════════════════════════════ */
 function renderGeneral(panel) {
@@ -1843,26 +2444,31 @@ function renderDiagnostic(panel) {
     return;
   }
 
-  const dp = doc.detected_problems;
+  panel.innerHTML = buildDiagCardsHTML(doc, '');
+}
 
-  panel.innerHTML =
-    diagCard('mb',      'var(--c-missing)', dp.MISSING_BLOCK_PARSE.count,
+/* Build diagnostic accordion cards HTML for a document.
+   idPrefix must be unique per call site to avoid duplicate DOM IDs. */
+function buildDiagCardsHTML(doc, idPrefix) {
+  const dp  = doc.detected_problems;
+  const pfx = idPrefix ? idPrefix + '-' : '';
+  return diagCard(pfx+'mb',    'var(--c-missing)', dp.MISSING_BLOCK_PARSE.count,
              'Missing Block Parse',
              'Blocks where ≤10% of GT content was found in parser output', .00,
              missingBlocksHTML(dp.MISSING_BLOCK_PARSE))
-  + diagCard('ocr',    'var(--c-ocr)',     dp.OCR_SPLIT.count,
+       + diagCard(pfx+'ocr',   'var(--c-ocr)',     dp.OCR_SPLIT.count,
              'OCR Split',
              'GT words split into two consecutive fragments by the parser', .05,
              ocrSplitsHTML(dp.OCR_SPLIT))
-  + diagCard('merge',  'var(--c-merged)',  dp.MERGED_WORDS.count,
+       + diagCard(pfx+'merge', 'var(--c-merged)',  dp.MERGED_WORDS.count,
              'Merged Words',
              'Two adjacent GT words concatenated into one token', .10,
              mergedWordsHTML(dp.MERGED_WORDS))
-  + diagCard('fmt',    'var(--c-format)',  dp.FORMATTING_ISSUES.count,
+       + diagCard(pfx+'fmt',   'var(--c-format)',  dp.FORMATTING_ISSUES.count,
              'Formatting Issues',
              'Word order reversals and misplaced punctuation tokens', .15,
              formattingHTML(dp.FORMATTING_ISSUES))
-  + diagCard('unc',    'var(--c-unclass)', dp.UNCLASSIFIED.count,
+       + diagCard(pfx+'unc',   'var(--c-unclass)', dp.UNCLASSIFIED.count,
              'Unclassified',
              'Missing ngrams that no detector could explain', .20,
              unclassifiedHTML(dp.UNCLASSIFIED));

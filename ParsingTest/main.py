@@ -29,16 +29,17 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 import argparse
-from typing import List
+from typing import List, Optional, Set, Tuple
 
 import gt_loader
-from diagnostics import run_diagnostics
+from Diagnostics import run_diagnostics, DIAGNOSTICS_PP_FILENAME
 from metrics import compute_coverage, compute_noise, generate_ngrams
 from models import BlockResult, DocumentResult, Score
 from ocr import pre_test
 from parser import parse
+from postprocessing import Postprocessing
 from reporting import print_result, print_summary, save_json_report
-from utils import collect_files_dirs_to_test, clean_text, find_document_file, normalize_punctuation, tokenize
+from utils import collect_files_dirs_to_test, clean_text, find_document_file, tokenize
 
 
 def _is_punct_token(word: str) -> bool:
@@ -54,15 +55,28 @@ def _maybe_strip_punctuation_tokens(tokens: List[str], n: int) -> List[str]:
 # Document evaluation
 # ══════════════════════════════════════════════
 
-def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[str], Set[str], Set[str], str]:   
+def evaluate_document(
+    file_dir:      Path,
+    n:             int = 3,
+    postprocessor: Optional[Postprocessing] = None,
+    _parser_text:  Optional[str] = None,
+) -> Tuple[DocumentResult, Set[str], Set[str], Set[str], str, str]:
     """
     Evaluate a single document folder.
 
     Steps:
       1. Load GT blocks from gt/
-      2. Find and parse the document file
-      3. Compute coverage (per block) and noise (document level)
-      4. Return a fully populated DocumentResult
+      2. Find and parse the document file (or use *_parser_text* if supplied)
+      3. Optionally apply *postprocessor* to the parser output
+      4. Compute coverage (per block) and noise (document level)
+      5. Return a fully populated DocumentResult plus the raw parser text
+
+    Args:
+        postprocessor  — if provided, apply its ``apply()`` method to the
+                         parser text before tokenisation (PP pass).
+        _parser_text   — skip re-parsing and use this string directly;
+                         lets the PP pass reuse the text cached from the
+                         standard pass without calling the parser twice.
     """
     gt_dir = file_dir / "GT"
     if not gt_dir.exists():
@@ -76,9 +90,12 @@ def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[s
               file=sys.stderr)
 
     # ── Parse document ──────────────────────────────────────
-    test_file   = find_document_file(file_dir)
-    parser_text = parse(str(test_file))
-    parser_words = tokenize((parser_text))
+    test_file = find_document_file(file_dir)
+    # Use the cached raw text when available (avoids parsing the file twice).
+    raw_parser_text = _parser_text if _parser_text is not None else parse(str(test_file))
+    # Apply postprocessor when running the PP evaluation pass.
+    working_text = postprocessor.apply(raw_parser_text) if postprocessor is not None else raw_parser_text
+    parser_words = tokenize(working_text)
     parser_words = _maybe_strip_punctuation_tokens(parser_words, n)
 
 
@@ -96,7 +113,10 @@ def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[s
     block_results: List[BlockResult] = []
     for i, block_words in enumerate(gt_blocks, start=1):
         coverage_block_score, missing = compute_coverage(
-            block_words, parser_ngrams_set,n
+            block_words,
+            parser_ngrams_set,
+            parser_words_set=parser_words_set,
+            n=n,
         )
         block_results.append(BlockResult(
             block_index          = i,
@@ -126,7 +146,7 @@ def evaluate_document(file_dir: Path,n: int = 3,) -> Tuple[DocumentResult, Set[s
 
     file_ext = Path(str(test_file)).suffix.lower()
 
-    return res, parser_ngrams_set, parser_words_set,parser_bigrams_set, file_ext
+    return res, parser_ngrams_set, parser_words_set, parser_bigrams_set, file_ext, raw_parser_text
 
 
 
@@ -185,15 +205,22 @@ def main() -> None:
     if not files_dirs:
         raise SystemExit("No valid document folders found.")
 
-    results: List[DocumentResult] = []
+    results:     List[DocumentResult] = []
     parser_data: List[Tuple[Set[str], Set[str], Set[str], str]] = []
+    # Pairs of (file_dir, raw_parser_text) for every document that succeeded,
+    # used to feed the postprocessing pass without re-invoking the parser.
+    successful_runs: List[Tuple[Path, str]] = []
 
-
+    # ══════════════════════════════════════════════
+    # Pass 1 — Standard evaluation
+    # ══════════════════════════════════════════════
     for file_dir in files_dirs:
         try:
-            result, p_ngrams_set, p_words_set, p_bigrams_set,f_ext  = evaluate_document(file_dir, n=args.n)
+            result, p_ngrams_set, p_words_set, p_bigrams_set, f_ext, raw_text = \
+                evaluate_document(file_dir, n=args.n)
             results.append(result)
             parser_data.append((p_ngrams_set, p_words_set, p_bigrams_set, f_ext))
+            successful_runs.append((file_dir, raw_text))
 
             if not args.quiet:
                 print_result(result, verbose=args.verbose, n=args.n)
@@ -214,6 +241,32 @@ def main() -> None:
     # ── Diagnostics JSON (always written, fixed filename) ────
     if results:
         run_diagnostics(results, parser_data, input_dir)
+
+    # ══════════════════════════════════════════════
+    # Pass 2 — Postprocessing evaluation
+    # ══════════════════════════════════════════════
+    pp = Postprocessing()
+    results_pp:     List[DocumentResult] = []
+    parser_data_pp: List[Tuple[Set[str], Set[str], Set[str], str]] = []
+
+    for file_dir, raw_text in successful_runs:
+        try:
+            result_pp, p_ngrams_pp, p_words_pp, p_bigrams_pp, f_ext, _ = \
+                evaluate_document(file_dir, n=args.n, postprocessor=pp, _parser_text=raw_text)
+            results_pp.append(result_pp)
+            parser_data_pp.append((p_ngrams_pp, p_words_pp, p_bigrams_pp, f_ext))
+        except Exception as e:
+            print(f"[warn] Postprocessing failed for {file_dir.name}: {e}", file=sys.stderr)
+
+    # ── Postprocessing results JSON ───────────────────────────
+    if args.output and results_pp:
+        pp_output = args.output.parent / ("postprocessing-" + args.output.stem + args.output.suffix)
+        save_json_report(results_pp, pp_output, n=args.n)
+
+    # ── Postprocessing diagnostics JSON ──────────────────────
+    if results_pp:
+        run_diagnostics(results_pp, parser_data_pp, input_dir,
+                        output_filename=DIAGNOSTICS_PP_FILENAME)
 
 
 

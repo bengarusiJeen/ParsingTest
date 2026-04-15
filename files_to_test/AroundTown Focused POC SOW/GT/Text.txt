@@ -98,7 +98,7 @@ This keeps the classification task focused and measurable.
 dedicated internal “Classification_Management” database table in the Jeen DB.
 5 Human-in-the-loop validation via Teams Adaptive Card Send email with classification and read the reply To avoid Microsoft Teams integration, we 
 suggest two options: 
-1 –Email: The agent will send a validation email from a dedicated Jeen mailbox.
+1 – Email: The agent will send a validation email from a dedicated Jeen mailbox.
  The system will monitor and parse replies to capture Approve/Reject responses. 
 2 – Database: The classifications are written into a database, and the user can approve or reclassify them there.
 ====

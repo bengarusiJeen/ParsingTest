@@ -164,25 +164,76 @@ def clean_text(text: str) -> str:
 
 
 
-def normalize_punctuation(text: str) -> str:
+def normalize_gt_punctuation(text: str) -> str:
     """
-    Ensure every punctuation character is surrounded by spaces so it becomes
-    its own token, regardless of how the parser originally attached it to words.
+    Normalize punctuation in Ground Truth (GT) text to its ideal format.
+    This represents the target output format — apply to GT only.
 
-    Examples:
-        "שלום,עולם."        →  "שלום , עולם ."
-        "קוראים לי בן,אני"  →  "קוראים לי בן , אני"
-        "hello(world)"      →  "hello ( world )"
+    Rules
+    -----
+    1. Standard punctuation (.  ?  !  ,) and brackets:
+       Remove any space between the preceding word and the mark/closing bracket.
+       Remove any space immediately after an opening bracket.
+         Correct:   word.   (word)
+         Incorrect: word .  ( word )
 
-    Apply to BOTH parser output and GT text before comparison so that
-    "word," and "word ," are treated identically.
+    2. Dashes (-)
+       • Compound words: remove spaces around '-' when both adjacent
+         characters are letters  →  well - known  →  well-known
+       • Bullet points: a dash at the start of a line (optionally after
+         leading whitespace) is treated as a bullet; the space after it
+         is preserved  →  - Item
+       • Date / number ranges (e.g. 2020 - 2024): left untouched.
+
+    3. Slashes (/)
+       Remove spaces on either side of '/' between non-whitespace chars.
+         Correct:   and/or
+         Incorrect: and / or
     """
-    # Pad every non-word, non-space character with spaces on both sides.
-    # \w matches Unicode word characters (including Hebrew letters and digits),
-    # so [^\w\s] reliably targets punctuation in multilingual text.
-    text = re.sub(r"([^\w\s])", r" \1 ", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
+    # ── Rule 1: Standard punctuation & brackets ──────────────────
+    # Remove space(s) before . ? ! , ) ] }
+    text = re.sub(r'[ \t]+([.?!,)\]}])', r'\1', text)
+    # Remove space(s) after opening bracket ( [ {
+    text = re.sub(r'([\[({])[ \t]+', r'\1', text)
+
+    # ── Rule 2: Dashes ────────────────────────────────────────────
+    # Compound words: remove spaces around '-' only when both adjacent
+    # characters are letters (Latin or Hebrew).
+    # • Bullet-point dashes (start-of-line dashes) are naturally excluded
+    #   because the lookbehind requires a letter immediately before.
+    # • Numerical ranges (2020 - 2024) are naturally excluded because
+    #   the lookbehind/lookahead require letters, not digits.
+    text = re.sub(
+        r'(?<=[A-Za-z\u0590-\u05FF\uFB1D-\uFB4F])[ \t]*-[ \t]*'
+        r'(?=[A-Za-z\u0590-\u05FF\uFB1D-\uFB4F])',
+        '-',
+        text,
+        flags=re.MULTILINE,
+    )
+
+    # ── Rule 3: Slashes ───────────────────────────────────────────
+    # Remove spaces on either side of '/' between non-whitespace chars.
+    # Uses [ \t]* so newlines are never consumed.
+    text = re.sub(r'(?<=[^\s])[ \t]*/[ \t]*(?=[^\s])', '/', text, flags=re.MULTILINE)
+
+    # ── Rule 4: Colons ────────────────────────────────────────────
+    # Remove space(s) before ':' when the preceding character is a letter
+    # (Hebrew or Latin).  This mirrors the Postprocessing._fix_colon_spacing
+    # rule so that GT and parser output always agree on colon placement:
+    #
+    #   'Response Format :'  →  'Response Format:'
+    #   'מטרת הרכיב :'       →  'מטרת הרכיב:'
+    #
+    # Times (digit:digit) are not affected — well-formed literals have no
+    # space before the colon.  URL schemes are guarded by (?!/) lookahead.
+    text = re.sub(
+        r'(?<=[A-Za-z\u0590-\u05FF\uFB1D-\uFB4F])[ \t]+:(?!/)',
+        ':',
+        text,
+        flags=re.MULTILINE,
+    )
+
+    return text
 
 
 def tokenize(text: str) -> List[str]:
