@@ -12,49 +12,19 @@ from __future__ import annotations
 
 import re
 
+from docx import text
+
 
 class Postprocessing:
-    """
-    Applies punctuation-normalisation rules to raw parser output text,
-    mirroring the ideal format defined by ``normalize_gt_punctuation``.
 
-    Call :meth:`apply` on a parser text string before tokenisation so that
-    spurious punctuation spacing no longer counts as a missed n-gram.
-
-    Rules
-    -----
-    1. Standard punctuation (.  ?  !  ,) and brackets:
-       Remove any space before the mark or a closing bracket.
-       Remove any space after an opening bracket.
-
-    2. Colons:
-       a. RTL flip repair — if a line is Hebrew-dominant and starts with
-          a bare ':' (the PDF extractor placed the colon on the wrong side
-          due to RTL rendering), move the colon to the logical end of the line:
-              ': מטרת הרכיב'  →  'מטרת הרכיב:'
-       b. Space-before-colon repair — remove any spaces between a letter
-          (Hebrew or Latin) and the following ':'.  Times (digit:digit) and
-          URL schemes (://) are left untouched.
-
-    3. Compound-word dashes:
-       Remove spaces around ``-`` when both adjacent characters are letters
-       (Latin or Hebrew).  Bullet-point dashes (line-start) and digit
-       ranges are left untouched.
-
-    4. Slashes:
-       Remove spaces on either side of ``/`` between non-whitespace chars.
-
-    5. Mixed-language fusions:
-       Insert a space at any boundary where a Hebrew character is immediately
-       adjacent to a Latin letter or a digit (in either direction), so that
-       tokens like ``קיבלהTrue`` or ``נספח3`` are split into separate words.
-    """
 
     # Hebrew Unicode ranges used across several rules.
     _HEB = r'\u0590-\u05FF\uFB1D-\uFB4F'
 
     def apply(self, text: str) -> str:
         """Return *text* with all punctuation normalisation rules applied."""
+        text = self._strip_asterisks(text)          # ← add this line
+
         text = self._fix_punctuation_spacing(text)
         text = self._fix_colon_spacing(text)
         text = self._fix_compound_dashes(text)
@@ -177,3 +147,9 @@ class Postprocessing:
             text,
         )
         return text
+    
+
+    def _strip_asterisks(self, text: str) -> str:
+        """Remove asterisks used as bold/emphasis markers in parser output."""
+        return text.replace('**', '')
+

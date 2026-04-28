@@ -21,13 +21,14 @@ while minimizing integration complexity with AroundTown’s production systems.
 ====
 2. Focused PoC Approach & Trade-Offs
 To reduce complexity, friction, and implementation time, the PoC will intentionally avoid direct integrations with AroundTown environment (e.g., SharePoint, Metadata write-back, Teams Adaptive Cards, external triggers, etc.).
-Key Trade-Offs
-Original Direction Focused PoC Alternative Rationale
-1 External trigger Manual or scheduled trigger (every X minutes) Avoids dependency on SharePoint or External triggers
-2 Real-time parallel processing Batch processing (up to X files per run) Simplifies orchestration for PoC.
-3 SharePoint storage & routing Jeen internal Azure Blob storage Demonstrates routing logic without external integration complexity.
-4 Teams Adaptive Card validation Email-based approval or DB-based approval Avoids Teams integration
-5 SharePoint metadata write-back Jeen internal database tables Maintains traceability without requiring SharePoint schema configuration.
+
+|Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale|
+|---|---|---|---|
+|1|External trigger|Manual or scheduled<br>trigger (every X minutes)|Avoids dependency on<br>SharePoint or External triggers|
+|2|Real-time parallel<br>processing|Batch processing (up to X<br>files per run)|Simplifies orchestration for<br>PoC.|
+|3|SharePoint storage &<br>routing|Jeen internal Azure Blob<br>storage|Demonstrates routing logic<br>without external integration<br>complexity.|
+|4|Teams Adaptive Card<br>validation|Email-based approval or<br>DB-based approval|Avoids Teams integration|
+|5|SharePoint metadata<br>write-back|Jeen internal database<br>tables|Maintains traceability without<br>requiring SharePoint schema<br>configuration.|
 This approach allows the PoC to be delivered with a smaller team, less friction, and shorter timeline while still validating the AI-driven workflow.
 ====
 ====
@@ -86,37 +87,24 @@ The PoC will be considered successful if the following criteria are met:
 5. Step by Step - Focused PoC Approach 
 To ensure fast delivery, reduced friction, and minimal dependency on external systems (AroundTown environment), we propose a more focused PoC version with fewer integrations.
 This allows us to work with a smaller team and shorten the implementation timeline.
-# AroundTown Request Suggested Clarification
-1 Detect newly uploaded documents in SharePoint Batch reading of uploaded files every X minutes from an Azure Blob folder 1- A manual (or scheduled) trigger will run every X minute and collect up to 10 new files. 
-For PoC we will process them in batch (not full real-time parallel automation).
-2- To avoid SharePoint integration complexity in the PoC phase: we will use jeen Azure Blob storage 
-2 Classify into known document types (Energy Certificate, Contract, Photo Documentation, etc.)
-Same capability –AI classification The agent will classify documents into up to 5 predefined document types.
-This keeps the classification task focused and measurable.
-3 Extract defined key values / descriptions based on guidelines We need clarification for this requirement
-4 Write extracted values back to SharePoint metadata Write classification results to an internal Jeen database To avoid SharePoint integration complexity in the PoC phase, results will be stored in a 
-dedicated internal “Classification_Management” database table in the Jeen DB.
-5 Human-in-the-loop validation via Teams Adaptive Card Send email with classification and read the reply To avoid Microsoft Teams integration, we 
-suggest two options: 
-1 – Email: The agent will send a validation email from a dedicated Jeen mailbox.
- The system will monitor and parse replies to capture Approve/Reject responses. 
-2 – Database: The classifications are written into a database, and the user can approve or reclassify them there.
+|#|AroundTownRequest|Suggested|Clarification|
+|---|---|---|---|
+|1|Detect newly uploaded<br>documents in<br>SharePoint|Batch reading of<br>uploaded files<br>every X minutes<br>from an Azure<br>Blob folder|1- A manual (or scheduled) trigger will run<br>every X minute and collect up to 10 new files.<br>For PoC we will process them in batch (not<br>full real-time parallel automation).<br>2- To avoid SharePoint integration<br>complexity in the PoC phase: we will use<br>jeen Azure Blob storage|
+|2|Classify into known<br>document types (Energy<br>Certificate, Contract,<br>Photo Documentation,<br>etc.)|Same capability –<br>AI classification|The agent will classify documents into up to<br>5 predefined document types. This keeps the<br>classification task focused and measurable.|
+|3|Extract defined key<br>values/descriptions<br>based on guidelines|We need<br>clarification for<br>this requirement||
+|4|Write extracted values<br>back to SharePoint<br>metadata|Write<br>classification<br>results to an<br>internal Jeen<br>database|To avoid SharePoint integration complexity in<br>the PoC phase, results will be stored in a<br>dedicated internal<br>“Classification_Management” database<br>table in the Jeen DB.|
+|5|Human-in-the-loop<br>validation via Teams<br>Adaptive Card|Send email with<br>classification and<br>read the reply|To avoid Microsoft Teams integration, we<br>suggest two options:<br>1 – Email:The agent will send a validation<br>email from a dedicated Jeen mailbox. The<br>system will monitor and parse replies to<br>capture Approve/Reject responses.<br>2 – Database: The classifications are written<br>into a database, and the user can approve or<br>reclassify them there.|
 ====
 ====
-6 Rename + move file to correct SharePoint library/folder Move file to an internal Azure Blob folder per classification (one folder per classification) To avoid SharePoint integration complexity in the PoC phase:
-we will use jeen Azure Blob storage. 
-Instead of moving files inside AroundTown SharePoint, files will be stored in Jeen’s internal Azure Blob folders.
-This demonstrates routing logic without external integrations.
-7 Archive originals + full audit trail Archive into Azure Blob + Store logs in Jeen’s internal log database table 
-1-To avoid SharePoint integration complexity 
-in the PoC phase: we will use jeen Azure Blob storage.
-Archive into a blob dedicated folder. 
-2- A dedicated internal database log table will track: document ID, classification, timestamps, user response, file movement, and processing status.
+|6|Rename+movefileto<br>correctSharePoint<br>library/folder|Movefiletoan<br>internalAzure<br>Blobfolderper<br>classification(one<br>folderper<br>classification)|ToavoidSharePointintegrationcomplexityin<br>thePoCphase:wewillusejeenAzureBlob<br>storage<br>.<br>InsteadofmovingfilesinsideAroundTown<br>SharePoint fileswillbestoredinJeen’s<br>,<br>internalAzureBlobfolders This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.|
+|---|---|---|---|
+|7|Archive originals + full<br>audit trail|Archive into Azure<br>Blob + Store logs<br>in Jeen’s internal<br>log database<br>table|1-To avoid SharePoint integration complexity<br>in the PoC phase: we will use jeen Azure Blob<br>storage. Archive into a blob dedicated folder.<br>2- A dedicated internal database log table<br>will track: document ID, classification,<br>timestamps, user response, file movement,<br>and processing status.|
 Key Trade-Offs
-# Original Direction Focused PoC Alternative
-1 External trigger Manual or scheduled trigger
-2 Parallel real-time processing Batch processing (up to X files)
-3 SharePoint storage & routing Jeen internal Azure Blob storage
-4 Teams Adaptive Card validation Email reply or DB-based approval
-5 SharePoint metadata write-back Jeen internal database tables
+|#|OriginalDirection|FocusedPoCAlternative|
+|---|---|---|
+|1|External trigger|Manual or scheduled trigger|
+|2|Parallel real-time processing|Batch processing (up to X files)|
+|3|SharePoint storage & routing|Jeen internal Azure Blob storage|
+|4|Teams Adaptive Card validation|Email reply or DB-based approval|
+|5|SharePoint metadata write-back|Jeen internal database tables|
 ====

@@ -15,9 +15,12 @@ Hebrew<->Latin boundary normalisation is handled upstream in clean_text()
 """
 from __future__ import annotations
 
-from typing import List, Set, Tuple
+from typing import List, Set, Tuple, TYPE_CHECKING, Optional
 
 from models import Score
+
+if TYPE_CHECKING:
+    from substitutions import SubstitutionTable
 
 
 def generate_ngrams(words: List[str], n: int = 3) -> List[str]:
@@ -42,6 +45,7 @@ def compute_coverage(
     parser_ngrams_set: Set[str],
     parser_words_set: Set[str] | None = None,
     n: int = 3,
+    sub_table: Optional[SubstitutionTable] = None,   
 ) -> Tuple[Score, List[str]]:
     """
     Measure how many GT n-grams appear in the parser output.
@@ -55,6 +59,16 @@ def compute_coverage(
     """
     if not block_words:
         return Score(checked=0, failed=0), []
+    
+    # Pre-build translated shadow sets once — used only for fallback lookups.
+    translated_parser_ngrams: Optional[Set[str]] = (
+        {sub_table.translate(p) for p in parser_ngrams_set}
+        if sub_table else None
+    )
+    translated_parser_words: Optional[Set[str]] = (
+        {sub_table.translate(w) for w in parser_words_set}
+        if (sub_table and parser_words_set) else None
+    )
 
     # When a GT block is shorter than the requested n-gram size, fall back to
     # word-level checks so short blocks still get evaluated instead of being
@@ -63,6 +77,9 @@ def compute_coverage(
         if parser_words_set is None:
             phrase = " ".join(block_words)
             if phrase in parser_ngrams_set:
+                return Score(checked=1, failed=0), []
+            if translated_parser_ngrams is not None and \
+               sub_table.translate(phrase) in translated_parser_ngrams:
                 return Score(checked=1, failed=0), []
             return Score(checked=1, failed=1), [phrase]
 
@@ -73,6 +90,10 @@ def compute_coverage(
                 continue
             seen_words.add(word)
             if word not in parser_words_set:
+                 # Substitution fallback for individual words.
+                if translated_parser_words is not None and \
+                   sub_table.translate(word) in translated_parser_words:
+                    continue
                 missing_words.append(word)
 
         score = Score(checked=len(seen_words), failed=len(missing_words))
@@ -90,6 +111,10 @@ def compute_coverage(
             continue
         seen.add(t)
         if t not in parser_ngrams_set:
+            # Substitution fallback for n-grams.
+            if translated_parser_ngrams is not None and \
+               sub_table.translate(t) in translated_parser_ngrams:
+                continue
             missing.append(t)
 
     score = Score(checked=len(gt_unique_ngrams), failed=len(missing))
@@ -99,6 +124,8 @@ def compute_coverage(
 def compute_noise(
     gt_words_set:     Set[str],
     parser_words_set: Set[str],
+    sub_table: Optional["SubstitutionTable"] = None,
+
 ) -> Tuple[Score, List[str]]:
     """
     Measure how many parser words are absent from the GT vocabulary.
@@ -106,6 +133,22 @@ def compute_noise(
     Returns:
         (Score, extra_words)   Score.rate == 1.0 means zero noise.
     """
-    extra = list(parser_words_set - gt_words_set)
+
+    # Pre-build translated GT shadow set once.
+    translated_gt: Optional[Set[str]] = (
+        {sub_table.translate(w) for w in gt_words_set}
+        if sub_table else None
+    )
+
+    extra: list[str] = []
+    for w in parser_words_set:
+        if w not in gt_words_set:
+            # Substitution fallback — not noise if translated form is in GT.
+            if translated_gt is not None and \
+               sub_table.translate(w) in translated_gt:
+                continue
+            extra.append(w)
+ 
     score = Score(checked=len(parser_words_set), failed=len(extra))
+
     return score, extra

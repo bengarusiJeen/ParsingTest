@@ -30,4 +30,4 @@ http://acm.org/publications/policies/copyright_policy
 Subsequent Pages
 On pages beyond the first, start at the top of the page and continue in double-column format. The two columns on the last page should be of approximately equal length.
 
-Figure . Insert a numbered caption below each figure/table. Times New Roman 9-point bold. One-line captions should be centered; multi-line should be justified.
+Figure. Insert a numbered caption below each figure/table. Times New Roman 9-point bold. One-line captions should be centered; multi-line should be justified.

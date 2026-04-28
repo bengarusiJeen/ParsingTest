@@ -40,6 +40,7 @@ from parser import parse
 from postprocessing import Postprocessing
 from reporting import print_result, print_summary, save_json_report
 from utils import collect_files_dirs_to_test, clean_text, find_document_file, tokenize
+from substitutions import SubstitutionTable
 
 
 def _is_punct_token(word: str) -> bool:
@@ -60,6 +61,7 @@ def evaluate_document(
     n:             int = 3,
     postprocessor: Optional[Postprocessing] = None,
     _parser_text:  Optional[str] = None,
+    sub_table:     Optional[SubstitutionTable] = None,   # ← add this
 ) -> Tuple[DocumentResult, Set[str], Set[str], Set[str], str, str]:
     """
     Evaluate a single document folder.
@@ -88,6 +90,9 @@ def evaluate_document(
     if not gt_blocks:
         print(f"[warn] {file_dir.name}: no ==== body blocks found in GT",
               file=sys.stderr)
+        
+    all_gt_words_set    = {word for block in gt_blocks for word in block}
+    
 
     # ── Parse document ──────────────────────────────────────
     test_file = find_document_file(file_dir)
@@ -100,7 +105,6 @@ def evaluate_document(
 
 
     # ── Build lookup sets ────────────────────────────────────
-    all_gt_words_set    = {word for block in gt_blocks for word in block}
     parser_words_set    = set(parser_words)
     parser_ngrams_set   = set(generate_ngrams(parser_words, n))
 
@@ -117,6 +121,8 @@ def evaluate_document(
             parser_ngrams_set,
             parser_words_set=parser_words_set,
             n=n,
+            sub_table=sub_table,    # ← add this
+
         )
         block_results.append(BlockResult(
             block_index          = i,
@@ -125,7 +131,7 @@ def evaluate_document(
         ))
 
     # ── Document-level noise ─────────────────────────────────
-    noise_score, extra = compute_noise(all_gt_words_set, parser_words_set)
+    noise_score, extra = compute_noise(all_gt_words_set, parser_words_set, sub_table=sub_table)
 
     # ── Aggregate coverage ───────────────────────────────────
     total_checked = sum(br.coverage_block_score.checked for br in block_results)
@@ -181,6 +187,7 @@ Examples
                    help="Folder containing one subfolder per document.")
     p.add_argument("--output",  type=Path,
                    help="Save JSON report to this file.")
+
     p.add_argument("--verbose", action="store_true",
                    help="Print every missing and extra word for each document.")
     p.add_argument("--n",       type=int, default=3,
@@ -204,6 +211,9 @@ def main() -> None:
     files_dirs = collect_files_dirs_to_test(input_dir)
     if not files_dirs:
         raise SystemExit("No valid document folders found.")
+    
+    sub_table = SubstitutionTable.load(Path(__file__).parent / "substitutions.json")
+
 
     results:     List[DocumentResult] = []
     parser_data: List[Tuple[Set[str], Set[str], Set[str], str]] = []
@@ -217,7 +227,7 @@ def main() -> None:
     for file_dir in files_dirs:
         try:
             result, p_ngrams_set, p_words_set, p_bigrams_set, f_ext, raw_text = \
-                evaluate_document(file_dir, n=args.n)
+                evaluate_document(file_dir, n=args.n, sub_table=sub_table)  # ← add sub_table to the call
             results.append(result)
             parser_data.append((p_ngrams_set, p_words_set, p_bigrams_set, f_ext))
             successful_runs.append((file_dir, raw_text))
@@ -249,12 +259,19 @@ def main() -> None:
     results_pp:     List[DocumentResult] = []
     parser_data_pp: List[Tuple[Set[str], Set[str], Set[str], str]] = []
 
+    pp_text_dir = Path(__file__).parent.parent / "parsing_files"
+    pp_text_dir.mkdir(exist_ok=True)
+
     for file_dir, raw_text in successful_runs:
         try:
             result_pp, p_ngrams_pp, p_words_pp, p_bigrams_pp, f_ext, _ = \
-                evaluate_document(file_dir, n=args.n, postprocessor=pp, _parser_text=raw_text)
+                evaluate_document(file_dir, n=args.n, postprocessor=pp, _parser_text=raw_text, sub_table=sub_table)
             results_pp.append(result_pp)
             parser_data_pp.append((p_ngrams_pp, p_words_pp, p_bigrams_pp, f_ext))
+
+            postprocessed_text = pp.apply(raw_text)
+            out_file = pp_text_dir / f"{file_dir.name}_after_post.txt"
+            out_file.write_text(postprocessed_text, encoding="utf-8")
         except Exception as e:
             print(f"[warn] Postprocessing failed for {file_dir.name}: {e}", file=sys.stderr)
 

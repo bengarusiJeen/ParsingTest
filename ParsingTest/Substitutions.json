@@ -1,0 +1,11 @@
+{
+  "_comment": "Equivalence groups for scoring. Characters within the same group are treated as interchangeable during metric evaluation. Raw text is never modified — substitution is applied transiently during lookup only. Add new groups as needed; order within a group does not matter.",
+  "equivalence_groups": [
+    [
+      "•",
+      "-",
+      "–",
+      "—"
+    ]
+  ]
+}

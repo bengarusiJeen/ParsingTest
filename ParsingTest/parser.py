@@ -1,34 +1,22 @@
 """
 parser.py
 ---------
-Document parser plug-in.
-
-TODAY  — built-in fallback parser (PyMuPDF, python-docx, python-pptx, openpyxl).
-TOMORROW — replace the import below with your friend's parser:
-
-    from my_friends_parser import parse          # must match signature below
+Document parser plug-in — company parser-service (http://localhost:4004).
 
 Expected signature:
     parse(file_path: str) -> str
 
-The function receives the absolute path to a document file and must return
-the extracted text as a plain Python string (no markdown, no formatting).
-
-Supported types for the built-in fallback:
-    .pdf  .docx  .doc  .txt  .pptx  .xlsx
+Sends the file as raw bytes to the parser-service and returns the extracted
+plain text from the response's "content" field.
 """
 from __future__ import annotations
 
 from pathlib import Path
 
-from utils import tokenize
+import httpx
 
-
-# ── Swap this import to plug in a different parser ──────────────────────────
-# from my_friends_parser import parse
-# ────────────────────────────────────────────────────────────────────────────
-
-
+# PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # default (uses Azure DI for PDFs)
+PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # base URL — parser_method added per file type below
 _OUTPUT_DIR = Path(r"C:\Users\BenGarusi\Desktop\Parsing Test\parsing_files")
 
 
@@ -40,64 +28,37 @@ def _save_output(file_path: Path, text: str) -> None:
 
 def parse(file_path: str) -> str:
     """
-    Extract plain text from a document file.
-    Returns raw extracted text with no formatting or markdown.
+    Extract plain text from a document file via the company parser-service.
+    Returns the extracted text as a plain string.
     """
-    import fitz              # PyMuPDF
-    import docx as _docx    # python-docx
-    from pptx import Presentation
-
     path = Path(file_path)
-    ext  = path.suffix.lower()
 
-    if ext == ".pdf":
-        doc   = fitz.open(str(path))
-        pages = [page.get_text() for page in doc]
-        doc.close()
-        result = "\n".join(pages)
+    with open(path, "rb") as f:
+        file_bytes = f.read()
 
-    elif ext in (".docx", ".doc"):
-        doc   = _docx.Document(str(path))
-        lines = [p.text for p in doc.paragraphs if p.text.strip()]
-        for table in doc.tables:
-            for row in table.rows:
-                for cell in row.cells:
-                    t = cell.text.strip()
-                    if t:
-                        lines.append(t)
-        result = "\n".join(lines)
+    # HTTP headers must be ASCII — fall back to a safe name if filename contains non-ASCII (e.g. Hebrew)
+    try:
+        path.name.encode("ascii")
+        safe_filename = path.name
+    except UnicodeEncodeError:
+        safe_filename = f"document{path.suffix}"
 
-    elif ext == ".txt":
-        result = path.read_text(encoding="utf-8")
+    # --- Parser method selection (swap the active line to switch parsers) ---
+    # url = PARSER_SERVICE_URL + ("?parser_method=pdf_pymupdf" if path.suffix.lower() == ".pdf" else "")  # PyMuPDF (PDFs only) + auto-detect (others)
+    url = PARSER_SERVICE_URL + "?parser_method=base_text_parser"  # Base Text Parser (all file types)
 
-    elif ext == ".pptx":
-        prs   = Presentation(str(path))
-        lines = []
-        for slide in prs.slides:
-            for shape in slide.shapes:
-                if shape.has_text_frame:
-                    for para in shape.text_frame.paragraphs:
-                        t = para.text.strip()
-                        if t:
-                            lines.append(t)
-        result = "\n".join(lines)
+    response = httpx.post(
+        url,
+        content=file_bytes,
+        headers={
+            "Content-Type": "application/octet-stream",
+            "X-Original-Filename": safe_filename,
+        },
+        timeout=120,
+    )
+    response.raise_for_status()
 
-    elif ext == ".xlsx":
-        import openpyxl
-        wb    = openpyxl.load_workbook(str(path), data_only=True)
-        lines = []
-        for ws in wb.worksheets:
-            for row in ws.iter_rows(values_only=True):
-                row_text = "  ".join(str(v) for v in row if v is not None)
-                if row_text.strip():
-                    lines.append(row_text)
-        result = "\n".join(lines)
-
-    else:
-        raise NotImplementedError(
-            f"parse(): unsupported file type '{ext}'.\n"
-            f"File attempted: {file_path}"
-        )
+    result = response.json().get("content", "")
 
     _save_output(path, result)
     return result
