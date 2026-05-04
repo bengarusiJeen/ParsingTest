@@ -92,6 +92,10 @@ def evaluate_document(
               file=sys.stderr)
         
     all_gt_words_set    = {word for block in gt_blocks for word in block}
+
+    # ──────────────────── INIT postprocessor vocab with all GT words ──────────────────
+    if postprocessor is not None:
+        postprocessor._vocab = all_gt_words_set
     
 
     # ── Parse document ──────────────────────────────────────
@@ -255,6 +259,8 @@ def main() -> None:
     # ══════════════════════════════════════════════
     # Pass 2 — Postprocessing evaluation
     # ══════════════════════════════════════════════
+    
+
     pp = Postprocessing()
     results_pp:     List[DocumentResult] = []
     parser_data_pp: List[Tuple[Set[str], Set[str], Set[str], str]] = []

@@ -15,8 +15,8 @@ from pathlib import Path
 
 import httpx
 
-# PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # default (uses Azure DI for PDFs)
-PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # base URL — parser_method added per file type below
+PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # default (uses Azure DI for PDFs)
+# PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # base URL — parser_method added per file type below
 _OUTPUT_DIR = Path(r"C:\Users\BenGarusi\Desktop\Parsing Test\parsing_files")
 
 
@@ -44,6 +44,7 @@ def parse(file_path: str) -> str:
         safe_filename = f"document{path.suffix}"
 
     # --- Parser method selection (swap the active line to switch parsers) ---
+    # url = PARSER_SERVICE_URL + "?parser_method=document_intelligence"  # Azure DI (PDF, DOCX, DOC)
     # url = PARSER_SERVICE_URL + ("?parser_method=pdf_pymupdf" if path.suffix.lower() == ".pdf" else "")  # PyMuPDF (PDFs only) + auto-detect (others)
     url = PARSER_SERVICE_URL + "?parser_method=base_text_parser"  # Base Text Parser (all file types)
 

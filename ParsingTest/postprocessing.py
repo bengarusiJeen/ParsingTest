@@ -14,22 +14,36 @@ import re
 
 from docx import text
 
+# from docx import text
+
 
 class Postprocessing:
+     # Hebrew Unicode ranges used across several rules.
+    _HEB = r'\u0590-\u05FF\uFB1D-\uFB4F'
+    _HEB_TOKEN = re.compile(rf'[{_HEB}]+')
 
 
     # Hebrew Unicode ranges used across several rules.
     _HEB = r'\u0590-\u05FF\uFB1D-\uFB4F'
 
+    def __init__(self, vocab: set[str] | None = None):
+        self._vocab = vocab or set()
+
     def apply(self, text: str) -> str:
         """Return *text* with all punctuation normalisation rules applied."""
-        text = self._strip_asterisks(text)          # ← add this line
+        text = self._strip_asterisks(text)
+        text = self._strip_ocr_button_noise(text)
 
         text = self._fix_punctuation_spacing(text)
+        text = self._fix_rtl_flipped_punct(text)   # ← NEW
+
         text = self._fix_colon_spacing(text)
         text = self._fix_compound_dashes(text)
         text = self._fix_slashes(text)
         text = self._fix_mixed_language_fusions(text)
+
+        text = self._rejoin_split_hebrew_words(text)
+
         return text
 
     # ── Rule implementations ───────────────────────────────────────────────────
@@ -153,3 +167,87 @@ class Postprocessing:
         """Remove asterisks used as bold/emphasis markers in parser output."""
         return text.replace('**', '')
 
+    # OCR button/checkbox noise tokens produced by tools like AWS Textract or
+    # Azure Form Recognizer when they encounter form controls.
+    _OCR_BUTTON_NOISE = re.compile(
+        r':(?:unselected|selected|checked|unchecked):',
+        re.IGNORECASE,
+    )
+
+    def _strip_ocr_button_noise(self, text: str) -> str:
+        """Remove checkbox/button tokens injected by OCR engines.
+
+        Strips tokens such as :unselected:, :selected:, :checked:,
+        :unchecked: and collapses any whitespace they leave behind.
+        """
+        text = self._OCR_BUTTON_NOISE.sub('', text)
+        # Collapse runs of spaces left after token removal (preserve newlines).
+        text = re.sub(r'[ \t]{2,}', ' ', text)
+        # Drop lines that became empty or whitespace-only after removal.
+        lines = [ln if ln.strip() else '' for ln in text.split('\n')]
+        return '\n'.join(lines)
+
+
+
+    def _fix_rtl_flipped_punct(self, text: str) -> str:
+        lines = text.split('\n')
+        result = []
+        for line in lines:
+            # Match: optional leading whitespace → one of ) ] . , ? → optional
+            # whitespace → content. Captured separately so we can reposition the mark.
+            m = re.match(r'^[ \t]*([.,?])[ \t]*(.+?)[ \t]*$', line)
+            if m:
+                mark, body = m.group(1), m.group(2)
+                if self._is_hebrew_dominant(body) and not body.endswith(mark):
+                    line = body + mark
+            result.append(line)
+        return '\n'.join(result)
+    
+
+    def _rejoin_split_hebrew_words(self, text: str) -> str:
+        """Rejoin two adjacent Hebrew tokens when their concatenation is in
+        the vocabulary and the split looks like a parser artefact.
+
+        A join fires only when ALL of these are true:
+          1. Both tokens consist purely of Hebrew letters.
+          2. The concatenated form (a + b) is in the vocabulary.
+          3. At least one of the parts is NOT itself in the vocabulary
+             (i.e. at least one piece is a fragment, not a complete word).
+             This prevents collapsing two valid adjacent words like
+             'נציג רכש' just because 'נציגרכש' happens to share characters
+             with anything in vocab.
+
+        No-op when the vocabulary is empty.
+
+        Examples (with GT vocab containing 'נציג', 'בסכום', 'החברה')
+        -----------------------------------------------------------
+            'נצ יג'        →  'נציג'        (both parts are fragments)
+            'ב סכום'       →  'בסכום'       (only 'סכום' is a real word)
+            'נציג רכש'     →  'נציג רכש'    (both parts are real words → no merge)
+            'החב רה'       →  'החברה'       (both parts are fragments)
+        """
+        if not self._vocab:
+            return text
+
+        out_lines = []
+        for line in text.split('\n'):
+            tokens = line.split()
+            merged: list[str] = []
+            i = 0
+            while i < len(tokens):
+                cur = tokens[i]
+                if i + 1 < len(tokens):
+                    nxt = tokens[i + 1]
+                    if (self._HEB_TOKEN.fullmatch(cur)
+                            and self._HEB_TOKEN.fullmatch(nxt)):
+                        joined = cur + nxt
+                        if (joined in self._vocab
+                                and (cur not in self._vocab
+                                     or nxt not in self._vocab)):
+                            merged.append(joined)
+                            i += 2
+                            continue
+                merged.append(cur)
+                i += 1
+            out_lines.append(' '.join(merged))
+        return '\n'.join(out_lines)

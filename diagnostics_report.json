@@ -1,0 +1,1550 @@
+{
+  "summary": {
+    "total_documents": 5,
+    "total_missing_ngrams": 1206,
+    "MISSING_BLOCK_PARSE_total": 12,
+    "OCR_SPLIT_total": 39,
+    "MERGED_WORDS_total": 30,
+    "FORMATTING_ISSUES_total": 13,
+    "UNCLASSIFIED_total": 746
+  },
+  "documents": [
+    {
+      "doc_name": "5 עמודים",
+      "file_ext": ".pdf",
+      "total_missing_ngrams": 191,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 1,
+          "blocks_number": [
+            1
+          ]
+        },
+        "OCR_SPLIT": {
+          "count": 8,
+          "issues": [
+            {
+              "original_word": "ה-RAG",
+              "fragments_in_parser": [
+                "ה-",
+                "RAG"
+              ]
+            },
+            {
+              "original_word": "מסמכים.",
+              "fragments_in_parser": [
+                "מסמכים",
+                "."
+              ]
+            },
+            {
+              "original_word": "Tone.",
+              "fragments_in_parser": [
+                "Tone",
+                "."
+              ]
+            },
+            {
+              "original_word": "חובה.",
+              "fragments_in_parser": [
+                "חובה",
+                "."
+              ]
+            },
+            {
+              "original_word": "Format:",
+              "fragments_in_parser": [
+                "Format",
+                ":"
+              ]
+            },
+            {
+              "original_word": "מציג",
+              "fragments_in_parser": [
+                "מצי",
+                "ג"
+              ]
+            },
+            {
+              "original_word": "ההודעה",
+              "fragments_in_parser": [
+                "ה",
+                "הודעה"
+              ]
+            },
+            {
+              "original_word": "לדעת:",
+              "fragments_in_parser": [
+                "לדעת",
+                ":"
+              ]
+            }
+          ]
+        },
+        "MERGED_WORDS": {
+          "count": 7,
+          "issues": [
+            {
+              "merged_word": "קיבלהTrue",
+              "original": [
+                "קיבלה",
+                "True"
+              ]
+            },
+            {
+              "merged_word": "קיבלהFalse",
+              "original": [
+                "קיבלה",
+                "False"
+              ]
+            },
+            {
+              "merged_word": "באמצעותTime",
+              "original": [
+                "באמצעות",
+                "Time"
+              ]
+            },
+            {
+              "merged_word": "באמצעותMessage",
+              "original": [
+                "באמצעות",
+                "Message"
+              ]
+            },
+            {
+              "merged_word": "בTone.",
+              "original": [
+                "ב",
+                "Tone."
+              ]
+            },
+            {
+              "merged_word": "ערךFalse",
+              "original": [
+                "ערך",
+                "False"
+              ]
+            },
+            {
+              "merged_word": "בשדהGuard",
+              "original": [
+                "בשדה",
+                "Guard"
+              ]
+            }
+          ]
+        },
+        "FORMATTING_ISSUES": {
+          "count": 1,
+          "WORD_ORDER_REVERSAL": {
+            "count": 1,
+            "issues": [
+              {
+                "ngram": "באמצעות Limitation Message",
+                "type": "WORD_ORDER_REVERSAL",
+                "subtype": "PAIRWISE_REVERSAL",
+                "pair": [
+                  "Limitation",
+                  "Message"
+                ],
+                "gt_text": "Limitation Message",
+                "parser_text": "Message Limitation",
+                "confidence": "MEDIUM",
+                "evidence": "Latin↔Latin pair ('Limitation', 'Message'). Original 'Limitation Message' absent from parser; flipped 'Message Limitation' confirmed. Confidence: MEDIUM."
+              }
+            ]
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 0,
+            "issues": []
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 149,
+          "ngrams": [
+            "Classifier. במידה והשאלה",
+            "False אז נקבל",
+            "False. במצב כזה,",
+            "False. כלומר, במקום",
+            "False/True. דוגמאות אלו",
+            "Guard rail מטרת",
+            "Guard, התשובה תיגזר",
+            "Guard. End of",
+            "Guard. פורמט: Response",
+            "Message אשר קובע",
+            "Message מטרת הרכיב:",
+            "Out אשר קובע",
+            "Time Out אשר",
+            "Tone מטרת הרכיב:",
+            "Tone-כדי לעודד שאילת",
+            "True אז היא",
+            "[true/false] האם חובה",
+            "conversation Message מטרת",
+            "message Guard, התשובה",
+            "message Guard. פורמט:",
+            "message] [true/false] האם",
+            "rail מטרת הרכיב:",
+            "או הגבלת הזמן.",
+            "או לא רציפות.",
+            "או לא: במידה",
+            "או לא: רכיב",
+            "אוטומטית כשהמגבלה מתממשת.",
+            "אפשרויות עריכה: במקומות",
+            "אפשרויות עריכה: הגדרת",
+            "אפשרויות עריכה: מומלץ",
+            "אשר קובע את",
+            "את המידע המתאים",
+            "את שדה ה-Message",
+            "ב Tone-כדי לעודד",
+            "ב.Flow מה הרכיב",
+            "בהתאם לתחומי העיסוק",
+            "בכוכביות. בסוכנים עם",
+            "במידה וקיים ב.Flow",
+            "במסגרת ה-Interactive. לאחר",
+            "במקרה כזה תוחזר",
+            "בסוכן ללא מסמכים,",
+            "ברכיב זה. אפשרויות",
+            "בשדה message Guard,",
+            "בשיחה. הגדרת מגבלת",
+            "בתפעול הרכיבים. Tone",
+            "ה-Interactive. לאחר שהמדריך",
+            "ה-Message Guard. End",
+            "האם חובה או",
+            "האפשריים של ערך",
+            "הגבלת הזמן. לאחר",
+            "הדוגמאות למצבי False/True.",
+            "ההודעות או הגבלת",
+            "ההודעות המרבי בשיחה.",
+            "הודעה שתוגדר מראש.",
+            "הודעות באמצעות Limitation",
+            "הזמן. לאחר שהמשתמש",
+            "הטקסט ברכיב זה.",
+            "היא תשלח ל",
+            "הכללית שמוגדרת בשדה",
+            "המידע המתאים בכל",
+            "המסומנים בכוכביות. בסוכנים",
+            "המקומות המסומנים בכוכביות.",
+            "המרבי בשיחה. הגדרת",
+            "המרבי לשיחה פעילה.",
+            "המתאים בכל המקומות",
+            "הסוכן. אפשרויות עריכה:",
+            "הפרטים הרלוונטיים לסוכן.",
+            "הרכיב מקבל ומחזיר:",
+            "הרכיב: להגביל את",
+            "הרכיב: סינון שאלות",
+            "הרכיב: קביעת סגנון",
+            "הרכיבים. Tone מטרת",
+            "הרלוונטיים לסוכן. חשוב",
+            "השירות שהוא נותן.",
+            "התשובה מה message",
+            "ויידרש לפתוח שיחה",
+            "ומחזיר: מגדיר את",
+            "ומחזיר: מקבל את",
+            "וקיים ב.Flow מה",
+            "זה. אפשרויות עריכה:",
+            "חדשה. האם חובה",
+            "חובה או לא:",
+            "יופיעו הדוגמאות למצבי",
+            "יחדל מהפנייה ל-Tone.",
+            "ישתנו בהתאם לתחומי",
+            "יתקבל ערך False.",
+            "כזה תוחזר למשתמש",
+            "כל סוכן. במידה",
+            "כשהמגבלה מתממשת. מה",
+            "ל Classifier. במידה",
+            "ל-Tone. כשנרצה שסוכן",
+            "לא נשתמש ב",
+            "לא רציפות. מה",
+            "לא: במידה ומדובר",
+            "לא: רכיב זה",
+            "לאחר שהמשתמש מגיע",
+            "להשתמש ב Tone-כדי",
+            "ללא מסמכים, הרכיב",
+            "למצבי False/True. דוגמאות",
+            "לנושא הסוכן. אפשרויות",
+            "לסוכן. חשוב לוודא",
+            "לפתוח שיחה חדשה.",
+            "לשיחה פעילה. ניסוח",
+            "לתחומי העיסוק של",
+            "מגבלת הודעות באמצעות",
+            "מגבלת זמן באמצעות",
+            "מה message Guard.",
+            "מה הרכיב מקבל",
+            "מהפנייה ל-Tone. כשנרצה",
+            "מטרת הרכיב: להגביל",
+            "מטרת הרכיב: סינון",
+            "מטרת הרכיב: קביעת",
+            "מסמכים הרכיב אינו",
+            "מסמכים, הרכיב הינו",
+            "מספר ההודעות או",
+            "מקבל את קלט",
+            "מקבל ומחזיר: מגדיר",
+            "מקבל ומחזיר: מקבל",
+            "מראש. רכיב זה",
+            "מתממשת. מה חשוב",
+            "מתקדמות בתפעול הרכיבים.",
+            "נותן. מה הרכיב",
+            "ניסוח הודעת סיום",
+            "ניתן להשתמש ב",
+            "סוכן. במידה והשאלה",
+            "עם מסמכים הרכיב",
+            "עריכה: במקומות המסומנים",
+            "עריכה: הגדרת מגבלת",
+            "עריכה: מומלץ להשתמש",
+            "ערך False. במצב",
+            "ערך False. כלומר,",
+            "פעילה. ניסוח הודעת",
+            "קביעת סגנון הדיבור,",
+            "קשור לנושא הסוכן.",
+            "רציפות. מה הרכיב",
+            "שבהם יתקבל ערך",
+            "שדה ה-Message Guard.",
+            "שהוא נותן. מה",
+            "שהמשתמש מגיע למכסה,",
+            "שיחה חדשה. האם",
+            "שכתבנו בשדה הטקסט",
+            "של המשתמש קיבלה",
+            "של כל סוכן.",
+            "של ערך False.",
+            "שמוגדרת בשדה message",
+            "שתוגדר מראש. רכיב",
+            "תוחזר למשתמש הודעה",
+            "תרשים ה flow:",
+            "תשלח ל Classifier."
+          ]
+        }
+      }
+    },
+    {
+      "doc_name": "air defense_1",
+      "file_ext": ".pdf",
+      "total_missing_ngrams": 444,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 10,
+          "blocks_number": [
+            1,
+            4,
+            6,
+            9,
+            11,
+            12,
+            15,
+            16,
+            17,
+            19
+          ]
+        },
+        "OCR_SPLIT": {
+          "count": 23,
+          "issues": [
+            {
+              "original_word": "מ-50,000",
+              "fragments_in_parser": [
+                "מ-",
+                "50,000"
+              ]
+            },
+            {
+              "original_word": "החברה",
+              "fragments_in_parser": [
+                "החב",
+                "רה"
+              ]
+            },
+            {
+              "original_word": "1.",
+              "fragments_in_parser": [
+                "1",
+                "."
+              ]
+            },
+            {
+              "original_word": "2.",
+              "fragments_in_parser": [
+                "2",
+                "."
+              ]
+            },
+            {
+              "original_word": "בחברה\",",
+              "fragments_in_parser": [
+                "בחברה\"",
+                ","
+              ]
+            },
+            {
+              "original_word": "דרישת",
+              "fragments_in_parser": [
+                "דרי",
+                "שת"
+              ]
+            },
+            {
+              "original_word": "3.",
+              "fragments_in_parser": [
+                "3",
+                "."
+              ]
+            },
+            {
+              "original_word": "ואם",
+              "fragments_in_parser": [
+                "ו",
+                "אם"
+              ]
+            },
+            {
+              "original_word": "4.",
+              "fragments_in_parser": [
+                "4",
+                "."
+              ]
+            },
+            {
+              "original_word": "יועצים,",
+              "fragments_in_parser": [
+                "יועצ",
+                "ים,"
+              ]
+            },
+            {
+              "original_word": "אלה,",
+              "fragments_in_parser": [
+                "אלה",
+                ","
+              ]
+            },
+            {
+              "original_word": "5.",
+              "fragments_in_parser": [
+                "5",
+                "."
+              ]
+            },
+            {
+              "original_word": "6.",
+              "fragments_in_parser": [
+                "6",
+                "."
+              ]
+            },
+            {
+              "original_word": "במטה",
+              "fragments_in_parser": [
+                "ב",
+                "מטה"
+              ]
+            },
+            {
+              "original_word": "נציג",
+              "fragments_in_parser": [
+                "נצ",
+                "יג"
+              ]
+            },
+            {
+              "original_word": "(בוועדות",
+              "fragments_in_parser": [
+                "(בוועדו",
+                "ת"
+              ]
+            },
+            {
+              "original_word": "המפעל",
+              "fragments_in_parser": [
+                "ה",
+                "מפעל"
+              ]
+            },
+            {
+              "original_word": "החברה/ראש",
+              "fragments_in_parser": [
+                "החברה",
+                "/ראש"
+              ]
+            },
+            {
+              "original_word": "בסכום",
+              "fragments_in_parser": [
+                "ב",
+                "סכום"
+              ]
+            },
+            {
+              "original_word": "והוראות",
+              "fragments_in_parser": [
+                "והו",
+                "ראות"
+              ]
+            },
+            {
+              "original_word": "והרכב",
+              "fragments_in_parser": [
+                "והרכ",
+                "ב"
+              ]
+            },
+            {
+              "original_word": "בחטיבת/לחטיבת:",
+              "fragments_in_parser": [
+                "ב",
+                "חטיבת/לחטיבת:"
+              ]
+            },
+            {
+              "original_word": "בהסכם",
+              "fragments_in_parser": [
+                "בהס",
+                "כם"
+              ]
+            }
+          ]
+        },
+        "MERGED_WORDS": {
+          "count": 20,
+          "issues": [
+            {
+              "merged_word": "נספח1",
+              "original": [
+                "נספח",
+                "1"
+              ]
+            },
+            {
+              "merged_word": "נספח2",
+              "original": [
+                "נספח",
+                "2"
+              ]
+            },
+            {
+              "merged_word": "נספח3",
+              "original": [
+                "נספח",
+                "3"
+              ]
+            },
+            {
+              "merged_word": "נספח4",
+              "original": [
+                "נספח",
+                "4"
+              ]
+            },
+            {
+              "merged_word": "נספח5",
+              "original": [
+                "נספח",
+                "5"
+              ]
+            },
+            {
+              "merged_word": "נספח6",
+              "original": [
+                "נספח",
+                "6"
+              ]
+            },
+            {
+              "merged_word": "נספח7",
+              "original": [
+                "נספח",
+                "7"
+              ]
+            },
+            {
+              "merged_word": "נספח8",
+              "original": [
+                "נספח",
+                "8"
+              ]
+            },
+            {
+              "merged_word": "נספח9",
+              "original": [
+                "נספח",
+                "9"
+              ]
+            },
+            {
+              "merged_word": "ובחירתם–",
+              "original": [
+                "ובחירתם",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "נספח10",
+              "original": [
+                "נספח",
+                "10"
+              ]
+            },
+            {
+              "merged_word": "פומבי/סגור–",
+              "original": [
+                "פומבי/סגור",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "נספח11",
+              "original": [
+                "נספח",
+                "11"
+              ]
+            },
+            {
+              "merged_word": "בנספח9",
+              "original": [
+                "בנספח",
+                "9"
+              ]
+            },
+            {
+              "merged_word": "בנספח10",
+              "original": [
+                "בנספח",
+                "10"
+              ]
+            },
+            {
+              "merged_word": "יו\"ר–",
+              "original": [
+                "יו\"ר",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "חבר–",
+              "original": [
+                "חבר",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "נוסף–",
+              "original": [
+                "נוסף",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "הוא3,683,919",
+              "original": [
+                "הוא",
+                "3,683,919"
+              ]
+            },
+            {
+              "merged_word": "הבקשה–",
+              "original": [
+                "הבקשה",
+                "–"
+              ]
+            }
+          ]
+        },
+        "FORMATTING_ISSUES": {
+          "count": 12,
+          "WORD_ORDER_REVERSAL": {
+            "count": 0,
+            "issues": []
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 12,
+            "issues": [
+              {
+                "ngram": "– תרשים זרימה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– תרשים זרימה",
+                "parser_text": "תרשים זרימה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'תרשים זרימה' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "הנוגעים לנוהל *)",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "הנוגעים לנוהל *)",
+                "parser_text": "הנוגעים לנוהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'הנוגעים לנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "לנוהל *) אם",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "לנוהל *) אם",
+                "parser_text": "לנוהל אם",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'לנוהל אם' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "*) אם לא",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "*) אם לא",
+                "parser_text": "אם לא",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'אם לא' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– מנהל ארגון",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– מנהל ארגון",
+                "parser_text": "מנהל ארגון",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מנהל ארגון' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– ראש מינהל",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– ראש מינהל",
+                "parser_text": "ראש מינהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ראש מינהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– מנהל רכש",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– מנהל רכש",
+                "parser_text": "מנהל רכש",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מנהל רכש' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– ראש המינהל",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– ראש המינהל",
+                "parser_text": "ראש המינהל",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ראש המינהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– ראש תחום",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– ראש תחום",
+                "parser_text": "ראש תחום",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'ראש תחום' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– מנהל הפרויקט",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– מנהל הפרויקט",
+                "parser_text": "מנהל הפרויקט",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'מנהל הפרויקט' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "3,683,919 ₪ נכון",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "3,683,919 ₪ נכון",
+                "parser_text": "3,683,919 נכון",
+                "confidence": "MEDIUM",
+                "evidence": "Content words '3,683,919 נכון' found contiguously inside parser flow after punctuation normalization. Punctuation ['₪'] likely caused the boundary shift (RTL displacement)."
+              },
+              {
+                "ngram": "– במסמך זה",
+                "type": "MISPLACED_PUNCTUATION",
+                "gt_text": "– במסמך זה",
+                "parser_text": "במסמך זה",
+                "confidence": "MEDIUM",
+                "evidence": "Content words 'במסמך זה' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+              }
+            ]
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 189,
+          "ngrams": [
+            "\"החטיבה\") של התעשייה",
+            "\"התע\"א\") [או, יש",
+            "\"התע\"א\"). בקשה זו",
+            "(בהתאם למצויין בטבלה):",
+            "(המשך) מס' הפרק",
+            "(להלן: \"החטיבה\") של",
+            "(להלן: \"התע\"א\") [או,",
+            "(להלן: \"התע\"א\"). בקשה",
+            "(נוסח מוצע) נספח",
+            ".16.01.23 לצורך הבדיקה",
+            "1 מסמכי הצעות/מכרז",
+            "1,000,000 דולר ארגוני",
+            "10 לנוהל), בהתאם",
+            "10 פנייה לספקים",
+            "11 נהלים עיקריים",
+            "2 הרכב ועדות",
+            "3 דוח השוואת",
+            "4 סוגי עסקות",
+            "5 טופס לאישור",
+            "5,000,000 דולר ארגוני",
+            "6 א' בקשה",
+            "6 ב' בקשה",
+            "7 בקשה לקבלת",
+            "8 העדפת תוצרת",
+            "9 לנוהל), בהליך",
+            "9 שלבים עיקריים",
+            "SAP, ינוהלו במערכת",
+            "[או, יש לבחור]",
+            "[הערה לעורך הבקשה",
+            "[ולשימוש בהיקף כספי",
+            "א' בקשה לקבלת",
+            "או סגנו חבר",
+            "אחרון*) 5.6.2.8 ניהול",
+            "איכות חטיבתי/מפעלי נוגע",
+            "אם תיבחר הצעתו.",
+            "ארגון הסמנכ\"ל לתפעול,",
+            "ארגוני מטה החברה:",
+            "אשראי, יש לפעול",
+            "ב' בקשה לקבלת",
+            "באמצעות גורמים אחרים",
+            "באמצעות כרטיסי אשראי,",
+            "באמצעות מכרז [ולשימוש",
+            "בארץ ומספקים בחו\"ל,",
+            "בבקשה זו, תהיה",
+            "בהסכם. נוסח ההסכם",
+            "בהתאם למפורט בנוהל,922.01.06",
+            "בחו\"ל, אם באופן",
+            "במטה/ססמנכ\"ל נוגע חבר",
+            "במערכת SAP, ינוהלו",
+            "במפעל/מנהל הרכש והלוגיסטיקה",
+            "בנוגע לה. הגשת",
+            "בנוהל,922.01.06 \"תהליך הרכש",
+            "בע\"מ (להלן: \"התע\"א\")",
+            "בע\"מ (להלן: \"התע\"א\").",
+            "גדול מהסכום המחייב",
+            "גוף הרכש במפעל/החטיבה/התע\"א]",
+            "גורמים אחרים בהתאם",
+            "דולר ארגוני מטה",
+            "הביטחון), תשנ\"ג-1993, ובכלל",
+            "ההסכם הנלווים אליה,",
+            "הוודעה ובהרכב מינימלי",
+            "הוועדות-חלק מההערות משמשות",
+            "הזמנה: מעל 1,000,000",
+            "הזמנה: מעל 150,000",
+            "היקף הזמנה: מעל",
+            "הישימים במערכת SAP,",
+            "הלשכה המשפטית חבר",
+            "המחייב לאורה מכרז)",
+            "המחייב מכרז) נספח",
+            "המחייב מכרז] תאריך:",
+            "המיועדים למוצרי החברה.",
+            "המינהל הנוגע חבר",
+            "המעין מכרזים לא",
+            "המפורט בנוהל .922.01.06",
+            "המפעל/ארגון במטה/ססמנכ\"ל נוגע",
+            "המציע תהיה התחייבות",
+            "המשמעות שנקבעה להם",
+            "הנוגע חבר נוסף",
+            "הנוגעים לנוהל בנספח.11",
+            "הסמנכ\"ל הנוגע חבר",
+            "הסמנכ\"ל לתפעול, רכש",
+            "העניינים (המשך) מס'",
+            "הפרויקט הנוגע חבר",
+            "הפרק עדכון אחרון*)",
+            "הצעתו. ככל שניתן",
+            "הצעתו. למונחים שהוגדרו",
+            "הרכבי הוועדות-חלק מההערות",
+            "הרכש במפעל/החטיבה/התע\"א] נספח",
+            "הרכש במפעל/מנהל הרכש",
+            "התחילה המקורי של",
+            "ואת תנאי ההסכם",
+            "ובהליך ההתקשרות עימם.",
+            "ובחירת ספק (נוסח",
+            "ובכתב רגיל. את",
+            "ומספקים בחו\"ל, אם",
+            "זו, תהיה המשמעות",
+            "זרימה 15.08.23 נספח",
+            "חברי הוודעה ובהרכב",
+            "חטיבתי/מפעלי נוגע היקף",
+            "חטיבתי/מפעלי נוגע מפעל/חטיבה:",
+            "חטיבתי/ראש מינהל הרכש",
+            "חל על רכש",
+            "טופס לאישור מנכ\"ל/הודעה",
+            "ידי המציע תהיה",
+            "ידי מציע תהיה",
+            "יחולו בנוגע לה.",
+            "יש לבחור] למפעל:",
+            "יש למחוק מהמסמך].",
+            "כהנחיות (בהתאם למצויין",
+            "כספים ונציג רכש.",
+            "כרטיסי אשראי, יש",
+            "לא יחולו בנוגע",
+            "לאורה מכרז) מפעל/חטיבה:",
+            "לאישור מנכ\"ל/הודעה למנכ\"ל",
+            "לבחור] למפעל: (להלן:",
+            "לה. הגשת הצעה",
+            "להם בהסכם. נוסח",
+            "לטבלת הרכבי הוועדות-חלק",
+            "ליום .16.01.23 לצורך",
+            "ללא סוגריים ובכתב",
+            "למונחים שהוגדרו בהסכם,",
+            "למחוק מהמסמך]. מתבקשות",
+            "למנכ\"ל בדבר פטורים",
+            "למפורט בנוהל,922.01.06 \"תהליך",
+            "למפעל: (להלן: \"המפעל\")",
+            "לנוהל), בהתאם לכללים",
+            "לסכום המחייב מכרז)",
+            "לצורך הבדיקה האם",
+            "לתאריך התחילה המקורי",
+            "לתפעול, רכש ולוגיסטיקה.",
+            "מהמסמך]. מתבקשות בזה",
+            "מהסכום המחייב מכרז)",
+            "מטה החברה: יו\"ר",
+            "מינהל איכות חטיבתי/מפעלי",
+            "מינהל הרכש במפעל/מנהל",
+            "מינהל לפחות) חבר",
+            "מכרז 15.08.23 נספח",
+            "מכרז [ולשימוש בהיקף",
+            "מכרז) מפעל/חטיבה: יו\"ר",
+            "מכרז] תאריך: [הערה",
+            "מכרזים לא יחולו",
+            "מכרזים/פטור) – ראש",
+            "ממכרזים 15.08.23 נספח",
+            "מנהל המפעל/ארגון במטה/ססמנכ\"ל",
+            "מנהל רכש חטיבתי/ראש",
+            "מנכ\"ל/הודעה למנכ\"ל בדבר",
+            "מסמכי הצעות/מכרז נספח",
+            "מספקים בארץ ומספקים",
+            "מספר חברי הוועדה.",
+            "מעודכן לתאריך התחילה",
+            "מערכת הביטחון), תשנ\"ג-1993,",
+            "מציע תהיה התחייבות",
+            "משמשות כהנחיות (בהתאם",
+            "נוגע היקף הזמנה:",
+            "נוגע מפעל/חטיבה: יו\"ר",
+            "נוהל זה דן",
+            "נכון ליום .16.01.23",
+            "סוגריים ובכתב רגיל.",
+            "ספק (נוסח מוצע)",
+            "עדכון אחרון*) 5.6.2.8",
+            "על רכש מספקים",
+            "עריכת מכרז הוא",
+            "פטור 15.08.23 נספח",
+            "ראש מינהל איכות",
+            "ראש מינהל לפחות)",
+            "רכש באמצעות כרטיסי",
+            "רכש חטיבתי/ראש מינהל",
+            "רכש מספקים בארץ",
+            "רק בוועדות רכש/מכרזים/פטור",
+            "שימוש בבקשה זו,",
+            "של חברי הוודעה",
+            "של מכרז פומבי/סגור",
+            "שם הפרק עדכון",
+            "שנקבעה להם בהסכם.",
+            "תאריך: [הערה לעורך",
+            "תהיה המשמעות שנקבעה",
+            "תהיה התחייבות מטעמו",
+            "תוכן העניינים (המשך)",
+            "תחום בכספים חבר",
+            "תיבחר הצעתו. ככל",
+            "תיבחר הצעתו. למונחים",
+            "תיק הרכש נספח",
+            "תנאי ההסכם הנלווים",
+            "תרשים הזרימה) בנספח",
+            "תרשים זרימה בנספח",
+            "תרשים זרימה נספח",
+            "תשנ\"ג-1993, ובכלל זה",
+            "– חשב המפעל/ארגון",
+            "– מנהל המפעל/ארגון"
+          ]
+        }
+      }
+    },
+    {
+      "doc_name": "AroundTown Focused POC SOW",
+      "file_ext": ".pdf",
+      "total_missing_ngrams": 249,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 0,
+          "blocks_number": []
+        },
+        "OCR_SPLIT": {
+          "count": 1,
+          "issues": [
+            {
+              "original_word": "Email:The",
+              "fragments_in_parser": [
+                "Email:",
+                "The"
+              ]
+            }
+          ]
+        },
+        "MERGED_WORDS": {
+          "count": 0,
+          "issues": []
+        },
+        "FORMATTING_ISSUES": {
+          "count": 0,
+          "WORD_ORDER_REVERSAL": {
+            "count": 0,
+            "issues": []
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 0,
+            "issues": []
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 244,
+          "ngrams": [
+            "& routing|Jeen internal",
+            "&<br>routing|Jeen internal Azure",
+            "(Approve/Reject/Reclassify) • User",
+            "(Energy<br>Certificate, Contract,<br>Photo Documentation,<br>etc.)|Same",
+            "(Pending/Approved/Rejected) Solution Architecture",
+            "(every X minutes)|Avoids",
+            "(not<br>full real-time parallel",
+            "(up to X<br>files",
+            "(who/what/when/why) • Original",
+            "+ Store logs<br>in",
+            "+ full<br>audit trail|Archive",
+            "10 new files.<br>For",
+            "Adaptive Card validation|Email",
+            "Adaptive Card<br>validation|Email-based approval",
+            "Approve/Reject responses.<br>2 –",
+            "AroundTown (who/what/when/why) •",
+            "Azure Blob storage|",
+            "Azure Blob<br>storage. Archive",
+            "Azure Blob<br>storage|Demonstrates routing",
+            "Azure<br>Blob + Store",
+            "Azure<br>Blob folder|1- A",
+            "Blob storage| |2|Classify",
+            "Blob storage| |4|Teams",
+            "Blob<br>storage. Archive into",
+            "Blob<br>storage|Demonstrates routing logic<br>without",
+            "Card validation|Email reply",
+            "Card<br>validation|Email-based approval or<br>DB-based",
+            "Card|Send email with<br>classification",
+            "Contract,<br>Photo Documentation,<br>etc.)|Same capability",
+            "DB-based approval| |5|SharePoint",
+            "DB.| |5|Human-in-the-loop<br>validation via",
+            "Documentation,<br>etc.)|Same capability –<br>AI",
+            "External triggers| |2|Real-time",
+            "ID, classification,<br>timestamps, user",
+            "Jeen DB.| |5|Human-in-the-loop<br>validation",
+            "Jeen mailbox. The<br>system",
+            "Jeen<br>database|To avoid SharePoint",
+            "Jeen’s internal<br>log database<br>table|1-To",
+            "Key Trade-Offs |#|OriginalDirection|FocusedPoCAlternative|",
+            "Processing status (Pending/Approved/Rejected)",
+            "SharePoint integration complexity<br>in",
+            "SharePoint integration<br>complexity in",
+            "SharePoint schema<br>configuration.| This",
+            "SharePoint<br>metadata|Write<br>classification<br>results to an<br>internal",
+            "Step by Step-Focused",
+            "Step-Focused PoC Approach",
+            "Store logs<br>in Jeen’s",
+            "Teams integration, we<br>suggest",
+            "Teams integration| |5|SharePoint",
+            "Teams<br>Adaptive Card|Send email",
+            "The<br>system will monitor",
+            "This keeps the<br>classification",
+            "This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.| |---|---|---|---| |7|Archive",
+            "Trade-Offs |#|OriginalDirection|FocusedPoCAlternative| |---|---|---|",
+            "User action (Approve/Reject/Reclassify)",
+            "X files)| |3|SharePoint",
+            "X minutes)|Avoids dependency",
+            "X minutes<br>from an",
+            "X<br>files per run)|Simplifies",
+            "a validation<br>email from",
+            "a<br>dedicated internal<br>“Classification_Management” database<br>table",
+            "action (Approve/Reject/Reclassify) •",
+            "an Azure<br>Blob folder|1-",
+            "an<br>internal Jeen<br>database|To avoid",
+            "and measurable.| |3|Extract",
+            "and<br>read the reply|To",
+            "approval or<br>DB-based approval|Avoids",
+            "approval| |5|SharePoint metadata",
+            "approval|Avoids Teams integration|",
+            "approve or<br>reclassify them",
+            "are written<br>into a",
+            "automation).<br>2- To avoid",
+            "avoid SharePoint integration<br>complexity",
+            "batch (not<br>full real-time",
+            "blob dedicated folder.<br>2-",
+            "by Step-Focused PoC",
+            "can approve or<br>reclassify",
+            "capability –<br>AI classification|The",
+            "classification,<br>timestamps, user response,",
+            "classifications are written<br>into",
+            "classification|The agent will",
+            "complexity in<br>the PoC",
+            "complexity<br>in the PoC",
+            "database log table<br>will",
+            "database<br>table in the",
+            "database<br>tables|Maintains traceability without<br>requiring",
+            "database<br>table|1-To avoid SharePoint",
+            "dedicated folder.<br>2- A",
+            "defined key<br>values/descriptions<br>based on",
+            "dependency on<br>SharePoint or",
+            "document ID, classification,<br>timestamps,",
+            "email with<br>classification and<br>read",
+            "etc.). |Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale| |---|---|---|---|",
+            "external integration<br>complexity.| |4|Teams",
+            "extracted values<br>back to",
+            "file movement,<br>and processing",
+            "files)| |3|SharePoint storage",
+            "files.<br>For PoC we",
+            "files<br>every X minutes<br>from",
+            "fileswillbestoredinJeen’s<br>,<br>internalAzureBlobfolders This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.| |---|---|---|---|",
+            "focused and measurable.|",
+            "folder.<br>2- A dedicated",
+            "folder|1- A manual",
+            "for<br>PoC.| |3|SharePoint storage",
+            "for<br>this requirement|| |4|Write",
+            "full<br>audit trail|Archive into",
+            "guidelines|We need<br>clarification for<br>this",
+            "implementation timeline. |#|AroundTownRequest|Suggested|Clarification|",
+            "in a<br>dedicated internal<br>“Classification_Management”",
+            "in batch (not<br>full",
+            "in<br>SharePoint|Batch reading of<br>uploaded",
+            "in<br>the PoC phase,",
+            "integration complexity in<br>the",
+            "integration complexity<br>in the",
+            "integration, we<br>suggest two",
+            "integration<br>complexity in the",
+            "integration<br>complexity.| |4|Teams Adaptive",
+            "integration| |5|SharePoint metadata<br>write-back|Jeen",
+            "internal Azure Blob<br>storage|Demonstrates",
+            "internal database tables|",
+            "internal database<br>tables|Maintains traceability",
+            "internal<br>log database<br>table|1-To avoid",
+            "internal<br>“Classification_Management” database<br>table in",
+            "into Azure<br>Blob +",
+            "into known<br>document types",
+            "into up to<br>5",
+            "jeen Azure Blob<br>storage.",
+            "keeps the<br>classification task",
+            "key<br>values/descriptions<br>based on guidelines|We",
+            "known<br>document types (Energy<br>Certificate,",
+            "log table<br>will track:",
+            "logic<br>without external integration<br>complexity.|",
+            "logs<br>in Jeen’s internal<br>log",
+            "mailbox. The<br>system will",
+            "measurable.| |3|Extract defined",
+            "metadata write-back|Jeen internal",
+            "metadata<br>write-back|Jeen internal database<br>tables|Maintains",
+            "minutes)|Avoids dependency on<br>SharePoint",
+            "minutes<br>from an Azure<br>Blob",
+            "movement,<br>and processing status.|",
+            "need<br>clarification for<br>this requirement||",
+            "new files.<br>For PoC",
+            "newly uploaded<br>documents in<br>SharePoint|Batch",
+            "of<br>uploaded files<br>every X",
+            "on guidelines|We need<br>clarification",
+            "on<br>SharePoint or External",
+            "or DB-based approval|",
+            "or External triggers|",
+            "or scheduled trigger|",
+            "or scheduled<br>trigger (every",
+            "or<br>DB-based approval|Avoids Teams",
+            "or<br>reclassify them there.|",
+            "orchestration for<br>PoC.| |3|SharePoint",
+            "originals + full<br>audit",
+            "parallel automation).<br>2- To",
+            "parallel<br>processing|Batch processing (up",
+            "parse replies to<br>capture",
+            "per run)|Simplifies orchestration",
+            "processing status.| Key",
+            "processing|Batch processing (up",
+            "reading of<br>uploaded files<br>every",
+            "real-time parallel automation).<br>2-",
+            "real-time processing|Batch processing",
+            "replies to<br>capture Approve/Reject",
+            "reply|To avoid Microsoft",
+            "requirement|| |4|Write extracted",
+            "response, file movement,<br>and",
+            "responses.<br>2 – Database:",
+            "routing logic<br>without external",
+            "routing|Jeen internal Azure",
+            "run)|Simplifies orchestration for<br>PoC.|",
+            "run<br>every X minute",
+            "scheduled trigger| |2|Parallel",
+            "scheduled<br>trigger (every X",
+            "schema<br>configuration.| This approach",
+            "send a validation<br>email",
+            "status (Pending/Approved/Rejected) Solution",
+            "status.| Key Trade-Offs",
+            "storage & routing|Jeen",
+            "storage &<br>routing|Jeen internal",
+            "storage| |2|Classify into",
+            "storage| |4|Teams Adaptive",
+            "stored in a<br>dedicated",
+            "table<br>will track: document",
+            "the Jeen DB.|",
+            "the reply|To avoid",
+            "the<br>classification task focused",
+            "timeline. |#|AroundTownRequest|Suggested|Clarification| |---|---|---|---|",
+            "to SharePoint<br>metadata|Write<br>classification<br>results to",
+            "to X files)|",
+            "to X<br>files per",
+            "to an<br>internal Jeen<br>database|To",
+            "to<br>5 predefined document",
+            "to<br>capture Approve/Reject responses.<br>2",
+            "traceability without<br>requiring SharePoint",
+            "trail|Archive into Azure<br>Blob",
+            "trigger will run<br>every",
+            "triggers, etc.). |Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale|",
+            "triggers| |2|Real-time parallel<br>processing|Batch",
+            "trigger| |2|Parallel real-time",
+            "trigger|Manual or scheduled",
+            "trigger|Manual or scheduled<br>trigger",
+            "two options:<br>1 –",
+            "types (Energy<br>Certificate, Contract,<br>Photo",
+            "up to<br>5 predefined",
+            "uploaded<br>documents in<br>SharePoint|Batch reading",
+            "use<br>jeen Azure Blob",
+            "validation<br>email from a",
+            "validation|Email reply or",
+            "values<br>back to SharePoint<br>metadata|Write<br>classification<br>results",
+            "via Teams<br>Adaptive Card|Send",
+            "we will use<br>jeen",
+            "we<br>suggest two options:<br>1",
+            "will run<br>every X",
+            "will use<br>jeen Azure",
+            "with AroundTown (who/what/when/why)",
+            "with<br>classification and<br>read the",
+            "without<br>requiring SharePoint schema<br>configuration.|",
+            "write-back|Jeen internal database",
+            "written<br>into a database,",
+            "|#|AroundTownRequest|Suggested|Clarification| |---|---|---|---| |1|Detect",
+            "|#|OriginalDirection|FocusedPoCAlternative| |---|---|---| |1|External",
+            "|---|---|---| |1|External trigger|Manual",
+            "|---|---|---|---| |1|Detect newly",
+            "|---|---|---|---| |1|External trigger|Manual",
+            "|---|---|---|---| |7|Archive originals",
+            "|1|Detect newly uploaded<br>documents",
+            "|1|External trigger|Manual or",
+            "|2|Classify into known<br>document",
+            "|2|Parallel real-time processing|Batch",
+            "|2|Real-time parallel<br>processing|Batch processing",
+            "|3|Extract defined key<br>values/descriptions<br>based",
+            "|3|SharePoint storage &",
+            "|3|SharePoint storage &<br>routing|Jeen",
+            "|4|Teams Adaptive Card",
+            "|4|Teams Adaptive Card<br>validation|Email-based",
+            "|4|Write extracted values<br>back",
+            "|5|Human-in-the-loop<br>validation via Teams<br>Adaptive",
+            "|5|SharePoint metadata write-back|Jeen",
+            "|5|SharePoint metadata<br>write-back|Jeen internal",
+            "|6|Rename+movefileto<br>correctSharePoint<br>library/folder|Movefiletoan<br>internalAzure<br>Blobfolderper<br>classification(one<br>folderper<br>classification)|ToavoidSharePointintegrationcomplexityin<br>thePoCphase:wewillusejeenAzureBlob<br>storage<br>.<br>InsteadofmovingfilesinsideAroundTown<br>SharePoint fileswillbestoredinJeen’s<br>,<br>internalAzureBlobfolders This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.|",
+            "|7|Archive originals +",
+            "|Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale| |---|---|---|---| |1|External",
+            "–<br>AI classification|The agent"
+          ]
+        }
+      }
+    },
+    {
+      "doc_name": "word-two-column-submission-sample",
+      "file_ext": ".docx",
+      "total_missing_ngrams": 148,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 1,
+          "blocks_number": [
+            4
+          ]
+        },
+        "OCR_SPLIT": {
+          "count": 0,
+          "issues": []
+        },
+        "MERGED_WORDS": {
+          "count": 0,
+          "issues": []
+        },
+        "FORMATTING_ISSUES": {
+          "count": 0,
+          "WORD_ORDER_REVERSAL": {
+            "count": 0,
+            "issues": []
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 0,
+            "issues": []
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 17,
+          "ngrams": [
+            "1. Insert a",
+            "AND COLUMNS On",
+            "Anonymous for Submission",
+            "Authors Anonymous for",
+            "COLUMNS On each",
+            "City, Country e-mail",
+            "Country e-mail address",
+            "Figure 1. Insert",
+            "Format Leave Authors",
+            "Leave Authors Anonymous",
+            "PAGE SIZE AND",
+            "Proceedings Format Leave",
+            "SIZE AND COLUMNS",
+            "Submission City, Country",
+            "address Leave Authors",
+            "e-mail address Leave",
+            "for Submission City,"
+          ]
+        }
+      }
+    },
+    {
+      "doc_name": "מסמך אפיון לפרויקט  Jeen",
+      "file_ext": ".docx",
+      "total_missing_ngrams": 174,
+      "detected_problems": {
+        "MISSING_BLOCK_PARSE": {
+          "count": 0,
+          "blocks_number": []
+        },
+        "OCR_SPLIT": {
+          "count": 7,
+          "issues": [
+            {
+              "original_word": "והתיעלות?",
+              "fragments_in_parser": [
+                "והתיעלות",
+                "?"
+              ]
+            },
+            {
+              "original_word": "עובד-בשעות",
+              "fragments_in_parser": [
+                "עובד-",
+                "בשעות"
+              ]
+            },
+            {
+              "original_word": "הדיווח-תיאור",
+              "fragments_in_parser": [
+                "הדיווח-",
+                "תיאור"
+              ]
+            },
+            {
+              "original_word": "הפתרון-שליפת",
+              "fragments_in_parser": [
+                "הפתרון-",
+                "שליפת"
+              ]
+            },
+            {
+              "original_word": "עדכון-לפי",
+              "fragments_in_parser": [
+                "עדכון-",
+                "לפי"
+              ]
+            },
+            {
+              "original_word": "אופן-מערכת",
+              "fragments_in_parser": [
+                "אופן-",
+                "מערכת"
+              ]
+            },
+            {
+              "original_word": "מוצע-ברירת",
+              "fragments_in_parser": [
+                "מוצע-",
+                "ברירת"
+              ]
+            }
+          ]
+        },
+        "MERGED_WORDS": {
+          "count": 3,
+          "issues": [
+            {
+              "merged_word": "ב־Teams",
+              "original": [
+                "ב־",
+                "Teams"
+              ]
+            },
+            {
+              "merged_word": "לאינטגרציהSAP,",
+              "original": [
+                "לאינטגרציה",
+                "SAP,"
+              ]
+            },
+            {
+              "merged_word": "ל־API",
+              "original": [
+                "ל־",
+                "API"
+              ]
+            }
+          ]
+        },
+        "FORMATTING_ISSUES": {
+          "count": 0,
+          "WORD_ORDER_REVERSAL": {
+            "count": 0,
+            "issues": []
+          },
+          "MISPLACED_PUNCTUATION": {
+            "count": 0,
+            "issues": []
+          }
+        },
+        "UNCLASSIFIED": {
+          "count": 147,
+          "ngrams": [
+            "(Bar) קו 400",
+            "(לא תחנת רכבת",
+            "15/03 דווח על",
+            "400 צינור המים",
+            "5 שניות עד",
+            "API שרתים האם",
+            "OAI, אפליקציה, אתר",
+            "SAP, SharePoint וכו'",
+            "Teams ידע לקרוא",
+            "X? יש לפתוח",
+            "Y לפי נתוני",
+            "Z? בתאריך 15/03",
+            "או צומת בקרה",
+            "או תחנת דלק).",
+            "איך אני מאפס",
+            "אני מאפס את",
+            "את השכונה המזרחית.",
+            "את מונה הזרימה",
+            "את מכסה הבקרה,",
+            "באזור הדרום היום?",
+            "בוצע שימון והתקלה",
+            "ביותר בתחנה Y",
+            "במנוע; בוצע שימון",
+            "במשאבה מסוג X?",
+            "בצ’אט שישולב ב־",
+            "בקו מים איך",
+            "בקרה (לא תחנת",
+            "בר. (Bar) קו",
+            "בתאריך 15/03 דווח",
+            "בתחנה Y לפי",
+            "גישה לסוכן לדוגמה:",
+            "דווח על רעשים",
+            "דיסציפלינות שונות. מילה",
+            "דלק). לחץ נמוך",
+            "דרישות משפטיות/רגולציה מנגנוני",
+            "ה-Reset למשך 5",
+            "האחרון על תחנה",
+            "הבקרה, ללחוץ על",
+            "הדיווח האחרון על",
+            "הדרום היום? הטכנאי",
+            "הוא ישראל ישראלי",
+            "הומוריסטי) הנחיות עיצוב/מיתוג",
+            "הזרימה במשאבה מסוג",
+            "הטכנאי התורן באזור",
+            "הטכנאי התורן הוא",
+            "היא ירידת לחץ",
+            "היה הדיווח האחרון",
+            "היום? הטכנאי התורן",
+            "המזין את השכונה",
+            "המזרחית. סוגי מידע",
+            "המים הראשי המזין",
+            "הנחיות עיצוב/מיתוג צורך",
+            "הנפוצה ביותר בתחנה",
+            "הנפוצה היא ירידת",
+            "הסוכן צורך עסקי/ארגוני",
+            "הסוכן. מהם השלבים",
+            "העובד/מבקש הסוכן צורך",
+            "הפעולה של הסוכן.",
+            "הראשי המזין את",
+            "הרצה: ענן/היברידי/מקומי דרישות",
+            "השכונה המזרחית. סוגי",
+            "התורן באזור הדרום",
+            "התורן הוא ישראל",
+            "התחזוקה, התקלה הנפוצה",
+            "התקלה הנפוצה ביותר",
+            "התקלה הנפוצה היא",
+            "והתקלה נסגרה. טבלת",
+            "חופשי/טבלאי/מסמכים פורמטים PDF,",
+            "חריגים במנוע; בוצע",
+            "טכניות חיבורים ל־",
+            "טריגר/יזום מה יישמר?",
+            "ידי העובד/מבקש הסוכן",
+            "ירוקה. מי הטכנאי",
+            "ירידת לחץ בקו",
+            "יש לפתוח את",
+            "ישראל ישראלי מה",
+            "ישראלי מה היה",
+            "כל ערך שנמדד",
+            "כפתור ה-Reset למשך",
+            "ל-2.5 בר. (Bar)",
+            "לדוגמה: OAI, אפליקציה,",
+            "להבהוב נורה ירוקה.",
+            "להרצה: ענן/מקומי/רשת פנימית",
+            "לוגים מבנה: חופשי/טבלאי/מסמכים",
+            "לחץ בקו מים",
+            "לחץ נמוך כל",
+            "ללחוץ על כפתור",
+            "למשך 5 שניות",
+            "לסוכן לדוגמה: OAI,",
+            "לפי נתוני התחזוקה,",
+            "לפתוח את מכסה",
+            "לצרף תמונה/קובץ לדוגמא",
+            "מאפס את מונה",
+            "מבנה: חופשי/טבלאי/מסמכים פורמטים",
+            "מה היה הדיווח",
+            "מה התקלה הנפוצה",
+            "מונה הזרימה במשאבה",
+            "מי הטכנאי התורן",
+            "מילה פירוש תחנה",
+            "מים איך אני",
+            "מכסה הבקרה, ללחוץ",
+            "מסוג X? יש",
+            "מערכות נדרשות לאינטגרציה",
+            "משפטיות/רגולציה מנגנוני הרשאות",
+            "מתחת ל-2.5 בר.",
+            "מתקן שאיבה או",
+            "נורה ירוקה. מי",
+            "ניתן לצרף תמונה/קובץ",
+            "נמוך כל ערך",
+            "נסגרה. טבלת המרות",
+            "נתוני התחזוקה, התקלה",
+            "סביבת הרצה: ענן/היברידי/מקומי",
+            "עד להבהוב נורה",
+            "עיצוב/מיתוג צורך ברכיבי",
+            "על ידי העובד/מבקש",
+            "על כפתור ה-Reset",
+            "על רעשים חריגים",
+            "על תחנה Z?",
+            "ענן/היברידי/מקומי דרישות אבטחה",
+            "ענן/מקומי/רשת פנימית דרישות",
+            "עסקי/ארגוני מה הבעיה",
+            "ערך שנמדד מתחת",
+            "פירוש תחנה מתקן",
+            "צומת בקרה (לא",
+            "צורך עסקי/ארגוני מה",
+            "צינור המים הראשי",
+            "צפויה. מה התקלה",
+            "קו 400 צינור",
+            "רגיש דרישות משפטיות/רגולציה",
+            "רכבת או תחנת",
+            "רעשים חריגים במנוע;",
+            "שאיבה או צומת",
+            "שונות. מילה פירוש",
+            "שיחה, תקלות, תאריכים.",
+            "שימון והתקלה נסגרה.",
+            "של הסוכן. מהם",
+            "שניות עד להבהוב",
+            "שנמדד מתחת ל-2.5",
+            "תאריכים. איפה ובאיזה",
+            "תחנה Z? בתאריך",
+            "תחנה מתקן שאיבה",
+            "תחנת דלק). לחץ",
+            "תחנת רכבת או",
+            "תמונה/קובץ לדוגמא שלב",
+            "תקלות, תאריכים. איפה",
+            "תשובה צפויה. מה",
+            "תשתית להרצה: ענן/מקומי/רשת"
+          ]
+        }
+      }
+    }
+  ]
+}
