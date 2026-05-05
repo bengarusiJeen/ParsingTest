@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ParserEval POC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:       #004ac6;
+  --blue-light: #eff6ff;
+  --blue-dim:   #c3d9ff;
+  --green:      #16a34a;
+  --green-bg:   #f0fdf4;
+  --red:        #dc2626;
+  --red-bg:     #fef2f2;
+  --amber:      #d97706;
+  --text:       #111827;
+  --text-2:     #6b7280;
+  --border:     #e5e7eb;
+  --bg:         #f9fafb;
+  --white:      #ffffff;
+  --sidebar-w:  220px;
+}
+
+html { font-family: 'Inter', sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; font-size: 20px; line-height: 1; }
+
+/* ── Sidebar ─────────────────────────────────── */
+#sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-w);
+  background: var(--white); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; z-index: 10;
+}
+.sidebar-brand { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+.sidebar-brand h1 { font-size: 15px; font-weight: 700; color: var(--text); }
+.sidebar-brand p  { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+nav { flex: 1; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; }
+.nav-btn {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border-radius: 8px; cursor: pointer; color: var(--text-2); font-weight: 500;
+  transition: background 0.12s, color 0.12s; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-btn:hover { background: var(--bg); color: var(--text); }
+.nav-btn.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+
+/* ── Main ─────────────────────────────────────── */
+#main { margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
+header {
+  height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 28px; gap: 10px; position: sticky; top: 0; z-index: 9;
+}
+header h2 { font-size: 15px; font-weight: 700; }
+header .sep { width: 1px; height: 18px; background: var(--border); }
+header p { font-size: 13px; color: var(--text-2); }
+#status-pill {
+  margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 20px; display: none;
+}
+.status-running { background: #dbeafe; color: #1d4ed8; display: inline !important; }
+.status-ok      { background: var(--green-bg); color: var(--green); display: inline !important; }
+.status-error   { background: var(--red-bg);   color: var(--red);   display: inline !important; }
+
+/* ── Pages ────────────────────────────────────── */
+.page { display: none; flex: 1; padding: 28px; }
+.page.active { display: block; }
+
+/* ── Cards ────────────────────────────────────── */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* ── Run page ─────────────────────────────────── */
+#run-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; max-width: 900px; }
+.section-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+
+.doc-item {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+  transition: border-color 0.12s, background 0.12s; margin-bottom: 8px;
+}
+.doc-item:last-child { margin-bottom: 0; }
+.doc-item:hover { border-color: var(--blue); background: var(--blue-light); }
+.doc-item.checked { border-color: var(--blue); background: var(--blue-light); }
+.doc-item input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--blue); flex-shrink: 0; }
+.doc-item .doc-name { font-weight: 500; color: var(--text); }
+.doc-item .doc-type { font-size: 12px; color: var(--text-2); }
+.doc-item .gt-badge {
+  margin-left: auto; font-size: 11px; font-weight: 600; padding: 2px 7px;
+  border-radius: 20px; background: var(--green-bg); color: var(--green); flex-shrink: 0;
+}
+
+.run-btn {
+  width: 100%; height: 44px; background: var(--blue); color: #fff;
+  border: none; border-radius: 8px; font-weight: 600; font-size: 14px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  gap: 8px; transition: background 0.12s;
+}
+.run-btn:hover:not(:disabled) { background: #003ea8; }
+.run-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+
+#run-log {
+  margin-top: 16px; display: none;
+  font-family: 'Courier New', monospace; font-size: 12px; background: #1e1e1e; color: #d4d4d4;
+  border-radius: 8px; padding: 14px; max-height: 220px; overflow-y: auto;
+  white-space: pre-wrap; line-height: 1.6;
+}
+
+/* ── Results page ─────────────────────────────── */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+.stat {
+  background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.stat .label { font-size: 11px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.stat .value { font-size: 26px; font-weight: 700; color: var(--text); }
+.stat .sub   { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+
+.results-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.results-table th {
+  padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 600;
+  color: var(--text-2); text-transform: uppercase; letter-spacing: 0.04em;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.results-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.results-table tr:last-child td { border-bottom: none; }
+.results-table tbody tr { cursor: pointer; transition: background 0.1s; }
+.results-table tbody tr:hover { background: var(--blue-light); }
+
+.score-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%; font-weight: 700; font-size: 13px;
+}
+.score-high { background: var(--green-bg); color: var(--green); }
+.score-mid  { background: #fef9c3; color: #854d0e; }
+.score-low  { background: var(--red-bg); color: var(--red); }
+
+.arrow-up   { color: var(--green); }
+.arrow-down { color: var(--red);   }
+
+.cov-bar-wrap { width: 80px; height: 6px; background: var(--border); border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 6px; }
+.cov-bar-fill { height: 100%; background: var(--blue); border-radius: 4px; }
+
+/* ── Detail page ──────────────────────────────── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500;
+  color: var(--blue); cursor: pointer; margin-bottom: 14px; border: none; background: none; padding: 0;
+}
+.back-btn:hover { text-decoration: underline; }
+
+.detail-title {
+  font-size: 18px; font-weight: 700; margin-bottom: 4px;
+}
+.detail-subtitle {
+  font-size: 12px; color: var(--text-2); margin-bottom: 18px;
+}
+
+/* PP toggle */
+.toggle-group {
+  display: inline-flex; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 3px; gap: 2px; margin-bottom: 18px;
+}
+.toggle-btn {
+  padding: 6px 18px; border-radius: 6px; border: none; background: none;
+  font-size: 13px; font-weight: 500; color: var(--text-2); cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.toggle-btn.active {
+  background: var(--white); color: var(--blue); font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.metric-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.metric-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.metric-card.pp-active { border-color: var(--blue); background: var(--blue-light); }
+.metric-card.pp-dim    { opacity: 0.45; }
+.metric-card .m-label { font-size: 11px; font-weight: 600; color: var(--text-2); text-transform: uppercase; margin-bottom: 4px; }
+.metric-card .m-value { font-size: 22px; font-weight: 700; }
+.metric-card .m-delta { font-size: 12px; font-weight: 600; margin-top: 2px; }
+.delta-pos { color: var(--green); }
+.delta-neg { color: var(--red); }
+
+/* Issue chips */
+.issues-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px; }
+.issue-chip {
+  background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+.issue-chip:hover { border-color: var(--blue); background: var(--blue-light); }
+.issue-chip.chip-active { border-color: var(--blue); background: var(--blue-light); }
+.issue-chip .i-count { font-size: 22px; font-weight: 700; }
+.issue-chip .i-label { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+.issue-chip .i-hint  { font-size: 10px; color: var(--blue); margin-top: 4px; opacity: 0.7; }
+
+/* Issue detail panel */
+.issue-detail-panel {
+  background: var(--white); border: 1px solid var(--blue-dim); border-radius: 8px;
+  padding: 16px; margin-bottom: 20px; display: none;
+}
+.issue-detail-panel h4 {
+  font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--blue);
+  display: flex; align-items: center; gap: 6px;
+}
+.issue-detail-panel .no-issues {
+  font-size: 13px; color: var(--text-2); padding: 8px 0;
+}
+.issue-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.issue-table th {
+  padding: 7px 12px; text-align: left; font-size: 11px; font-weight: 600;
+  color: var(--text-2); text-transform: uppercase; letter-spacing: 0.04em;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.issue-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.issue-table tr:last-child td { border-bottom: none; }
+.issue-table .word-gt     { font-weight: 600; dir: auto; }
+.issue-table .word-parser { color: var(--red); dir: auto; }
+.issue-table .word-fixed  { color: var(--green); }
+.sub-hdr {
+  font-size: 12px; font-weight: 700; color: var(--text-2); text-transform: uppercase;
+  letter-spacing: 0.06em; margin: 14px 0 8px; display: flex; align-items: center; gap: 6px;
+}
+.sub-hdr span { font-weight: 400; color: var(--blue); }
+.conf-badge {
+  font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px;
+}
+.conf-badge.HIGH   { background: var(--green-bg); color: var(--green); }
+.conf-badge.MEDIUM { background: #fef9c3; color: #854d0e; }
+.conf-badge.LOW    { background: var(--bg); color: var(--text-2); }
+
+/* Compare grid */
+.compare-grid { display: grid; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.compare-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.compare-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.compare-col { display: flex; flex-direction: column; }
+.compare-col:not(:last-child) { border-right: 1px solid var(--border); }
+.compare-header {
+  padding: 10px 14px; background: var(--bg); border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; color: var(--text-2); text-transform: uppercase;
+  letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px;
+}
+.compare-header .col-active-badge {
+  font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 20px;
+  background: var(--blue); color: #fff;
+}
+.compare-body {
+  padding: 14px; font-size: 13px; line-height: 1.9;
+  height: 580px; overflow-y: auto; color: var(--text);
+}
+.compare-body[dir=rtl] { text-align: right; }
+.compare-body.terminal {
+  background: #1a1a1a; color: #ccc;
+  font-family: 'Courier New', monospace; font-size: 12px;
+}
+.noise-word { background: rgba(220,38,38,0.18); border-radius: 3px; padding: 0 2px; }
+.fixed-word { background: rgba(22,163,74,0.15);  border-radius: 3px; padding: 0 2px; }
+
+/* Spinner */
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Empty state */
+.empty { padding: 48px; text-align: center; color: var(--text-2); }
+.empty .material-symbols-outlined { font-size: 40px; display: block; margin-bottom: 10px; opacity: 0.4; }
+
+/* Chart */
+#chart-wrap { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══════════════════════════════════════════════════════════════ -->
+<div id="sidebar">
+  <div class="sidebar-brand">
+    <h1>ParserEval POC</h1>
+    <p>Document Parser Evaluation</p>
+  </div>
+  <nav>
+    <button class="nav-btn active" data-page="run" onclick="navigate('run')">
+      <span class="material-symbols-outlined">play_circle</span> Run Evaluation
+    </button>
+    <button class="nav-btn" data-page="results" onclick="navigate('results')">
+      <span class="material-symbols-outlined">bar_chart</span> Results
+    </button>
+    <button class="nav-btn" id="detail-nav-btn" data-page="detail" onclick="navigate('detail')" style="display:none">
+      <span class="material-symbols-outlined">analytics</span> Detail
+    </button>
+  </nav>
+</div>
+
+<!-- ══ MAIN ═════════════════════════════════════════════════════════════════ -->
+<div id="main">
+  <header>
+    <h2 id="page-title">Run Evaluation</h2>
+    <div class="sep"></div>
+    <p  id="page-sub">Select documents and start the evaluation</p>
+    <span id="status-pill"></span>
+  </header>
+
+  <!-- ── PAGE: RUN ──────────────────────────────────────────────────────── -->
+  <div class="page active" id="page-run">
+    <div id="run-layout">
+
+      <div>
+        <div class="card" style="padding: 20px;">
+          <div class="section-title">Select Documents to Evaluate</div>
+          <div id="doc-list">
+            <div class="empty"><span class="material-symbols-outlined">hourglass_empty</span>Loading documents…</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="padding: 20px;">
+          <div class="section-title">Evaluation</div>
+          <p style="font-size:13px; color:var(--text-2); margin-bottom:16px; line-height:1.6;">
+            Runs each selected document through the parser and computes
+            <strong>Coverage</strong> and <strong>Noise</strong> metrics, both before and after post-processing.
+          </p>
+          <div style="font-size:13px; color:var(--text-2); margin-bottom:20px;">
+            <div style="display:flex; gap:8px; margin-bottom:6px; align-items:center;">
+              <span class="material-symbols-outlined" style="color:var(--blue);font-size:16px">check_circle</span>
+              Raw parser extraction pass
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:6px; align-items:center;">
+              <span class="material-symbols-outlined" style="color:var(--blue);font-size:16px">check_circle</span>
+              Post-processing pass
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span class="material-symbols-outlined" style="color:var(--blue);font-size:16px">check_circle</span>
+              Coverage &amp; noise scoring
+            </div>
+          </div>
+          <div id="selected-count" style="font-size:12px; color:var(--text-2); margin-bottom:14px;">
+            0 documents selected
+          </div>
+          <button class="run-btn" id="run-btn" onclick="runEvaluation()" disabled>
+            <span class="material-symbols-outlined">play_arrow</span>
+            Start Evaluation
+          </button>
+          <div id="run-log"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: RESULTS ──────────────────────────────────────────────────── -->
+  <div class="page" id="page-results">
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="label">Avg Coverage (After PP)</div>
+        <div class="value" id="stat-cov">—</div>
+        <div class="sub" id="stat-cov-sub"></div>
+      </div>
+      <div class="stat">
+        <div class="label">Avg Noise (After PP)</div>
+        <div class="value" id="stat-noise">—</div>
+        <div class="sub" id="stat-noise-sub"></div>
+      </div>
+      <div class="stat">
+        <div class="label">Documents Evaluated</div>
+        <div class="value" id="stat-docs">—</div>
+        <div class="sub">from last evaluation run</div>
+      </div>
+    </div>
+
+    <div class="card" style="overflow:hidden; margin-bottom: 20px;">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Document</th>
+            <th>Coverage Before → After</th>
+            <th>Noise Before → After</th>
+            <th>Score</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="results-tbody">
+          <tr><td colspan="6"><div class="empty"><span class="material-symbols-outlined">bar_chart</span>No results yet — run an evaluation first.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="chart-wrap" style="display:none;">
+      <div class="card" style="padding: 20px; max-width: 600px;">
+        <div class="section-title" style="margin-bottom:16px;">Coverage: Before vs After Post-Processing</div>
+        <div style="height: 220px;"><canvas id="the-chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: DETAIL ───────────────────────────────────────────────────── -->
+  <div class="page" id="page-detail">
+    <button class="back-btn" onclick="navigate('results')">
+      <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>
+      Back to Results
+    </button>
+
+    <!-- Title -->
+    <div class="detail-title" id="detail-doc-title" dir="auto"></div>
+    <div class="detail-subtitle" id="detail-doc-subtitle"></div>
+
+    <!-- Before / After toggle -->
+    <div class="toggle-group">
+      <button class="toggle-btn" id="toggle-before" onclick="setPPMode('before')">Before Post-Processing</button>
+      <button class="toggle-btn active" id="toggle-after"  onclick="setPPMode('after')">After Post-Processing</button>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="metric-cards">
+      <div class="metric-card" id="mc-cov-before">
+        <div class="m-label">Coverage Before</div>
+        <div class="m-value" id="d-cov-before">—</div>
+      </div>
+      <div class="metric-card" id="mc-cov-after">
+        <div class="m-label">Coverage After PP</div>
+        <div class="m-value" id="d-cov-after" style="color:var(--blue)">—</div>
+        <div class="m-delta" id="d-cov-delta"></div>
+      </div>
+      <div class="metric-card" id="mc-noise-before">
+        <div class="m-label">Noise Before</div>
+        <div class="m-value" id="d-noise-before">—</div>
+      </div>
+      <div class="metric-card" id="mc-noise-after">
+        <div class="m-label">Noise After PP</div>
+        <div class="m-value" id="d-noise-after">—</div>
+        <div class="m-delta" id="d-noise-delta"></div>
+      </div>
+    </div>
+
+    <!-- Issue chips -->
+    <div class="issues-grid" id="detail-issues-grid"></div>
+
+    <!-- Issue detail panel (shown on chip click) -->
+    <div class="issue-detail-panel" id="issue-detail-panel">
+      <h4 id="issue-detail-title">
+        <span class="material-symbols-outlined" style="font-size:16px">manage_search</span>
+        <span id="issue-detail-title-text"></span>
+      </h4>
+      <div id="issue-detail-body"></div>
+    </div>
+
+    <!-- Text comparison -->
+    <div class="compare-grid cols-3" id="compare-grid">
+      <div class="compare-col">
+        <div class="compare-header" id="cmp-hdr-gt">
+          <span class="material-symbols-outlined" style="font-size:14px;color:var(--green)">verified</span>
+          Ground Truth
+        </div>
+        <div class="compare-body" id="cmp-gt" dir="rtl">—</div>
+      </div>
+      <div class="compare-col" id="cmp-col-raw">
+        <div class="compare-header" id="cmp-hdr-raw">
+          <span class="material-symbols-outlined" style="font-size:14px;color:var(--text-2)">code</span>
+          Raw Parser Output
+        </div>
+        <div class="compare-body terminal" id="cmp-raw">—</div>
+      </div>
+      <div class="compare-col" id="cmp-col-post">
+        <div class="compare-header" id="cmp-hdr-post">
+          <span class="material-symbols-outlined" style="font-size:14px;color:var(--blue)">auto_fix_high</span>
+          Post-Processed
+        </div>
+        <div class="compare-body" id="cmp-post" dir="rtl">—</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #main -->
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+const S = {
+  docs: [], selected: new Set(), results: null, chart: null,
+  ppMode: 'after',
+  activeChipKey: null,
+  diagData: null,
+  currentDoc: null,
+};
+
+// ── Navigation ─────────────────────────────────────────────────────────────
+const PAGE_META = {
+  run:     { title: 'Run Evaluation',   sub: 'Select documents and start the evaluation' },
+  results: { title: 'Results',          sub: 'Coverage and noise metrics from the last run' },
+  detail:  { title: 'Detailed View',    sub: '' },
+};
+
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`page-${page}`).classList.add('active');
+  document.querySelector(`[data-page="${page}"]`).classList.add('active');
+  document.getElementById('page-title').textContent = PAGE_META[page].title;
+  document.getElementById('page-sub').textContent   = PAGE_META[page].sub;
+}
+
+// ── Load documents ─────────────────────────────────────────────────────────
+async function loadDocuments() {
+  const res  = await fetch('/api/documents').then(r => r.json());
+  S.docs = res.documents || [];
+  const list = document.getElementById('doc-list');
+  if (!S.docs.length) {
+    list.innerHTML = '<div class="empty"><span class="material-symbols-outlined">folder_off</span>No documents found in files_to_test/</div>';
+    return;
+  }
+  const icons = { pdf: 'picture_as_pdf', docx: 'description', txt: 'article', pptx: 'slideshow', xlsx: 'table_chart' };
+  list.innerHTML = S.docs.map(d => `
+    <div class="doc-item" id="di-${CSS.escape(d.name)}" onclick="toggleDoc('${d.name.replace(/'/g,"\\'")}', this)">
+      <input type="checkbox" id="cb-${CSS.escape(d.name)}" onclick="event.stopPropagation(); toggleDoc('${d.name.replace(/'/g,"\\'")}', this.closest('.doc-item'))"/>
+      <span class="material-symbols-outlined" style="color:var(--blue);font-size:19px">${icons[d.type] || 'description'}</span>
+      <div>
+        <div class="doc-name" dir="auto">${d.name}</div>
+        <div class="doc-type">${d.type.toUpperCase()}</div>
+      </div>
+      ${d.has_gt ? '<span class="gt-badge">GT ✓</span>' : ''}
+    </div>
+  `).join('');
+}
+
+function toggleDoc(name, el) {
+  const cb = el.querySelector('input[type=checkbox]') || (el.type==='checkbox' ? el : null);
+  if (S.selected.has(name)) {
+    S.selected.delete(name);
+    el.classList.remove('checked');
+    if (cb) cb.checked = false;
+  } else {
+    S.selected.add(name);
+    el.classList.add('checked');
+    if (cb) cb.checked = true;
+  }
+  const n = S.selected.size;
+  document.getElementById('selected-count').textContent = n === 0 ? '0 documents selected' : `${n} document${n > 1 ? 's' : ''} selected`;
+  document.getElementById('run-btn').disabled = n === 0;
+}
+
+// ── Run evaluation ─────────────────────────────────────────────────────────
+async function runEvaluation() {
+  const btn   = document.getElementById('run-btn');
+  const logEl = document.getElementById('run-log');
+  const pill  = document.getElementById('status-pill');
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Running…';
+  logEl.style.display = 'block';
+  logEl.textContent   = 'Starting evaluation…\n';
+  pill.textContent    = 'Running…';
+  pill.className      = 'status-running';
+
+  try {
+    const res  = await fetch('/api/evaluate', { method: 'POST' });
+    const data = await res.json();
+
+    logEl.textContent = (data.stdout || '(no output)') + (data.stderr ? '\n\nSTDERR:\n' + data.stderr : '');
+    logEl.scrollTop   = logEl.scrollHeight;
+
+    if (data.status === 'ok') {
+      pill.textContent = 'Done';
+      pill.className   = 'status-ok';
+      await loadResults();
+      navigate('results');
+    } else {
+      pill.textContent = 'Failed';
+      pill.className   = 'status-error';
+    }
+  } catch(e) {
+    logEl.textContent += '\nError: ' + e;
+    pill.textContent   = 'Error';
+    pill.className     = 'status-error';
+  }
+
+  btn.disabled  = false;
+  btn.innerHTML = '<span class="material-symbols-outlined">play_arrow</span> Start Evaluation';
+}
+
+// ── Load & render results ──────────────────────────────────────────────────
+async function loadResults() {
+  const res = await fetch('/api/dashboard-data');
+  if (!res.ok) return;
+  const data  = await res.json();
+  S.results   = data.rows || [];
+  renderResults();
+}
+
+function renderResults() {
+  const rows = S.results;
+  if (!rows || !rows.length) return;
+
+  const avgCov         = avg(rows.map(r => r.cov_after));
+  const avgNoise       = avg(rows.map(r => r.noise_after));
+  const avgCovBefore   = avg(rows.map(r => r.cov_before));
+  const avgNoiseBefore = avg(rows.map(r => r.noise_before));
+  document.getElementById('stat-cov').textContent       = avgCov + '%';
+  document.getElementById('stat-cov-sub').textContent   = `vs ${avgCovBefore}% before PP (${sign(avgCov - avgCovBefore)}%)`;
+  document.getElementById('stat-noise').textContent     = avgNoise + '%';
+  document.getElementById('stat-noise-sub').textContent = `vs ${avgNoiseBefore}% before PP`;
+  document.getElementById('stat-docs').textContent      = rows.length;
+
+  document.getElementById('results-tbody').innerHTML = rows.map((r, i) => {
+    const covDelta   = +(r.cov_after - r.cov_before).toFixed(1);
+    const noiseDelta = +(r.noise_before - r.noise_after).toFixed(1);
+    const scoreClass = r.score >= 75 ? 'score-high' : r.score >= 60 ? 'score-mid' : 'score-low';
+    return `
+    <tr onclick="openDetail('${r.doc_name.replace(/'/g,"\\'")}')">
+      <td style="color:var(--text-2); font-weight:600">${i+1}</td>
+      <td><span style="font-weight:600" dir="auto">${r.doc_name}</span></td>
+      <td>
+        <span style="color:var(--text-2)">${r.cov_before}%</span>
+        <span style="color:var(--text-2); margin:0 4px">→</span>
+        <strong style="color:var(--blue)">${r.cov_after}%</strong>
+        <span class="${covDelta >= 0 ? 'arrow-up' : 'arrow-down'}" style="font-size:12px; margin-left:4px">${sign(covDelta)}%</span>
+        <span class="cov-bar-wrap"><span class="cov-bar-fill" style="width:${r.cov_after}%"></span></span>
+      </td>
+      <td>
+        <span style="color:var(--text-2)">${r.noise_before}%</span>
+        <span style="color:var(--text-2); margin:0 4px">→</span>
+        <strong>${r.noise_after}%</strong>
+        <span class="${noiseDelta >= 0 ? 'arrow-up' : 'arrow-down'}" style="font-size:12px; margin-left:4px">${noiseDelta >= 0 ? '−' : '+'}${Math.abs(noiseDelta)}%</span>
+      </td>
+      <td><span class="score-badge ${scoreClass}">${r.score}</span></td>
+      <td style="color:var(--blue)"><span class="material-symbols-outlined" style="font-size:18px">chevron_right</span></td>
+    </tr>`;
+  }).join('');
+
+  renderChart(rows);
+}
+
+function renderChart(rows) {
+  const wrap = document.getElementById('chart-wrap');
+  wrap.style.display = 'block';
+  const labels = rows.map(r => r.doc_name.length > 18 ? r.doc_name.slice(0,18)+'…' : r.doc_name);
+  const before = rows.map(r => r.cov_before);
+  const after  = rows.map(r => r.cov_after);
+
+  if (S.chart) S.chart.destroy();
+  S.chart = new Chart(document.getElementById('the-chart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Before PP', data: before, backgroundColor: '#c3c6d780', borderRadius: 4 },
+        { label: 'After PP',  data: after,  backgroundColor: '#004ac6cc', borderRadius: 4 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12 } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 }, maxRotation: 20 } },
+        y: { beginAtZero: true, max: 100, ticks: { font: { size: 11 } }, grid: { color: '#f0f0f8' } }
+      }
+    }
+  });
+}
+
+// ── Detail view ────────────────────────────────────────────────────────────
+async function openDetail(docName) {
+  S.currentDoc    = docName;
+  S.activeChipKey = null;
+  S.diagData      = null;
+
+  // Set title
+  document.getElementById('detail-doc-title').textContent    = docName;
+  document.getElementById('detail-doc-subtitle').textContent = 'Document analysis — click a category below to see word-level issues';
+  document.getElementById('detail-nav-btn').style.display    = '';
+
+  // Update page sub in header
+  PAGE_META.detail.sub = docName;
+  navigate('detail');
+
+  // Loading state
+  ['d-cov-before','d-cov-after','d-noise-before','d-noise-after'].forEach(id =>
+    document.getElementById(id).textContent = '…'
+  );
+  ['d-cov-delta','d-noise-delta'].forEach(id =>
+    document.getElementById(id).textContent = ''
+  );
+  document.getElementById('cmp-gt').textContent   = 'Loading…';
+  document.getElementById('cmp-raw').textContent  = 'Loading…';
+  document.getElementById('cmp-post').textContent = 'Loading…';
+  document.getElementById('detail-issues-grid').innerHTML = '';
+  document.getElementById('issue-detail-panel').style.display = 'none';
+
+  // Pull metrics from existing results (instant)
+  const row = (S.results || []).find(r => r.doc_name === docName);
+  if (row) {
+    document.getElementById('d-cov-before').textContent   = row.cov_before + '%';
+    document.getElementById('d-cov-after').textContent    = row.cov_after  + '%';
+    document.getElementById('d-noise-before').textContent = row.noise_before + '%';
+    document.getElementById('d-noise-after').textContent  = row.noise_after  + '%';
+    const covDelta   = +(row.cov_after   - row.cov_before).toFixed(1);
+    const noiseDelta = +(row.noise_before - row.noise_after).toFixed(1);
+    const covDeltaEl = document.getElementById('d-cov-delta');
+    const noiseDeltaEl = document.getElementById('d-noise-delta');
+    covDeltaEl.textContent   = covDelta   >= 0 ? `+${covDelta}%`   : `${covDelta}%`;
+    noiseDeltaEl.textContent = noiseDelta >= 0 ? `−${noiseDelta}%` : `+${Math.abs(noiseDelta)}%`;
+    covDeltaEl.className   = 'm-delta ' + (covDelta   >= 0 ? 'delta-pos' : 'delta-neg');
+    noiseDeltaEl.className = 'm-delta ' + (noiseDelta >= 0 ? 'delta-pos' : 'delta-neg');
+  }
+
+  applyPPModeHighlight();
+
+  // Fetch diagnostics + text in parallel
+  const enc = encodeURIComponent(docName);
+  const [diag, gtRes, rawRes, postRes] = await Promise.all([
+    fetch(`/api/diagnostics/${enc}`).then(r => r.json()).catch(() => ({})),
+    fetch(`/api/ground-truth/${enc}`).then(r => r.json()).catch(() => ({ content: '' })),
+    fetch(`/api/parser-output/${enc}`).then(r => r.json()).catch(() => ({ content: '' })),
+    fetch(`/api/parsed-output/${enc}`).then(r => r.json()).catch(() => ({ content: '' })),
+  ]);
+
+  S.diagData = diag;
+  renderIssueChips(diag.summary || {});
+  renderCompare(gtRes.content || '', rawRes.content || '', postRes.content || '', diag.ocr_splits || []);
+}
+
+// ── Before / After PP toggle ───────────────────────────────────────────────
+function setPPMode(mode) {
+  S.ppMode = mode;
+  document.getElementById('toggle-before').classList.toggle('active', mode === 'before');
+  document.getElementById('toggle-after').classList.toggle('active',  mode === 'after');
+  applyPPModeHighlight();
+  updateCompareHeaders();
+}
+
+function applyPPModeHighlight() {
+  const beforeCards = ['mc-cov-before', 'mc-noise-before'];
+  const afterCards  = ['mc-cov-after',  'mc-noise-after'];
+  const activeCards  = S.ppMode === 'before' ? beforeCards : afterCards;
+  const dimmedCards  = S.ppMode === 'before' ? afterCards  : beforeCards;
+  activeCards.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.add('pp-active');
+    el.classList.remove('pp-dim');
+  });
+  dimmedCards.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('pp-active');
+    el.classList.add('pp-dim');
+  });
+}
+
+function updateCompareHeaders() {
+  const rawHdr  = document.getElementById('cmp-hdr-raw');
+  const postHdr = document.getElementById('cmp-hdr-post');
+  const badge = `<span class="col-active-badge">Active</span>`;
+
+  rawHdr.innerHTML = `
+    <span class="material-symbols-outlined" style="font-size:14px;color:var(--text-2)">code</span>
+    Raw Parser Output ${S.ppMode === 'before' ? badge : ''}`;
+  postHdr.innerHTML = `
+    <span class="material-symbols-outlined" style="font-size:14px;color:var(--blue)">auto_fix_high</span>
+    Post-Processed ${S.ppMode === 'after' ? badge : ''}`;
+}
+
+// ── Issue chips ────────────────────────────────────────────────────────────
+const CHIP_DEFS = [
+  { key: 'missing',      label: 'Missing Content',   sev: 'high',   issueType: 'Missing Content'   },
+  { key: 'ocr_split',   label: 'OCR Split Words',    sev: 'medium', issueType: 'OCR Split Words'   },
+  { key: 'merged',      label: 'Merged Words',        sev: 'medium', issueType: 'Merged Words'      },
+  { key: 'formatting',  label: 'Formatting Issues',   sev: 'low',    issueType: 'Formatting Issues' },
+  { key: 'unclassified',label: 'Unclassified',        sev: 'low',    issueType: 'Unclassified'      },
+  { key: 'ngrams',      label: 'Missing n-grams',     sev: 'low',    issueType: null                },
+];
+
+function renderIssueChips(s) {
+  const counts = {
+    missing:      s.missing       || 0,
+    ocr_split:    s.ocr_split     || 0,
+    merged:       s.merged        || 0,
+    formatting:   s.formatting    || 0,
+    unclassified: s.unclassified  || 0,
+    ngrams:       s.total_missing_ngrams || 0,
+  };
+
+  document.getElementById('detail-issues-grid').innerHTML = CHIP_DEFS.map(c => `
+    <div class="issue-chip" id="chip-${c.key}" onclick="toggleIssueDetail('${c.key}')">
+      <div class="i-count ${c.sev === 'high' ? 'delta-neg' : ''}">${counts[c.key]}</div>
+      <div class="i-label">${c.label}</div>
+      <span class="i-sev sev-${c.sev}">${c.sev}</span>
+    </div>
+  `).join('');
+}
+
+function toggleIssueDetail(key) {
+  const panel = document.getElementById('issue-detail-panel');
+
+  if (S.activeChipKey === key) {
+    // Close
+    S.activeChipKey = null;
+    panel.style.display = 'none';
+    document.getElementById(`chip-${key}`).classList.remove('chip-active');
+    return;
+  }
+
+  // Deactivate previous
+  if (S.activeChipKey) {
+    document.getElementById(`chip-${S.activeChipKey}`)?.classList.remove('chip-active');
+  }
+  S.activeChipKey = key;
+  document.getElementById(`chip-${key}`).classList.add('chip-active');
+
+  const chipDef = CHIP_DEFS.find(c => c.key === key);
+  document.getElementById('issue-detail-title-text').textContent = chipDef.label;
+  panel.style.display = 'block';
+
+  if (!chipDef.issueType) {
+    // n-grams — no word-level data
+    const count = (S.diagData?.summary?.total_missing_ngrams) || 0;
+    document.getElementById('issue-detail-body').innerHTML =
+      `<div class="no-issues">${count} missing n-gram(s) detected. Word-level breakdown not available for this category.</div>`;
+    return;
+  }
+
+  const issues = (S.diagData?.issues || []).filter(i => i.type === chipDef.issueType);
+  if (!issues.length) {
+    document.getElementById('issue-detail-body').innerHTML =
+      '<div class="no-issues">No word-level data available for this category.</div>';
+    return;
+  }
+
+  document.getElementById('issue-detail-body').innerHTML = `
+    <table class="issue-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>In Ground Truth</th>
+          <th>In Parser Output</th>
+          <th>Fixed by PP</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${issues.map((iss, i) => `
+          <tr>
+            <td style="color:var(--text-2); width:36px">${i+1}</td>
+            <td class="word-gt" dir="auto">${esc(iss.text || '—')}</td>
+            <td class="word-parser" dir="auto">${esc(iss.detail || '(not found)')}</td>
+            <td>${iss.fixed
+              ? '<span class="word-fixed" style="font-weight:600">Yes</span>'
+              : '<span style="color:var(--text-2)">No</span>'}</td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+// ── Text comparison ────────────────────────────────────────────────────────
+function renderCompare(gt, raw, post, ocr_splits) {
+  const toParas = t => t.split('\n').filter(l => l.trim())
+    .map(l => `<p style="margin-bottom:6px">${esc(l)}</p>`).join('');
+
+  const badFrags = new Set(ocr_splits.flatMap(s => s.fragments_in_parser || []));
+  const rawLines = raw.split('\n').map((line, i) => {
+    let h = esc(line);
+    badFrags.forEach(w => {
+      if (w && h.includes(esc(w))) h = h.replaceAll(esc(w), `<span class="noise-word">${esc(w)}</span>`);
+    });
+    return `<div><span style="color:#555;user-select:none;display:inline-block;width:36px">${String(i+1).padStart(4,'0')}</span>${h}</div>`;
+  }).join('');
+
+  document.getElementById('cmp-gt').innerHTML   = toParas(gt);
+  document.getElementById('cmp-raw').innerHTML  = rawLines;
+  document.getElementById('cmp-post').innerHTML = toParas(post);
+
+  updateCompareHeaders();
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function avg(arr)  { return arr.length ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : 0; }
+function sign(n)   { return n >= 0 ? `+${n.toFixed(1)}` : `${n.toFixed(1)}`; }
+function esc(s)    { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── Init ───────────────────────────────────────────────────────────────────
+(async () => {
+  await loadDocuments();
+  await loadResults();
+})();
+</script>
+</body>
+</html>

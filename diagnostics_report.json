@@ -106,6 +106,13 @@
               ]
             },
             {
+              "merged_word": "בשדהGuard",
+              "original": [
+                "בשדה",
+                "Guard"
+              ]
+            },
+            {
               "merged_word": "באמצעותMessage",
               "original": [
                 "באמצעות",
@@ -124,13 +131,6 @@
               "original": [
                 "ערך",
                 "False"
-              ]
-            },
-            {
-              "merged_word": "בשדהGuard",
-              "original": [
-                "בשדה",
-                "Guard"
               ]
             }
           ]
