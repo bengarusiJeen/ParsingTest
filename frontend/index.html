@@ -1757,6 +1757,116 @@
       background: rgba(255,64,96,0.05);
       border: 1px solid rgba(255,64,96,0.25);
     }
+
+    /* ── Parser check mark (multi-select) ───────────────────── */
+    .parser-check-mark {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    /* ── Parser subtabs bar ──────────────────────────────────── */
+    #parser-subtabs-bar {
+      display: none;
+      align-items: center;
+      padding: 8px 16px;
+      gap: 6px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    #parser-subtabs-label {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+
+    .parser-subtab {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-2);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .parser-subtab:hover {
+      background: var(--surface-3);
+      color: var(--text-1);
+      border-color: var(--border-2);
+    }
+
+    .parser-subtab.active {
+      background: var(--accent-dim);
+      border-color: rgba(192,255,60,0.4);
+      color: var(--accent);
+    }
+
+    .parser-subtab--error {
+      border-color: rgba(255,64,96,0.3);
+      color: var(--danger);
+    }
+
+    .parser-subtab--error.active {
+      background: rgba(255,64,96,0.07);
+      border-color: var(--danger);
+    }
+
+    .parser-subtab-icon { opacity: 0.8; }
+
+    .parser-subtab-err {
+      font-size: 0.7rem;
+      color: var(--danger);
+      margin-left: 1px;
+    }
+
+    /* ── Failed-parser inline error panel ───────────────────── */
+    .parser-fail-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 52px 32px;
+      gap: 12px;
+    }
+
+    .parser-fail-icon { font-size: 1.8rem; color: var(--danger); }
+
+    .parser-fail-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--danger);
+    }
+
+    .parser-fail-log {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: var(--text-2);
+      white-space: pre-wrap;
+      text-align: left;
+      max-width: 640px;
+      width: 100%;
+      background: rgba(255,64,96,0.05);
+      border: 1px solid rgba(255,64,96,0.2);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+    }
   </style>
 </head>
 <body>
@@ -1835,6 +1945,12 @@
 
       <!-- ── Results wrap ─────────────────────────────────────── -->
       <div id="results-wrap" style="display:none">
+
+        <!-- Parser subtabs (only shown for multi-parser runs) -->
+        <div id="parser-subtabs-bar">
+          <span id="parser-subtabs-label">Parser</span>
+          <!-- populated by JS -->
+        </div>
 
         <!-- File tabs (populated by JS) -->
         <div id="tabs-bar"><!-- populated by JS --></div>
@@ -1927,7 +2043,9 @@ const S = {
   activeNav:        'setup',  // 'setup' | 'results'
   availableFiles:   [],       // [{name, ext}]
   selectedFiles:    new Set(),
-  selectedParser:   'document_intelligence',
+  selectedParsers:  new Set(['document_intelligence']),  // multi-select
+  parserResults:    {},   // { parser_id: { status, general, diagnostic, ... } }
+  activeParser:     null, // parser id shown in results (null = single-parser mode)
 };
 
 const PARSERS = [
@@ -1958,7 +2076,7 @@ const PARSERS = [
 
 /* ── Run evaluation ─────────────────────────────────────────────── */
 async function runEvaluation() {
-  if (S.selectedFiles.size === 0) return;
+  if (S.selectedFiles.size === 0 || S.selectedParsers.size === 0) return;
 
   setStatus('loading');
   switchNav('results');
@@ -1973,36 +2091,47 @@ async function runEvaluation() {
   hide('report-panel');
   hide('tabs-bar');
   hide('toggle-bar');
+  hide('parser-subtabs-bar');
 
   try {
     const res  = await fetch('/api/evaluate', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ selected: [...S.selectedFiles], parser: S.selectedParser }),
+      body:    JSON.stringify({
+        selected: [...S.selectedFiles],
+        parsers:  [...S.selectedParsers],
+      }),
     });
     const data = await res.json();
 
-    if (data.stdout) $('stdout-log').textContent = data.stdout;
-
-    if (data.status === 'ok' && data.general) {
-      loadResults(data);
-    } else if (data.status === 'ok') {
-      showError('Evaluation produced no results.\nCheck that the selected files are valid and the parser service is running.\n\n' + (data.stderr || ''));
+    if (data.multi_parser) {
+      const firstOk = Object.values(data.parsers).find(d => d.stdout);
+      if (firstOk?.stdout) $('stdout-log').textContent = firstOk.stdout;
+      loadMultiParserResults(data);
     } else {
-      showError(data.stderr || data.error || `Exit code ${data.returncode}`);
+      if (data.stdout) $('stdout-log').textContent = data.stdout;
+      if (data.status === 'ok' && data.general) {
+        loadResults(data);
+      } else if (data.status === 'ok') {
+        showError('Evaluation produced no results.\nCheck that the selected files are valid and the parser service is running.\n\n' + (data.stderr || ''));
+      } else {
+        showError(data.stderr || data.error || `Exit code ${data.returncode}`);
+      }
     }
   } catch (e) {
     showError('Could not reach the server.\nMake sure frontend/server.py is running.');
   } finally {
-    btn.disabled = S.selectedFiles.size === 0;
+    btn.disabled = S.selectedFiles.size === 0 || S.selectedParsers.size === 0;
     btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none">
       <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/></svg>
       Start Evaluation`;
   }
 }
 
-/* ── Load results ───────────────────────────────────────────────── */
+/* ── Load results (single-parser) ───────────────────────────────── */
 function loadResults(data) {
+  S.parserResults = {};
+  S.activeParser  = null;
   S.general       = data.general;
   S.diagnostic    = data.diagnostic;
   S.general_pp    = data.general_pp    ?? null;
@@ -2011,9 +2140,98 @@ function loadResults(data) {
   S.activeReport  = 'general';
   setStatus('ready');
   buildDownloadLinks(data);
+  renderParserSubtabs();
   renderTabs();
   renderToggle();
   renderReport();
+}
+
+/* ── Load results (multi-parser) ────────────────────────────────── */
+function loadMultiParserResults(data) {
+  S.parserResults = data.parsers;
+
+  // Activate the first successful parser
+  const firstOkId = Object.keys(data.parsers).find(id => data.parsers[id].status === 'ok');
+
+  if (!firstOkId) {
+    const errLines = Object.entries(data.parsers)
+      .map(([id, d]) => {
+        const p = PARSERS.find(p => p.id === id);
+        return `${p?.label ?? id}:\n${d.stderr || d.error || 'Unknown error'}`;
+      }).join('\n\n');
+    showError('All parsers failed:\n\n' + errLines);
+    return;
+  }
+
+  S.activeParser = firstOkId;
+  _applyParserData(data.parsers[firstOkId]);
+  setStatus('ready');
+  buildDownloadLinks(data.parsers[firstOkId]);
+  renderParserSubtabs();
+  renderTabs();
+  renderToggle();
+  renderReport();
+}
+
+/* Copy a parser's result payload into the active S.general/diagnostic/… fields */
+function _applyParserData(d) {
+  S.general       = d.general       ?? null;
+  S.diagnostic    = d.diagnostic    ?? null;
+  S.general_pp    = d.general_pp    ?? null;
+  S.diagnostic_pp = d.diagnostic_pp ?? null;
+  S.activeDoc     = 'summary';
+  S.activeReport  = 'general';
+}
+
+/* ── Switch parser tab (multi-parser mode) ──────────────────────── */
+function switchParserTab(parserId) {
+  S.activeParser = parserId;
+  const d = S.parserResults[parserId];
+  if (d && d.status === 'ok') {
+    _applyParserData(d);
+    buildDownloadLinks(d);
+  } else {
+    S.general = null; S.diagnostic = null;
+    S.general_pp = null; S.diagnostic_pp = null;
+    S.activeDoc = 'summary'; S.activeReport = 'general';
+  }
+  renderParserSubtabs();
+  $('toggle-bar').style.display = 'none';
+  renderTabs();
+  renderReport();
+}
+
+/* ── Render parser subtabs bar ──────────────────────────────────── */
+function renderParserSubtabs() {
+  const bar = $('parser-subtabs-bar');
+  if (!bar) return;
+
+  const ids = Object.keys(S.parserResults);
+  if (ids.length <= 1) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  bar.style.display = 'flex';
+
+  // Remove any previously injected tab elements (keep the label span)
+  bar.querySelectorAll('.parser-subtab').forEach(el => el.remove());
+
+  ids.forEach(id => {
+    const d      = S.parserResults[id];
+    const parser = PARSERS.find(p => p.id === id);
+    const label  = parser?.label ?? id;
+    const isErr  = d.status !== 'ok';
+    const isAct  = id === S.activeParser;
+    const tab    = document.createElement('div');
+    tab.className = `parser-subtab${isAct ? ' active' : ''}${isErr ? ' parser-subtab--error' : ''}`;
+    tab.innerHTML =
+      `<span class="parser-subtab-icon">${parser?.icon ?? '◇'}</span>` +
+      `<span>${esc(label)}</span>` +
+      (isErr ? `<span class="parser-subtab-err">⚠</span>` : '');
+    tab.onclick = () => switchParserTab(id);
+    bar.appendChild(tab);
+  });
 }
 
 /* ── Status ─────────────────────────────────────────────────────── */
@@ -2122,6 +2340,21 @@ function renderReport() {
 
   const panel = $('report-panel');
   panel.style.display = 'block';
+
+  // In multi-parser mode, show an inline error panel for a failed parser tab
+  if (S.activeParser !== null) {
+    const d = S.parserResults[S.activeParser];
+    if (d && d.status !== 'ok') {
+      const p = PARSERS.find(p => p.id === S.activeParser);
+      panel.innerHTML =
+        `<div class="parser-fail-panel">
+          <div class="parser-fail-icon">⚠</div>
+          <div class="parser-fail-title">${esc(p?.label ?? S.activeParser)} — Parser Failed</div>
+          <pre class="parser-fail-log">${esc(d.stderr || d.error || 'No error details available.')}</pre>
+        </div>`;
+      return;
+    }
+  }
 
   if (S.activeReport === 'postprocessing') {
     if (S.activeDoc === 'summary') renderPostprocessingSummary(panel);
@@ -3183,13 +3416,14 @@ function renderParsers() {
   const grid = $('parser-grid');
   if (!grid) return;
   grid.innerHTML = PARSERS.map(p => {
-    const sel   = S.selectedParser === p.id;
+    const sel   = S.selectedParsers.has(p.id);
     const soon  = !p.available;
-    const click = soon ? '' : `onclick="selectParser('${p.id}')"`;
+    const click = soon ? '' : `onclick="toggleParser('${p.id}')"`;
     return `
       <div class="parser-card${sel ? ' selected' : ''}${soon ? ' parser-card--soon' : ''}" ${click}>
         <div class="parser-card-top">
           <span class="parser-icon">${p.icon ?? '◇'}</span>
+          ${sel ? `<span class="parser-check-mark">✓</span>` : ''}
           <div class="parser-badge ${soon ? 'parser-badge--soon' : 'parser-badge--live'}">${soon ? 'Soon' : 'Live'}</div>
         </div>
         <div class="parser-name">${esc(p.label)}</div>
@@ -3198,9 +3432,15 @@ function renderParsers() {
   }).join('');
 }
 
-function selectParser(id) {
-  S.selectedParser = id;
+function toggleParser(id) {
+  if (S.selectedParsers.has(id)) {
+    // Keep at least one parser selected
+    if (S.selectedParsers.size > 1) S.selectedParsers.delete(id);
+  } else {
+    S.selectedParsers.add(id);
+  }
   renderParsers();
+  updateSelectionUI();
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -3271,18 +3511,19 @@ function clearFiles() {
 }
 
 function updateSelectionUI() {
-  const n     = S.selectedFiles.size;
-  const total = S.availableFiles.length;
-  const badge = $('file-count-badge');
-  const btn   = $('run-btn');
-  const hint  = $('run-hint');
+  const n      = S.selectedFiles.size;
+  const total  = S.availableFiles.length;
+  const badge  = $('file-count-badge');
+  const btn    = $('run-btn');
+  const hint   = $('run-hint');
+  const canRun = n > 0 && S.selectedParsers.size > 0;
 
   if (badge) {
     badge.textContent = n === 0 ? '0 selected' : `${n} of ${total} selected`;
     badge.classList.toggle('has-selection', n > 0);
   }
-  if (btn)  btn.disabled = n === 0;
-  if (hint) hint.style.display = n === 0 ? '' : 'none';
+  if (btn)  btn.disabled = !canRun;
+  if (hint) hint.style.display = canRun ? 'none' : '';
 }
 
 /* Switch between Setup and Results nav tabs */

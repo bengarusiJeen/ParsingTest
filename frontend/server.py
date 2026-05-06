@@ -85,20 +85,18 @@ def list_files():
     return jsonify({"files": result})
 
 
-@app.route("/api/evaluate", methods=["POST"])
-def evaluate():
-    """Run the full evaluation pipeline and return both JSON reports."""
-    body          = request.get_json(silent=True) or {}
-    selected      = body.get("selected", [])
-    parser_method = body.get("parser", "base_text_parser")
-
-    # Wipe old report files so a failed run never serves stale data
+def _wipe_report_files():
     for _p in [GENERAL_JSON, DIAG_JSON, GENERAL_PP_JSON, DIAG_PP_JSON,
                GENERAL_PP_JSON_LEGACY, DIAG_PP_JSON_LEGACY]:
         try:
             _p.unlink(missing_ok=True)
         except OSError:
             pass
+
+
+def _run_single_parser(parser_method: str, selected: list) -> dict:
+    """Run the evaluation pipeline for one parser and return the result dict."""
+    _wipe_report_files()
 
     cmd = [
         sys.executable,
@@ -121,16 +119,17 @@ def evaluate():
             timeout=180,
         )
     except subprocess.TimeoutExpired:
-        return jsonify({"error": "Evaluation timed out after 180 s."}), 504
+        return {"status": "error", "error": "Evaluation timed out after 180 s.",
+                "stdout": "", "stderr": ""}
     except Exception as exc:
-        return jsonify({"error": str(exc)}), 500
+        return {"status": "error", "error": str(exc), "stdout": "", "stderr": ""}
 
     general       = _load_json(GENERAL_JSON)
     diagnostic    = _load_json(DIAG_JSON)
     general_pp    = _load_json_any([GENERAL_PP_JSON, GENERAL_PP_JSON_LEGACY])
     diagnostic_pp = _load_json_any([DIAG_PP_JSON, DIAG_PP_JSON_LEGACY])
 
-    return jsonify({
+    return {
         "status":        "ok" if proc.returncode == 0 else "error",
         "returncode":    proc.returncode,
         "stdout":        proc.stdout,
@@ -139,7 +138,30 @@ def evaluate():
         "diagnostic":    diagnostic,
         "general_pp":    general_pp,
         "diagnostic_pp": diagnostic_pp,
-    })
+    }
+
+
+@app.route("/api/evaluate", methods=["POST"])
+def evaluate():
+    """Run the full evaluation pipeline and return both JSON reports."""
+    body     = request.get_json(silent=True) or {}
+    selected = body.get("selected", [])
+
+    # Accept either parsers (list, new) or parser (single string, legacy)
+    parsers_list = body.get("parsers", None)
+    if parsers_list is None:
+        parsers_list = [body.get("parser", "base_text_parser")]
+
+    if len(parsers_list) == 1:
+        result = _run_single_parser(parsers_list[0], selected)
+        return jsonify(result)
+
+    # Multi-parser: run each sequentially, collect per-parser results
+    parser_results = {}
+    for parser_method in parsers_list:
+        parser_results[parser_method] = _run_single_parser(parser_method, selected)
+
+    return jsonify({"multi_parser": True, "parsers": parser_results})
 
 
 @app.route("/api/results", methods=["GET"])
