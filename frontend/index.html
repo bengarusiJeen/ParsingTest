@@ -6,44 +6,47 @@
   <title>ParserDiag — Evaluation Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     /* ── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ── Design tokens ──────────────────────────────────────── */
     :root {
-      --bg:          #0a0a0c;
-      --surface:     #111114;
-      --surface-2:   #17171b;
-      --surface-3:   #1e1e23;
-      --border:      #22222a;
-      --border-2:    #2e2e38;
+      --bg:          #08080a;
+      --surface:     #0f0f12;
+      --surface-2:   #15151a;
+      --surface-3:   #1c1c23;
+      --border:      #1e1e28;
+      --border-2:    #2a2a36;
 
-      --text-1:      #eaeaee;
-      --text-2:      #7878a0;
-      --text-3:      #404058;
+      --text-1:      #ebebef;
+      --text-2:      #70709a;
+      --text-3:      #3c3c55;
 
       --accent:      #c0ff3c;
-      --accent-dim:  rgba(192,255,60,0.10);
+      --accent-dim:  rgba(192,255,60,0.08);
+      --accent-glow: rgba(192,255,60,0.18);
+      --accent-2:    #5edfff;
 
-      --success:     #40c057;
-      --danger:      #ff4d6d;
+      --success:     #3ec95a;
+      --danger:      #ff4060;
       --warning:     #ffd43b;
-      --info:        #74c0fc;
+      --info:        #5edfff;
 
       /* Diagnostic category colours */
-      --c-missing:   #ff4d6d;
+      --c-missing:   #ff4060;
       --c-ocr:       #ff9843;
       --c-merged:    #ffc107;
-      --c-format:    #40c057;
-      --c-unclass:   #5c5c80;
+      --c-format:    #3ec95a;
+      --c-unclass:   #555570;
 
-      --f-display:   'Space Grotesk', sans-serif;
+      --f-hero:      'Plus Jakarta Sans', sans-serif;
+      --f-display:   'Plus Jakarta Sans', sans-serif;
       --f-body:      'Plus Jakarta Sans', sans-serif;
       --f-mono:      'DM Mono', monospace;
 
-      --header-h:    64px;
+      --header-h:    60px;
       --tabs-h:      50px;
       --toggle-h:    50px;
       --r-sm:        4px;
@@ -60,6 +63,23 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+
+    /* ── Top accent bar ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, var(--accent-2) 70%, transparent 100%);
+      z-index: 100;
+      opacity: 0.7;
+    }
+
+    /* ── Scrollbar styling ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
 
     /* ── App shell ──────────────────────────────────────────── */
     #app { display: flex; flex-direction: column; height: 100vh; }
@@ -83,35 +103,39 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: var(--f-display);
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.025em;
+      font-family: var(--f-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0;
       color: var(--text-1);
       flex-shrink: 0;
+      user-select: none;
     }
 
     .logo-mark {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       background: var(--accent);
-      border-radius: var(--r-md);
+      border-radius: 7px;
       display: grid;
       place-items: center;
       color: #000;
-      font-size: 0.78rem;
-      font-weight: 800;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--f-body);
       flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(192,255,60,0.25);
     }
 
     .logo-badge {
       font-family: var(--f-mono);
-      font-size: 0.62rem;
-      font-weight: 300;
+      font-size: 0.58rem;
+      font-weight: 500;
       color: var(--text-3);
       padding: 2px 6px;
       border: 1px solid var(--border);
       border-radius: 3px;
+      letter-spacing: 0.05em;
     }
 
     .header-spacer { flex: 1; }
@@ -324,10 +348,10 @@
     }
 
     .agg-diag-hdr h2 {
-      font-family: var(--f-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-family: var(--f-body);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--text-1);
     }
 
@@ -571,37 +595,68 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 20px;
       text-align: center;
-      animation: fadeIn 0.6s ease;
+      animation: fadeIn 0.7s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .empty-hexagon {
-      width: 72px; height: 72px;
-      border: 2px dashed var(--border-2);
-      border-radius: 18px;
+    #empty-state::before {
+      content: '◈';
+      position: absolute;
+      font-size: 22rem;
+      font-family: var(--f-hero);
+      color: var(--accent);
+      opacity: 0.025;
+      pointer-events: none;
+      line-height: 1;
+      transform: rotate(-12deg);
+      z-index: 0;
+    }
+
+    #empty-state > * { position: relative; z-index: 1; }
+
+    .empty-icon-ring {
+      width: 64px; height: 64px;
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      color: var(--text-3);
-      font-size: 1.6rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+      background: var(--surface);
+      box-shadow: 0 0 32px rgba(192,255,60,0.06);
     }
 
     .empty-title {
-      font-family: var(--f-display);
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.035em;
+      font-family: var(--f-body);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--text-1);
+      line-height: 1.15;
+    }
+
+    .empty-title .accent-char {
+      color: var(--accent);
     }
 
     .empty-sub {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       color: var(--text-2);
-      line-height: 1.65;
-      max-width: 400px;
+      line-height: 1.7;
+      max-width: 380px;
     }
 
     .empty-sub strong { color: var(--accent); font-weight: 600; }
+
+    .empty-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 1px;
+    }
 
     /* ── Loading state ───────────────────────────────────────── */
     #loading-state {
@@ -614,17 +669,20 @@
     }
 
     .load-spinner {
-      width: 36px; height: 36px;
-      border: 2px solid var(--border-2);
+      width: 40px; height: 40px;
+      border: 1.5px solid var(--border-2);
       border-top-color: var(--accent);
+      border-right-color: rgba(192,255,60,0.3);
       border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+      animation: spin 0.65s linear infinite;
+      box-shadow: 0 0 16px rgba(192,255,60,0.12);
     }
 
     .load-title {
-      font-family: var(--f-display);
-      font-size: 1rem;
-      font-weight: 600;
+      font-family: var(--f-body);
+      font-size: 1.0rem;
+      font-weight: 500;
+      letter-spacing: 0;
       color: var(--text-1);
     }
 
@@ -718,22 +776,22 @@
       font-family: var(--f-display);
       font-size: 2.1rem;
       font-weight: 700;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 1;
       color: var(--text-1);
     }
 
     .metric-value .unit {
       font-size: 1rem;
-      font-weight: 400;
+      font-weight: 700;
       color: var(--text-2);
     }
 
     .metric-sub {
       font-family: var(--f-mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: var(--text-3);
-      margin-top: 7px;
+      margin-top: 8px;
     }
 
     /* Section wrapper */
@@ -1275,6 +1333,430 @@
       #content { padding: 16px; }
       .cmp-row { grid-template-columns: 120px 1fr 50px; }
     }
+
+    /* ══════════════════════════════════════════════════════════
+       APP LAYOUT — sidebar + main
+    ══════════════════════════════════════════════════════════ */
+    #body-wrap {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    #sidebar {
+      width: 156px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 12px 8px;
+      gap: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--r-md);
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      color: var(--text-1);
+      background: var(--surface-2);
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-color: rgba(192,255,60,0.15);
+    }
+
+    .nav-item svg { flex-shrink: 0; opacity: 0.6; transition: opacity 0.15s; }
+    .nav-item:hover svg { opacity: 0.85; }
+    .nav-item.active svg { opacity: 1; }
+
+    /* ── Main area ───────────────────────────────────────────── */
+    #main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #results-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SETUP PANEL
+    ══════════════════════════════════════════════════════════ */
+    #setup-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    .setup-header { margin-bottom: 22px; }
+
+    .setup-title {
+      font-family: var(--f-body);
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .setup-sub {
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+
+    .setup-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .setup-toolbar-btn {
+      padding: 5px 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-md);
+      font-family: var(--f-body);
+      font-size: 0.75rem;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .setup-toolbar-btn:hover { color: var(--text-1); border-color: var(--text-3); }
+
+    #file-count-badge {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      margin-left: auto;
+      transition: all 0.2s;
+    }
+
+    #file-count-badge.has-selection {
+      background: var(--accent-dim);
+      border-color: rgba(192,255,60,0.25);
+      color: var(--accent);
+    }
+
+    #file-list {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-2) transparent;
+      min-height: 0;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background 0.12s;
+      user-select: none;
+    }
+
+    .file-item:hover { background: var(--surface-2); }
+    .file-item.selected { background: var(--accent-dim); }
+
+    .file-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border-2);
+      border-radius: 4px;
+      background: var(--surface-3);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .file-item.selected .file-checkbox {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .file-checkbox-mark { display: none; color: #000; }
+    .file-item.selected .file-checkbox-mark { display: block; }
+
+    .file-ext-badge {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      color: var(--text-3);
+      text-transform: uppercase;
+      flex-shrink: 0;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .file-name {
+      font-size: 0.82rem;
+      color: var(--text-1);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .setup-footer {
+      padding-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 18px;
+      flex-shrink: 0;
+    }
+
+    #run-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 22px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--r-md);
+      font-family: var(--f-body);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #run-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.4s ease;
+    }
+
+    #run-btn:hover::before { left: 150%; }
+    #run-btn:hover  { box-shadow: 0 0 20px rgba(192,255,60,0.35); }
+    #run-btn:active { transform: scale(0.97); }
+    #run-btn:disabled { opacity: 0.38; cursor: not-allowed; transform: none; box-shadow: none; }
+    #run-btn:disabled::before { display: none; }
+    #run-btn svg { flex-shrink: 0; }
+
+    .btn-spinner {
+      width: 13px; height: 13px;
+      border: 2px solid rgba(0,0,0,0.25);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    .setup-run-hint {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--text-3);
+    }
+
+    /* ── Parser selector ─────────────────────────────────────── */
+    .parser-section { margin-bottom: 22px; }
+
+    .parser-section-title {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
+
+    .parser-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .parser-card {
+      padding: 13px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .parser-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--r-lg);
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+      pointer-events: none;
+    }
+
+    .parser-card:hover:not(.parser-card--soon) {
+      border-color: var(--border-2);
+      background: var(--surface-2);
+      transform: translateY(-1px);
+    }
+
+    .parser-card.selected {
+      border-color: rgba(192,255,60,0.45);
+      background: var(--accent-dim);
+      box-shadow: 0 0 20px rgba(192,255,60,0.08), inset 0 1px 0 rgba(192,255,60,0.12);
+    }
+
+    .parser-card.selected::after {
+      border-color: rgba(192,255,60,0.15);
+    }
+
+    .parser-card--soon { cursor: not-allowed; opacity: 0.35; }
+    .parser-card--soon:hover { transform: none; }
+
+    .parser-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .parser-icon {
+      font-family: var(--f-mono);
+      font-size: 1.1rem;
+      color: var(--text-3);
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .parser-card.selected .parser-icon { color: var(--accent); }
+    .parser-card:hover:not(.parser-card--soon) .parser-icon { color: var(--text-2); }
+
+    .parser-name {
+      font-family: var(--f-display);
+      font-size: 0.77rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text-1);
+    }
+
+    .parser-desc {
+      font-size: 0.65rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    .parser-card--soon .parser-name,
+    .parser-card--soon .parser-desc { color: var(--text-3); }
+
+    .parser-badge {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      padding: 2px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .parser-badge--live {
+      background: rgba(62,201,90,0.10);
+      color: var(--success);
+      border: 1px solid rgba(62,201,90,0.20);
+    }
+
+    .parser-badge--soon {
+      background: var(--surface-3);
+      color: var(--text-3);
+      border: 1px solid var(--border);
+    }
+
+    .files-section-title {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
+
+
+    /* ── Enhanced file item hover ────────────────────────────── */
+    .file-item {
+      transition: background 0.12s, transform 0.1s;
+    }
+
+    .file-item:hover { background: var(--surface-2); }
+    .file-item.selected { background: var(--accent-dim); border-radius: var(--r-md); }
+    .file-item.selected .file-name { color: var(--text-1); }
+
+    /* ── Metric label ────────────────────────────────────────── */
+    .metric-label {
+      font-family: var(--f-mono) !important;
+      font-size: 0.62rem !important;
+      letter-spacing: 0.07em !important;
+    }
+
+    /* ── Run hint text ───────────────────────────────────────── */
+    .setup-run-hint {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--text-3);
+    }
+
+    /* ── Error box ───────────────────────────────────────────── */
+    .error-box {
+      background: rgba(255,64,96,0.05);
+      border: 1px solid rgba(255,64,96,0.25);
+    }
   </style>
 </head>
 <body>
@@ -1295,24 +1777,73 @@
       <span id="status-text">Idle</span>
     </div>
 
-    <button id="run-btn" onclick="runEvaluation()">
-      <!-- play icon -->
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-        <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/>
-      </svg>
-      Start Evaluation
-    </button>
   </header>
 
-  <!-- ── File tabs ────────────────────────────────────────────── -->
-  <div id="tabs-bar"><!-- populated by JS --></div>
+  <div id="body-wrap">
 
-  <!-- ── Report toggle + download buttons ─────────────────────── -->
-  <div id="toggle-bar">
+    <!-- ── Sidebar nav ─────────────────────────────────────────── -->
+    <nav id="sidebar">
+      <div class="nav-item active" id="nav-setup" onclick="switchNav('setup')">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 1C4 1 1 4 1 7.5S4 14 7.5 14 14 11 14 7.5 11 1 7.5 1Z" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M7.5 4.5V7.5L9.5 9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <span>Setup</span>
+      </div>
+      <div class="nav-item" id="nav-results" onclick="switchNav('results')">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1.5" y="1.5" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M4 5h7M4 7.5h5M4 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <span>Results</span>
+      </div>
+    </nav>
+
+    <!-- ── Main area ────────────────────────────────────────────── -->
+    <div id="main-area">
+
+      <!-- ── Setup panel ──────────────────────────────────────── -->
+      <div id="setup-panel">
+        <div class="setup-header">
+          <div class="setup-title">Test Setup</div>
+          <div class="setup-sub">Select files to include in the evaluation</div>
+        </div>
+        <!-- ── Parser selector ──────────────────────────── -->
+        <div class="parser-section">
+          <div class="parser-section-title">Parser</div>
+          <div class="parser-grid" id="parser-grid"><!-- populated by JS --></div>
+        </div>
+
+        <!-- ── File selector ────────────────────────────── -->
+        <div class="files-section-title">Files</div>
+        <div class="setup-toolbar">
+          <button class="setup-toolbar-btn" onclick="selectAllFiles()">Select All</button>
+          <button class="setup-toolbar-btn" onclick="clearFiles()">Clear</button>
+          <span id="file-count-badge">0 selected</span>
+        </div>
+        <div id="file-list"><!-- populated by fetchFiles() --></div>
+        <div class="setup-footer">
+          <button id="run-btn" onclick="runEvaluation()" disabled>
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/>
+            </svg>
+            Start Evaluation
+          </button>
+          <span class="setup-run-hint" id="run-hint">Select at least one file to run</span>
+        </div>
+      </div>
+
+      <!-- ── Results wrap ─────────────────────────────────────── -->
+      <div id="results-wrap" style="display:none">
+
+        <!-- File tabs (populated by JS) -->
+        <div id="tabs-bar"><!-- populated by JS --></div>
+
+        <!-- Report toggle + download buttons -->
+        <div id="toggle-bar">
     <div class="rpt-toggle">
-      <div class="rpt-opt active" data-report="general"         onclick="setReport('general')">General Report</div>
-      <div class="rpt-opt"        data-report="diagnostic"      onclick="setReport('diagnostic')">Diagnostic Report</div>
-      <div class="rpt-opt"        data-report="postprocessing"  onclick="setReport('postprocessing')">Postprocessing</div>
+      <div class="rpt-opt active" data-report="general"        onclick="setReport('general')">General Report</div>
+      <div class="rpt-opt"        data-report="postprocessing" onclick="setReport('postprocessing')">Postprocessing</div>
     </div>
     <div class="toggle-spacer"></div>
     <!-- Standard report downloads (visible when General or Diagnostic is active) -->
@@ -1348,12 +1879,12 @@
 
     <!-- Empty state -->
     <div id="empty-state">
-      <div class="empty-hexagon">◈</div>
-      <div class="empty-title">No evaluation data</div>
+      <div class="empty-icon-ring">◈</div>
+      <div class="empty-title">No results <span class="accent-char">yet</span></div>
+      <div class="empty-divider"></div>
       <div class="empty-sub">
-        Click <strong>Start Evaluation</strong> to run the parser against your
-        test documents. Both a general coverage report and a detailed diagnostic
-        report will be generated.
+        Select files and a parser, then click <strong>Start Evaluation</strong>.<br>
+        Coverage, noise, and diagnostic reports will appear here.
       </div>
     </div>
 
@@ -1373,8 +1904,11 @@
     <!-- Report panel -->
     <div id="report-panel"></div>
 
-  </main>
-</div>
+        </main>
+      </div><!-- /results-wrap -->
+    </div><!-- /main-area -->
+  </div><!-- /body-wrap -->
+</div><!-- /app -->
 
 <!-- ═══════════════════════════════════════════════════════════════
      JAVASCRIPT
@@ -1385,27 +1919,49 @@ const S = {
   status:           'idle',   // idle | loading | ready | error
   general:          null,
   diagnostic:       null,
-  general_pp:       null,     // postprocessing general report
-  diagnostic_pp:    null,     // postprocessing diagnostics report
+  general_pp:       null,
+  diagnostic_pp:    null,
   activeDoc:        0,
   activeReport:     'general',
-  activeSummaryTab: 'files',  // 'files' | 'global'
+  activeSummaryTab: 'files',
+  activeNav:        'setup',  // 'setup' | 'results'
+  availableFiles:   [],       // [{name, ext}]
+  selectedFiles:    new Set(),
+  selectedParser:   'document_intelligence',
 };
 
-/* ── Bootstrap: try to load cached results ─────────────────────── */
+const PARSERS = [
+  { id: 'document_intelligence', label: 'Document Intelligence', icon: '◈', desc: 'Azure DI — OCR + layout',     available: true  },
+  { id: 'pdf_pymupdf',           label: 'PyMuPDF',               icon: 'μ', desc: 'Native PDF text extraction',  available: true  },
+  { id: 'base_text_parser',      label: 'Base Text',             icon: '¶', desc: 'Plain text extraction',       available: true  },
+  { id: 'mineru',                label: 'MinerU',                icon: '⛏', desc: 'Deep learning parser',        available: false },
+  { id: 'marker',                label: 'Marker',                icon: '◊', desc: 'PDF → Markdown',              available: false },
+  { id: 'surya',                 label: 'Surya',                 icon: '◎', desc: 'Multi-language OCR',          available: false },
+];
+
+/* ── Bootstrap ──────────────────────────────────────────────────── */
 (async () => {
+  renderParsers();
+  await fetchFiles();
+
   try {
     const res = await fetch('/api/results');
     if (res.ok) {
       const data = await res.json();
-      if (data.status === 'ok') loadResults(data);
+      if (data.status === 'ok') {
+        loadResults(data);
+        switchNav('results');
+      }
     }
   } catch (_) { /* server may not be up yet */ }
 })();
 
 /* ── Run evaluation ─────────────────────────────────────────────── */
 async function runEvaluation() {
+  if (S.selectedFiles.size === 0) return;
+
   setStatus('loading');
+  switchNav('results');
 
   const btn = $('run-btn');
   btn.disabled = true;
@@ -1419,20 +1975,26 @@ async function runEvaluation() {
   hide('toggle-bar');
 
   try {
-    const res  = await fetch('/api/evaluate', { method: 'POST' });
+    const res  = await fetch('/api/evaluate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ selected: [...S.selectedFiles], parser: S.selectedParser }),
+    });
     const data = await res.json();
 
     if (data.stdout) $('stdout-log').textContent = data.stdout;
 
-    if (data.status === 'ok') {
+    if (data.status === 'ok' && data.general) {
       loadResults(data);
+    } else if (data.status === 'ok') {
+      showError('Evaluation produced no results.\nCheck that the selected files are valid and the parser service is running.\n\n' + (data.stderr || ''));
     } else {
       showError(data.stderr || data.error || `Exit code ${data.returncode}`);
     }
   } catch (e) {
     showError('Could not reach the server.\nMake sure frontend/server.py is running.');
   } finally {
-    btn.disabled = false;
+    btn.disabled = S.selectedFiles.size === 0;
     btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none">
       <path d="M2.5 1.5L10.5 6.5L2.5 11.5V1.5Z" fill="currentColor"/></svg>
       Start Evaluation`;
@@ -1446,6 +2008,7 @@ function loadResults(data) {
   S.general_pp    = data.general_pp    ?? null;
   S.diagnostic_pp = data.diagnostic_pp ?? null;
   S.activeDoc     = 'summary';
+  S.activeReport  = 'general';
   setStatus('ready');
   buildDownloadLinks(data);
   renderTabs();
@@ -1565,10 +2128,8 @@ function renderReport() {
     else                           renderPostprocessing(panel);
   } else if (S.activeDoc === 'summary') {
     renderSummary(panel);
-  } else if (S.activeReport === 'general') {
-    renderGeneral(panel);
   } else {
-    renderDiagnostic(panel);
+    renderGeneral(panel);
   }
 }
 
@@ -2393,6 +2954,19 @@ function renderGeneral(panel) {
         </div>`
       : '');
 
+  /* ── Embedded Diagnostic Report ── */
+  const diagDoc = (S.diagnostic?.documents ?? [])[S.activeDoc];
+  if (diagDoc) {
+    panel.innerHTML +=
+      `<div style="margin-top:28px">
+        <div class="agg-diag-hdr">
+          <h2>Diagnostic Report</h2>
+          <span class="agg-sub">detected parsing issues</span>
+        </div>
+        ${buildDiagCardsHTML(diagDoc, 'std')}
+      </div>`;
+  }
+
   /* Animate bars after paint */
   requestAnimationFrame(() =>
     document.querySelectorAll('.blk-bar-fill').forEach(el =>
@@ -2599,6 +3173,129 @@ function unclassifiedHTML(data) {
       `<span class="tag tag-ngram" dir="auto">${esc(ng)}</span>`
     ).join('')}
   </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SETUP — parser selection
+══════════════════════════════════════════════════════════════════ */
+
+function renderParsers() {
+  const grid = $('parser-grid');
+  if (!grid) return;
+  grid.innerHTML = PARSERS.map(p => {
+    const sel   = S.selectedParser === p.id;
+    const soon  = !p.available;
+    const click = soon ? '' : `onclick="selectParser('${p.id}')"`;
+    return `
+      <div class="parser-card${sel ? ' selected' : ''}${soon ? ' parser-card--soon' : ''}" ${click}>
+        <div class="parser-card-top">
+          <span class="parser-icon">${p.icon ?? '◇'}</span>
+          <div class="parser-badge ${soon ? 'parser-badge--soon' : 'parser-badge--live'}">${soon ? 'Soon' : 'Live'}</div>
+        </div>
+        <div class="parser-name">${esc(p.label)}</div>
+        <div class="parser-desc">${esc(p.desc ?? '')}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectParser(id) {
+  S.selectedParser = id;
+  renderParsers();
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SETUP — file list + nav
+══════════════════════════════════════════════════════════════════ */
+
+/* Fetch available files from the server and render the file list */
+async function fetchFiles() {
+  try {
+    const res  = await fetch('/api/files');
+    const data = await res.json();
+    S.availableFiles = data.files ?? [];
+  } catch (_) {
+    S.availableFiles = [];
+  }
+  renderSetup();
+}
+
+/* Render the file list in the setup panel */
+function renderSetup() {
+  const list = $('file-list');
+  if (!list) return;
+
+  if (S.availableFiles.length === 0) {
+    list.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-3);font-size:0.82rem">
+      No document folders found in files_to_test/
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = S.availableFiles.map(f => {
+    const sel = S.selectedFiles.has(f.name);
+    const ext = f.ext || '—';
+    return `
+      <div class="file-item${sel ? ' selected' : ''}" data-name="${esc(f.name)}" onclick="toggleFile(this.dataset.name)">
+        <div class="file-checkbox">
+          <span class="file-checkbox-mark">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+              <path d="M1 4L3.5 6.5L9 1" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <span class="file-ext-badge">${esc(ext)}</span>
+        <span class="file-name" dir="auto" title="${esc(f.name)}">${esc(f.name)}</span>
+      </div>`;
+  }).join('');
+
+  updateSelectionUI();
+}
+
+function toggleFile(name) {
+  if (S.selectedFiles.has(name)) {
+    S.selectedFiles.delete(name);
+  } else {
+    S.selectedFiles.add(name);
+  }
+  renderSetup();
+}
+
+function selectAllFiles() {
+  S.availableFiles.forEach(f => S.selectedFiles.add(f.name));
+  renderSetup();
+}
+
+function clearFiles() {
+  S.selectedFiles.clear();
+  renderSetup();
+}
+
+function updateSelectionUI() {
+  const n     = S.selectedFiles.size;
+  const total = S.availableFiles.length;
+  const badge = $('file-count-badge');
+  const btn   = $('run-btn');
+  const hint  = $('run-hint');
+
+  if (badge) {
+    badge.textContent = n === 0 ? '0 selected' : `${n} of ${total} selected`;
+    badge.classList.toggle('has-selection', n > 0);
+  }
+  if (btn)  btn.disabled = n === 0;
+  if (hint) hint.style.display = n === 0 ? '' : 'none';
+}
+
+/* Switch between Setup and Results nav tabs */
+function switchNav(nav) {
+  S.activeNav = nav;
+
+  $('nav-setup').classList.toggle('active',   nav === 'setup');
+  $('nav-results').classList.toggle('active', nav === 'results');
+
+  const setupPanel  = $('setup-panel');
+  const resultsWrap = $('results-wrap');
+  if (setupPanel)  setupPanel.style.display  = nav === 'setup'   ? 'flex' : 'none';
+  if (resultsWrap) resultsWrap.style.display = nav === 'results' ? 'flex' : 'none';
 }
 
 /* ── Utilities ──────────────────────────────────────────────────── */

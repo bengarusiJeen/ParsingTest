@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -X utf8 ParseTest.py \"C:/Users/BenGarusi/Desktop/Parsing Test/files_to_test\" --output results.json --quiet)"
+      "Bash(python -X utf8 ParseTest.py \"C:/Users/BenGarusi/Desktop/Parsing Test/files_to_test\" --output results.json --quiet)",
+      "Bash(python -c ' *)",
+      "Bash(find \"C:\\\\Users\\\\BenGarusi\\\\Desktop\\\\Jeen-Parsers\\\\pymupdf-parser-v2\" -name \"*.py\" -type f)",
+      "Read(//c/Users/BenGarusi/Desktop/Jeen-Parsers/pymupdf-parser-v2/**)"
     ]
   }
 }

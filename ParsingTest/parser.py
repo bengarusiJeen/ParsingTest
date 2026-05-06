@@ -1,13 +1,18 @@
 """
 parser.py
 ---------
-Document parser plug-in — company parser-service (http://localhost:4004).
+Document parser plug-in — routes to one of two parser services:
+
+  • Default service (port 4004) — Azure DI / base text / Document Intelligence
+      POST http://localhost:4004/api/v1/parser/parse?parser_method=<method>
+      Response: { "content": "<plain text>" }
+
+  • PyMuPDF service (port 8001) — selected when parser_method == "pdf_pymupdf"
+      POST http://localhost:8001/parse?method=markdown
+      Response: RAG document { "blocks": [{"text": ...}, ...] }
 
 Expected signature:
     parse(file_path: str) -> str
-
-Sends the file as raw bytes to the parser-service and returns the extracted
-plain text from the response's "content" field.
 """
 from __future__ import annotations
 
@@ -15,9 +20,9 @@ from pathlib import Path
 
 import httpx
 
-PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # default (uses Azure DI for PDFs)
-# PARSER_SERVICE_URL = "http://localhost:4004/api/v1/parser/parse"  # base URL — parser_method added per file type below
-_OUTPUT_DIR = Path(r"C:\Users\BenGarusi\Desktop\Parsing Test\parsing_files")
+_DEFAULT_URL  = "http://localhost:4004/api/v1/parser/parse"
+_PYMUPDF_URL  = "http://localhost:8001/parse"
+_OUTPUT_DIR   = Path(r"C:\Users\BenGarusi\Desktop\Parsing Test\parsing_files")
 
 
 def _save_output(file_path: Path, text: str) -> None:
@@ -26,9 +31,15 @@ def _save_output(file_path: Path, text: str) -> None:
     out.write_text(text, encoding="utf-8")
 
 
-def parse(file_path: str) -> str:
+def _extract_text_from_rag(data: dict) -> str:
+    """Flatten a RAG-format response (blocks list) into plain text."""
+    blocks = data.get("blocks", [])
+    return "\n".join(b.get("text", "") for b in blocks if b.get("text"))
+
+
+def parse(file_path: str, parser_method: str = "base_text_parser") -> str:
     """
-    Extract plain text from a document file via the company parser-service.
+    Extract plain text from a document file via the appropriate parser service.
     Returns the extracted text as a plain string.
     """
     path = Path(file_path)
@@ -43,10 +54,10 @@ def parse(file_path: str) -> str:
     except UnicodeEncodeError:
         safe_filename = f"document{path.suffix}"
 
-    # --- Parser method selection (swap the active line to switch parsers) ---
-    # url = PARSER_SERVICE_URL + "?parser_method=document_intelligence"  # Azure DI (PDF, DOCX, DOC)
-    # url = PARSER_SERVICE_URL + ("?parser_method=pdf_pymupdf" if path.suffix.lower() == ".pdf" else "")  # PyMuPDF (PDFs only) + auto-detect (others)
-    url = PARSER_SERVICE_URL + "?parser_method=base_text_parser"  # Base Text Parser (all file types)
+    if parser_method == "pdf_pymupdf":
+        url = f"{_PYMUPDF_URL}?method=markdown"
+    else:
+        url = _DEFAULT_URL + (f"?parser_method={parser_method}" if parser_method else "")
 
     response = httpx.post(
         url,
@@ -59,7 +70,11 @@ def parse(file_path: str) -> str:
     )
     response.raise_for_status()
 
-    result = response.json().get("content", "")
+    data = response.json()
+    if parser_method == "pdf_pymupdf":
+        result = _extract_text_from_rag(data)
+    else:
+        result = data.get("content", "")
 
     _save_output(path, result)
     return result

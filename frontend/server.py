@@ -18,7 +18,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 ROOT            = Path(__file__).parent.parent          # project root
@@ -31,6 +31,8 @@ GENERAL_PP_JSON = ROOT / "postprocessing-general_report.json"
 DIAG_PP_JSON    = ROOT / "postprocessing-diagnostics_report.json"
 GENERAL_PP_JSON_LEGACY = ROOT / "general_report-postprocessing.json"
 DIAG_PP_JSON_LEGACY    = ROOT / "diagnostics_report-postprocessing.json"
+
+SUPPORTED_EXTS = {'.pdf', '.docx', '.doc', '.pptx', '.xlsx'}
 
 app = Flask(__name__, static_folder=str(FRONTEND_DIR))
 
@@ -63,18 +65,55 @@ def index():
     return send_from_directory(str(FRONTEND_DIR), "index.html")
 
 
+@app.route("/api/files", methods=["GET"])
+def list_files():
+    """List available document folders in files_to_test."""
+    if not FILES_DIR.exists():
+        return jsonify({"files": []}), 200
+
+    result = []
+    for d in sorted(FILES_DIR.iterdir()):
+        if not d.is_dir():
+            continue
+        ext = ""
+        for f in d.iterdir():
+            if f.suffix.lower() in SUPPORTED_EXTS:
+                ext = f.suffix.lower().lstrip(".")
+                break
+        result.append({"name": d.name, "ext": ext})
+
+    return jsonify({"files": result})
+
+
 @app.route("/api/evaluate", methods=["POST"])
 def evaluate():
     """Run the full evaluation pipeline and return both JSON reports."""
+    body          = request.get_json(silent=True) or {}
+    selected      = body.get("selected", [])
+    parser_method = body.get("parser", "base_text_parser")
+
+    # Wipe old report files so a failed run never serves stale data
+    for _p in [GENERAL_JSON, DIAG_JSON, GENERAL_PP_JSON, DIAG_PP_JSON,
+               GENERAL_PP_JSON_LEGACY, DIAG_PP_JSON_LEGACY]:
+        try:
+            _p.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+    cmd = [
+        sys.executable,
+        str(MAIN_SCRIPT),
+        str(FILES_DIR),
+        "--verbose",
+        "--output", str(GENERAL_JSON),
+        "--parser", parser_method,
+    ]
+    if selected:
+        cmd += ["--include", ",".join(selected)]
+
     try:
         proc = subprocess.run(
-            [
-                sys.executable,
-                str(MAIN_SCRIPT),
-                str(FILES_DIR),
-                "--verbose",
-                "--output", str(GENERAL_JSON),
-            ],
+            cmd,
             capture_output=True,
             text=True,
             encoding="utf-8",

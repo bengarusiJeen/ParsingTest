@@ -61,7 +61,8 @@ def evaluate_document(
     n:             int = 3,
     postprocessor: Optional[Postprocessing] = None,
     _parser_text:  Optional[str] = None,
-    sub_table:     Optional[SubstitutionTable] = None,   # ← add this
+    sub_table:     Optional[SubstitutionTable] = None,
+    parser_method: str = "base_text_parser",
 ) -> Tuple[DocumentResult, Set[str], Set[str], Set[str], str, str]:
     """
     Evaluate a single document folder.
@@ -101,7 +102,7 @@ def evaluate_document(
     # ── Parse document ──────────────────────────────────────
     test_file = find_document_file(file_dir)
     # Use the cached raw text when available (avoids parsing the file twice).
-    raw_parser_text = _parser_text if _parser_text is not None else parse(str(test_file))
+    raw_parser_text = _parser_text if _parser_text is not None else parse(str(test_file), parser_method=parser_method)
     # Apply postprocessor when running the PP evaluation pass.
     working_text = postprocessor.apply(raw_parser_text) if postprocessor is not None else raw_parser_text
     parser_words = tokenize(working_text)
@@ -198,6 +199,10 @@ Examples
                    help="N-gram size for coverage evaluation (default: 3).")
     p.add_argument("--quiet",   action="store_true",
                    help="Suppress per-document output (summary only).")
+    p.add_argument("--include", type=str, default=None,
+                   help="Comma-separated subfolder names to include (default: all).")
+    p.add_argument("--parser", type=str, default="base_text_parser",
+                   help="Parser method to use (default: base_text_parser).")
     return p
 
 
@@ -215,6 +220,12 @@ def main() -> None:
     files_dirs = collect_files_dirs_to_test(input_dir)
     if not files_dirs:
         raise SystemExit("No valid document folders found.")
+
+    if args.include:
+        include_set = {n.strip() for n in args.include.split(',')}
+        files_dirs = [d for d in files_dirs if d.name in include_set]
+        if not files_dirs:
+            raise SystemExit("No matching document folders found for --include filter.")
     
     sub_table = SubstitutionTable.load(Path(__file__).parent / "substitutions.json")
 
@@ -231,7 +242,7 @@ def main() -> None:
     for file_dir in files_dirs:
         try:
             result, p_ngrams_set, p_words_set, p_bigrams_set, f_ext, raw_text = \
-                evaluate_document(file_dir, n=args.n, sub_table=sub_table)  # ← add sub_table to the call
+                evaluate_document(file_dir, n=args.n, sub_table=sub_table, parser_method=args.parser)
             results.append(result)
             parser_data.append((p_ngrams_set, p_words_set, p_bigrams_set, f_ext))
             successful_runs.append((file_dir, raw_text))
