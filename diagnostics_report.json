@@ -106,10 +106,10 @@
               ]
             },
             {
-              "merged_word": "ערךFalse",
+              "merged_word": "בשדהGuard",
               "original": [
-                "ערך",
-                "False"
+                "בשדה",
+                "Guard"
               ]
             },
             {
@@ -127,10 +127,10 @@
               ]
             },
             {
-              "merged_word": "בשדהGuard",
+              "merged_word": "ערךFalse",
               "original": [
-                "בשדה",
-                "Guard"
+                "ערך",
+                "False"
               ]
             }
           ]

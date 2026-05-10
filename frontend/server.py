@@ -16,9 +16,13 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from dataclasses import asdict
 from pathlib import Path
 
 from flask import Flask, jsonify, request, send_from_directory
+
+sys.path.insert(0, str(Path(__file__).parent.parent / "ParsingTest"))
+from comparison_engine import compare_parsers
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 ROOT            = Path(__file__).parent.parent          # project root
@@ -390,6 +394,106 @@ def stream_data():
         "has_raw": raw_text is not None,
         "has_pp":  pp_text  is not None,
     })
+
+
+# ── Comparison ────────────────────────────────────────────────────────────────
+
+def _build_reports_by_parser(parsers: list[str], inline: dict | None = None) -> dict[str, dict]:
+    """
+    Build the reports_by_parser dict for compare_parsers().
+
+    If *inline* is provided (frontend passes per-parser report data in the
+    request body), use that directly — this is the correct path for multi-
+    parser runs where each parser's disk files were overwritten by the next.
+
+    Fallback: read the last on-disk reports and attach them to every parser
+    (correct only for single-parser runs or when the user picks just one parser).
+    """
+    if inline:
+        return {
+            p: {
+                "general":    inline.get(p, {}).get("general"),
+                "general_pp": inline.get(p, {}).get("general_pp"),
+            }
+            for p in parsers
+        }
+    general    = _load_json(GENERAL_JSON)
+    general_pp = _load_json_any([GENERAL_PP_JSON, GENERAL_PP_JSON_LEGACY])
+    return {p: {"general": general, "general_pp": general_pp} for p in parsers}
+
+
+def _all_doc_names(general: dict | None) -> list[str]:
+    if not general:
+        return []
+    return [d.get("doc_name", "") for d in general.get("documents", []) if d.get("doc_name")]
+
+
+@app.route("/api/comparison", methods=["GET"])
+def comparison():
+    """
+    Return a ComparisonResult for ALL parsers / docs from the last run.
+
+    Query params (optional):
+      parsers — comma-separated list of parser ids to include
+      docs    — comma-separated list of doc names to include
+    """
+    general = _load_json(GENERAL_JSON)
+    if not general:
+        return jsonify({"error": "No results available. Run an evaluation first."}), 404
+
+    all_docs = _all_doc_names(general)
+
+    parsers_param = request.args.get("parsers", "").strip()
+    docs_param    = request.args.get("docs",    "").strip()
+
+    parsers      = [p for p in parsers_param.split(",") if p] if parsers_param else []
+    selected_docs = [d for d in docs_param.split(",")    if d] if docs_param    else all_docs
+
+    if not parsers:
+        return jsonify({"error": "Pass ?parsers= with at least one parser id."}), 400
+
+    reports = _build_reports_by_parser(parsers)
+    result  = compare_parsers(reports, selected_docs)
+    return jsonify(asdict(result))
+
+
+@app.route("/api/comparison/filter", methods=["POST"])
+def comparison_filter():
+    """
+    Re-slice the cached reports for a custom subset of parsers and docs.
+
+    Body (JSON):
+      parsers       — list of parser ids
+      docs          — list of doc names  (omit or [] = use all available)
+      parser_reports — optional dict: parser_id -> {general, general_pp}
+                       sent by the frontend for multi-parser runs so we don't
+                       rely on stale disk files.
+    """
+    body           = request.get_json(silent=True) or {}
+    parsers        = body.get("parsers", [])
+    docs           = body.get("docs",    [])
+    parser_reports = body.get("parser_reports", None)
+
+    if not parsers:
+        return jsonify({"error": "Provide at least one parser."}), 400
+
+    # When no inline data is supplied, fall back to disk
+    if not parser_reports:
+        general = _load_json(GENERAL_JSON)
+        if not general:
+            return jsonify({"error": "No results available. Run an evaluation first."}), 404
+        if not docs:
+            docs = _all_doc_names(general)
+
+    reports = _build_reports_by_parser(parsers, inline=parser_reports)
+
+    if not docs:
+        # Derive from the first available report
+        first = next(iter(reports.values()), {})
+        docs  = _all_doc_names(first.get("general") or {})
+
+    result = compare_parsers(reports, docs)
+    return jsonify(asdict(result))
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

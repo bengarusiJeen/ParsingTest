@@ -1980,6 +1980,209 @@
     }
 
     @media (max-width: 900px) { .stream-columns { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════════════════════
+       COMPARISON TAB
+    ══════════════════════════════════════════════════════════ */
+    #comparison-panel {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      padding: 28px 32px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .cmp-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .cmp-title {
+      font-family: var(--f-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+    .cmp-sub {
+      font-size: 0.74rem;
+      color: var(--text-3);
+    }
+
+    /* Filter bar */
+    .cmp-filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .cmp-filter-group { display: flex; flex-direction: column; gap: 6px; }
+    .cmp-filter-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .cmp-filter-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .cmp-check-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 0.74rem;
+      color: var(--text-2);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+    .cmp-check-pill input[type=checkbox] { display: none; }
+    .cmp-check-pill.checked {
+      background: var(--accent-dim);
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    /* Comparison tables */
+    .cmp-table-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .cmp-table-title {
+      padding: 12px 18px;
+      font-family: var(--f-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-1);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cmp-table-title .cmp-pass-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      color: var(--accent-2);
+      border: 1px solid rgba(79,70,229,0.2);
+    }
+    .cmp-table-wrap { overflow-x: auto; }
+    table.cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.80rem;
+    }
+    table.cmp-table thead th {
+      padding: 9px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.70rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      white-space: nowrap;
+    }
+    table.cmp-table thead th.num { text-align: right; }
+    table.cmp-table tbody tr:not(:last-child) { border-bottom: 1px solid var(--border); }
+    table.cmp-table tbody tr:hover { background: var(--surface-2); }
+    table.cmp-table td { padding: 10px 14px; color: var(--text-1); }
+    table.cmp-table td.num { text-align: right; font-family: var(--f-mono); font-size: 0.78rem; }
+    .cmp-rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .cmp-rank-1 { background: rgba(234,179,8,0.18); color: #92400e; }
+    .cmp-rank-2 { background: var(--surface-3); color: var(--text-2); }
+    .cmp-rank-3 { background: var(--surface-3); color: var(--text-3); }
+    .cmp-rank-n { background: transparent; color: var(--text-3); }
+    .cmp-parser-name { font-weight: 600; }
+    .cmp-empty {
+      padding: 36px;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 0.84rem;
+    }
+
+    /* Column header tooltip */
+    .cmp-th-tip {
+      cursor: help;
+      white-space: nowrap;
+      position: relative;
+    }
+    .cmp-th-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      top: calc(100% + 7px);
+      right: 0;
+      width: 240px;
+      background: var(--text-1);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 8px 10px;
+      border-radius: var(--r-md);
+      text-transform: none;
+      letter-spacing: 0;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 200;
+      white-space: normal;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    .cmp-th-tip:hover::after { opacity: 1; }
+    /* Ensure thead doesn't clip the tooltip */
+    .cmp-table thead, .cmp-table thead tr, .cmp-table thead th { overflow: visible; }
+
+    /* View Results button */
+    .cmp-view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border-2);
+      background: var(--surface-2);
+      color: var(--text-2);
+      font-size: 0.70rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .cmp-view-btn:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+    }
   </style>
 </head>
 <body>
@@ -2019,6 +2222,13 @@
           <path d="M4 5h7M4 7.5h5M4 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
         </svg>
         <span>Results</span>
+      </div>
+      <div class="nav-item" id="nav-comparison" onclick="switchNav('comparison')">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="3" width="5.5" height="9" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="8.5" y="3" width="5.5" height="9" rx="1.2" stroke="currentColor" stroke-width="1.3"/>
+        </svg>
+        <span>Compare</span>
       </div>
     </nav>
 
@@ -2136,6 +2346,83 @@
 
         </main>
       </div><!-- /results-wrap -->
+
+      <!-- ── Comparison panel ────────────────────────────────────── -->
+      <div id="comparison-panel">
+
+        <div>
+          <div class="cmp-header">
+            <div class="cmp-title">Parser Comparison</div>
+            <div class="cmp-sub">Weighted pooled scores across selected documents</div>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="cmp-filter-bar">
+          <div class="cmp-filter-group">
+            <div class="cmp-filter-label">Parsers</div>
+            <div class="cmp-filter-checks" id="cmp-parser-checks"><!-- populated by JS --></div>
+          </div>
+          <div class="cmp-filter-group">
+            <div class="cmp-filter-label">Documents</div>
+            <div class="cmp-filter-checks" id="cmp-doc-checks"><!-- populated by JS --></div>
+          </div>
+        </div>
+
+        <!-- Raw pass table -->
+        <div class="cmp-table-section" id="cmp-raw-section">
+          <div class="cmp-table-title">
+            Raw Parser Output
+            <span class="cmp-pass-badge">Before Postprocessing</span>
+          </div>
+          <div class="cmp-table-wrap">
+            <table class="cmp-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Parser</th>
+                  <th class="num">
+                    <span class="cmp-th-tip" data-tip="How much of the document's expected content the parser actually found. Higher is better — 100% means nothing was missed.">Coverage ⓘ</span>
+                  </th>
+                  <th class="num">
+                    <span class="cmp-th-tip" data-tip="How much extra text the parser added that wasn't in the original document (headers, footers, artifacts, etc.). Lower is better — 0% means no extra noise.">Noise ⓘ</span>
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cmp-raw-body"><!-- populated by JS --></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Postprocessing pass table -->
+        <div class="cmp-table-section" id="cmp-pp-section">
+          <div class="cmp-table-title">
+            Post-Processed Output
+            <span class="cmp-pass-badge">After Postprocessing</span>
+          </div>
+          <div class="cmp-table-wrap">
+            <table class="cmp-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Parser</th>
+                  <th class="num">
+                    <span class="cmp-th-tip" data-tip="How much of the document's expected content the parser actually found. Higher is better — 100% means nothing was missed.">Coverage ⓘ</span>
+                  </th>
+                  <th class="num">
+                    <span class="cmp-th-tip" data-tip="How much extra text the parser added that wasn't in the original document (headers, footers, artifacts, etc.). Lower is better — 0% means no extra noise.">Noise ⓘ</span>
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cmp-pp-body"><!-- populated by JS --></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /comparison-panel -->
+
     </div><!-- /main-area -->
   </div><!-- /body-wrap -->
 </div><!-- /app -->
@@ -3647,17 +3934,22 @@ function updateSelectionUI() {
   if (hint) hint.style.display = canRun ? 'none' : '';
 }
 
-/* Switch between Setup and Results nav tabs */
+/* Switch between Setup, Results and Comparison nav tabs */
 function switchNav(nav) {
   S.activeNav = nav;
 
-  $('nav-setup').classList.toggle('active',   nav === 'setup');
-  $('nav-results').classList.toggle('active', nav === 'results');
+  $('nav-setup').classList.toggle('active',      nav === 'setup');
+  $('nav-results').classList.toggle('active',    nav === 'results');
+  $('nav-comparison').classList.toggle('active', nav === 'comparison');
 
-  const setupPanel  = $('setup-panel');
-  const resultsWrap = $('results-wrap');
-  if (setupPanel)  setupPanel.style.display  = nav === 'setup'   ? 'flex' : 'none';
-  if (resultsWrap) resultsWrap.style.display = nav === 'results' ? 'flex' : 'none';
+  const setupPanel      = $('setup-panel');
+  const resultsWrap     = $('results-wrap');
+  const comparisonPanel = $('comparison-panel');
+  if (setupPanel)      setupPanel.style.display      = nav === 'setup'       ? 'flex' : 'none';
+  if (resultsWrap)     resultsWrap.style.display     = nav === 'results'     ? 'flex' : 'none';
+  if (comparisonPanel) comparisonPanel.style.display = nav === 'comparison'  ? 'flex' : 'none';
+
+  if (nav === 'comparison') renderComparison();
 }
 
 /* ── Utilities ──────────────────────────────────────────────────── */
@@ -3810,6 +4102,205 @@ async function renderStreamComparison(panel) {
         ${_streamCol('Post-Processed Output',   parserLabel + ' + PP', data.pp,  data.has_pp)}
       </div>
     </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PARSER COMPARISON TAB
+══════════════════════════════════════════════════════════════════ */
+
+const CMP = {
+  selectedParsers: new Set(),
+  selectedDocs:    new Set(),
+  lastResult:      null,
+};
+
+function _pct(rate) {
+  return (rate * 100).toFixed(1) + '%';
+}
+
+function _covStyle(rate) {
+  const pct = rate * 100;
+  const color = pct >= 75 ? 'var(--success)'
+              : pct >= 40 ? 'var(--warning)'
+              :             'var(--danger)';
+  return `color:${color};font-weight:600`;
+}
+
+function _noiseStyle(noiseRate) {
+  // Lower noise = better. Color by how clean the output is (1 - noise).
+  const cleanPct = (1 - noiseRate) * 100;
+  const color = cleanPct >= 75 ? 'var(--success)'
+              : cleanPct >= 40 ? 'var(--warning)'
+              :                  'var(--danger)';
+  return `color:${color};font-weight:600`;
+}
+
+function _rankBadgeClass(rank) {
+  if (rank === 1) return 'cmp-rank-1';
+  if (rank === 2) return 'cmp-rank-2';
+  if (rank === 3) return 'cmp-rank-3';
+  return 'cmp-rank-n';
+}
+
+function _parserLabel(id) {
+  return PARSERS.find(p => p.id === id)?.label ?? id;
+}
+
+function _goToParserResults(parserId) {
+  // Switch to the Results tab showing the All Files summary for this parser
+  if (Object.keys(S.parserResults).length > 0) {
+    switchParserTab(parserId);
+  }
+  S.activeDoc    = 'summary';
+  S.activeReport = 'general';
+  switchNav('results');
+  renderReport();
+}
+
+function _buildCmpRows(scores, rankAttr, covAttr, noiseAttr) {
+  if (!scores || scores.length === 0) {
+    return `<tr><td colspan="5" class="cmp-empty">No data available.</td></tr>`;
+  }
+  return scores.map(s => {
+    const rank    = s[rankAttr];
+    const cov     = s[covAttr];
+    const noise   = s[noiseAttr];
+    const cls     = _rankBadgeClass(rank);
+    const label   = esc(_parserLabel(s.parser_name));
+    const pid     = esc(s.parser_name);
+    return `
+      <tr>
+        <td><span class="cmp-rank-badge ${cls}">${rank}</span></td>
+        <td><span class="cmp-parser-name">${label}</span></td>
+        <td class="num" style="${_covStyle(cov)}">${_pct(cov)}</td>
+        <td class="num" style="${_noiseStyle(noise)}">${_pct(noise)}</td>
+        <td><button class="cmp-view-btn" onclick="_goToParserResults('${pid}')">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5h7M5.5 2L8.5 5l-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          View Results
+        </button></td>
+      </tr>`;
+  }).join('');
+}
+
+function _applyComparisonResult(result) {
+  CMP.lastResult = result;
+  const scores = result.scores ?? [];
+  $('cmp-raw-body').innerHTML = _buildCmpRows(scores, 'rank_raw',  'weighted_coverage_raw',  'weighted_noise_raw');
+  $('cmp-pp-body').innerHTML  = _buildCmpRows(scores, 'rank_post', 'weighted_coverage_post', 'weighted_noise_post');
+}
+
+async function _fetchComparison() {
+  const parsers = [...CMP.selectedParsers];
+  const docs    = [...CMP.selectedDocs];
+  if (parsers.length === 0) {
+    $('cmp-raw-body').innerHTML = `<tr><td colspan="4" class="cmp-empty">Select at least one parser.</td></tr>`;
+    $('cmp-pp-body').innerHTML  = `<tr><td colspan="4" class="cmp-empty">Select at least one parser.</td></tr>`;
+    return;
+  }
+
+  // Build inline report data from frontend state so multi-parser runs work correctly
+  const reportsMap = _cmpReportsForParsers([...S.selectedParsers]);
+  const parserReports = {};
+  for (const pid of parsers) {
+    const r = reportsMap[pid];
+    if (r) parserReports[pid] = {general: r.general ?? null, general_pp: r.general_pp ?? null};
+  }
+
+  try {
+    const resp = await fetch('/api/comparison/filter', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        parsers,
+        docs,
+        parser_reports: Object.keys(parserReports).length ? parserReports : null,
+      }),
+    });
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      $('cmp-raw-body').innerHTML = `<tr><td colspan="4" class="cmp-empty">${esc(err.error ?? 'Error fetching comparison.')}</td></tr>`;
+      $('cmp-pp-body').innerHTML  = $('cmp-raw-body').innerHTML;
+      return;
+    }
+    _applyComparisonResult(await resp.json());
+  } catch (e) {
+    $('cmp-raw-body').innerHTML = `<tr><td colspan="4" class="cmp-empty">Network error: ${esc(String(e))}</td></tr>`;
+    $('cmp-pp-body').innerHTML  = $('cmp-raw-body').innerHTML;
+  }
+}
+
+function _toggleCmpPill(pill, set, value) {
+  if (set.has(value)) {
+    set.delete(value);
+    pill.classList.remove('checked');
+  } else {
+    set.add(value);
+    pill.classList.add('checked');
+  }
+  _fetchComparison();
+}
+
+function _cmpReportsForParsers(runParsers) {
+  // Multi-parser run: S.parserResults is keyed by parser id
+  if (Object.keys(S.parserResults).length > 0) return S.parserResults;
+  // Single-parser run: populate a synthetic entry from S.general / S.general_pp
+  if (runParsers.length === 1 && S.general) {
+    return { [runParsers[0]]: { general: S.general, general_pp: S.general_pp ?? null } };
+  }
+  return {};
+}
+
+function renderComparison() {
+  // Derive available parsers from last run
+  const runParsers = [...S.selectedParsers];
+
+  // Build reports map (handles single- and multi-parser runs)
+  const reportsMap = _cmpReportsForParsers(runParsers);
+
+  // Derive available docs from the first available parser's report
+  const firstReport = Object.values(reportsMap)[0];
+  const availableDocs = (firstReport?.general?.documents ?? []).map(d => d.doc_name).filter(Boolean);
+
+  // Initialize selections to "all" on first render or after a new run
+  CMP.selectedParsers = new Set(runParsers);
+  CMP.selectedDocs    = new Set(availableDocs);
+
+  // Build parser pill filters
+  const parserChecks = $('cmp-parser-checks');
+  parserChecks.innerHTML = '';
+  for (const pid of runParsers) {
+    const label = _parserLabel(pid);
+    const pill  = document.createElement('label');
+    pill.className = 'cmp-check-pill checked';
+    pill.innerHTML = `<input type="checkbox" checked><span>${esc(label)}</span>`;
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      _toggleCmpPill(pill, CMP.selectedParsers, pid);
+    });
+    parserChecks.appendChild(pill);
+  }
+
+  // Build doc pill filters
+  const docChecks = $('cmp-doc-checks');
+  docChecks.innerHTML = '';
+  for (const doc of availableDocs) {
+    const pill = document.createElement('label');
+    pill.className = 'cmp-check-pill checked';
+    pill.innerHTML = `<input type="checkbox" checked><span>${esc(doc)}</span>`;
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      _toggleCmpPill(pill, CMP.selectedDocs, doc);
+    });
+    docChecks.appendChild(pill);
+  }
+
+  if (runParsers.length === 0 || availableDocs.length === 0) {
+    $('cmp-raw-body').innerHTML = `<tr><td colspan="4" class="cmp-empty">Run an evaluation first to see comparisons.</td></tr>`;
+    $('cmp-pp-body').innerHTML  = $('cmp-raw-body').innerHTML;
+    return;
+  }
+
+  _fetchComparison();
 }
 </script>
 </body>
