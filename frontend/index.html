@@ -13,33 +13,33 @@
 
     /* ── Design tokens ──────────────────────────────────────── */
     :root {
-      --bg:          #08080a;
-      --surface:     #0f0f12;
-      --surface-2:   #15151a;
-      --surface-3:   #1c1c23;
-      --border:      #1e1e28;
-      --border-2:    #2a2a36;
+      --bg:          #f0f2f7;
+      --surface:     #ffffff;
+      --surface-2:   #f6f7fb;
+      --surface-3:   #eceef5;
+      --border:      #dde1ec;
+      --border-2:    #c8cedc;
 
-      --text-1:      #ebebef;
-      --text-2:      #70709a;
-      --text-3:      #3c3c55;
+      --text-1:      #1c1d2e;
+      --text-2:      #4e5170;
+      --text-3:      #9496b8;
 
       --accent:      #c0ff3c;
-      --accent-dim:  rgba(192,255,60,0.08);
-      --accent-glow: rgba(192,255,60,0.18);
-      --accent-2:    #5edfff;
+      --accent-dim:  rgba(79,70,229,0.07);
+      --accent-glow: rgba(79,70,229,0.14);
+      --accent-2:    #4f46e5;
 
-      --success:     #3ec95a;
-      --danger:      #ff4060;
-      --warning:     #ffd43b;
-      --info:        #5edfff;
+      --success:     #15803d;
+      --danger:      #b91c1c;
+      --warning:     #92400e;
+      --info:        #0369a1;
 
       /* Diagnostic category colours */
-      --c-missing:   #ff4060;
-      --c-ocr:       #ff9843;
-      --c-merged:    #ffc107;
-      --c-format:    #3ec95a;
-      --c-unclass:   #555570;
+      --c-missing:   #b91c1c;
+      --c-ocr:       #c2410c;
+      --c-merged:    #92400e;
+      --c-format:    #15803d;
+      --c-unclass:   #6b7280;
 
       --f-hero:      'Plus Jakarta Sans', sans-serif;
       --f-display:   'Plus Jakarta Sans', sans-serif;
@@ -314,11 +314,11 @@
 
     .file-tab.tab-summary:hover .sum-icon,
     .file-tab.tab-summary.active .sum-icon {
-      color: var(--accent);
+      color: var(--accent-2);
     }
 
     .file-tab.tab-summary.active {
-      color: var(--accent);
+      color: var(--accent-2);
       background: var(--bg);
       border-color: var(--border);
       border-bottom-color: var(--bg);
@@ -623,10 +623,10 @@
       border-radius: 16px;
       display: grid;
       place-items: center;
-      color: var(--accent);
+      color: var(--accent-2);
       font-size: 1.5rem;
       background: var(--surface);
-      box-shadow: 0 0 32px rgba(192,255,60,0.06);
+      box-shadow: 0 0 24px rgba(79,70,229,0.08);
     }
 
     .empty-title {
@@ -639,7 +639,7 @@
     }
 
     .empty-title .accent-char {
-      color: var(--accent);
+      color: var(--accent-2);
     }
 
     .empty-sub {
@@ -649,12 +649,12 @@
       max-width: 380px;
     }
 
-    .empty-sub strong { color: var(--accent); font-weight: 600; }
+    .empty-sub strong { color: var(--accent-2); font-weight: 600; }
 
     .empty-divider {
       width: 40px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
       border-radius: 1px;
     }
 
@@ -671,11 +671,11 @@
     .load-spinner {
       width: 40px; height: 40px;
       border: 1.5px solid var(--border-2);
-      border-top-color: var(--accent);
-      border-right-color: rgba(192,255,60,0.3);
+      border-top-color: var(--accent-2);
+      border-right-color: rgba(79,70,229,0.3);
       border-radius: 50%;
       animation: spin 0.65s linear infinite;
-      box-shadow: 0 0 16px rgba(192,255,60,0.12);
+      box-shadow: 0 0 16px rgba(79,70,229,0.10);
     }
 
     .load-title {
@@ -713,13 +713,13 @@
     }
 
     .error-box {
-      background: rgba(255,77,109,0.06);
-      border: 1px solid rgba(255,77,109,0.3);
+      background: rgba(185,28,28,0.05);
+      border: 1px solid rgba(185,28,28,0.22);
       border-radius: var(--r-lg);
       padding: 16px 20px;
       font-family: var(--f-mono);
       font-size: 0.72rem;
-      color: #ff7a92;
+      color: #b91c1c;
       white-space: pre-wrap;
       max-width: 580px;
       max-height: 260px;
@@ -905,8 +905,8 @@
       white-space: nowrap;
     }
 
-    .tag-noise   { color: #8888a8; border-color: var(--border-2); background: var(--surface-2); }
-    .tag-missing { color: #ff8a9e; border-color: rgba(255,77,109,0.3); background: rgba(255,77,109,0.07); }
+    .tag-noise   { color: var(--text-2); border-color: var(--border-2); background: var(--surface-2); }
+    .tag-missing { color: #b91c1c; border-color: rgba(185,28,28,0.28); background: rgba(185,28,28,0.06); }
     .tag-ngram   { color: var(--text-2); border-color: var(--border); background: var(--surface-2); }
 
     /* Noise word cloud */
@@ -1007,9 +1007,9 @@
       font-size: 0.72rem;
       padding: 4px 12px;
       border-radius: var(--r-md);
-      background: rgba(255,77,109,0.10);
-      border: 1px solid rgba(255,77,109,0.28);
-      color: #ff8a9e;
+      background: rgba(185,28,28,0.07);
+      border: 1px solid rgba(185,28,28,0.22);
+      color: #b91c1c;
     }
 
     /* Issue list container */
@@ -1037,9 +1037,9 @@
       font-size: 0.7rem;
       padding: 2px 8px;
       border-radius: var(--r-sm);
-      background: rgba(255,152,67,0.10);
-      border: 1px solid rgba(255,152,67,0.28);
-      color: #ffb07a;
+      background: rgba(194,65,12,0.07);
+      border: 1px solid rgba(194,65,12,0.22);
+      color: #b45309;
     }
 
     .chip-plus { font-size: 0.65rem; color: var(--text-3); }
@@ -1062,9 +1062,9 @@
       font-size: 0.7rem;
       padding: 2px 8px;
       border-radius: var(--r-sm);
-      background: rgba(255,193,7,0.10);
-      border: 1px solid rgba(255,193,7,0.28);
-      color: #ffe066;
+      background: rgba(146,64,14,0.07);
+      border: 1px solid rgba(146,64,14,0.22);
+      color: #92400e;
     }
 
     .merged-chip {
@@ -1072,9 +1072,9 @@
       font-size: 0.7rem;
       padding: 2px 8px;
       border-radius: var(--r-sm);
-      background: rgba(255,193,7,0.18);
-      border: 1px solid rgba(255,193,7,0.50);
-      color: #ffd43b;
+      background: rgba(120,53,15,0.10);
+      border: 1px solid rgba(120,53,15,0.30);
+      color: #78350f;
     }
 
     /* Formatting sub-section header */
@@ -1114,15 +1114,15 @@
     }
 
     .fmt-badge.reversal {
-      background: rgba(64,192,87,0.10);
-      border: 1px solid rgba(64,192,87,0.28);
-      color: #69db7c;
+      background: rgba(21,128,61,0.07);
+      border: 1px solid rgba(21,128,61,0.22);
+      color: #15803d;
     }
 
     .fmt-badge.punct {
-      background: rgba(116,192,252,0.10);
-      border: 1px solid rgba(116,192,252,0.28);
-      color: #74c0fc;
+      background: rgba(29,78,216,0.07);
+      border: 1px solid rgba(29,78,216,0.22);
+      color: #1d4ed8;
     }
 
     .fmt-cmp {
@@ -1170,8 +1170,8 @@
       vertical-align: middle;
     }
 
-    .conf-badge.HIGH   { background: rgba(64,192,87,0.12);  color: #69db7c; }
-    .conf-badge.MEDIUM { background: rgba(255,212,59,0.12); color: #ffe066; }
+    .conf-badge.HIGH   { background: rgba(21,128,61,0.08);  color: #15803d; }
+    .conf-badge.MEDIUM { background: rgba(146,64,14,0.08); color: #92400e; }
 
     /* Unclassified ngram cloud */
     .ngram-cloud { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 12px; }
@@ -1378,9 +1378,9 @@
     }
 
     .nav-item.active {
-      color: var(--accent);
+      color: var(--accent-2);
       background: var(--accent-dim);
-      border-color: rgba(192,255,60,0.15);
+      border-color: rgba(79,70,229,0.15);
     }
 
     .nav-item svg { flex-shrink: 0; opacity: 0.6; transition: opacity 0.15s; }
@@ -1465,8 +1465,8 @@
 
     #file-count-badge.has-selection {
       background: var(--accent-dim);
-      border-color: rgba(192,255,60,0.25);
-      color: var(--accent);
+      border-color: rgba(79,70,229,0.22);
+      color: var(--accent-2);
     }
 
     #file-list {
@@ -1651,13 +1651,13 @@
     }
 
     .parser-card.selected {
-      border-color: rgba(192,255,60,0.45);
+      border-color: rgba(79,70,229,0.35);
       background: var(--accent-dim);
-      box-shadow: 0 0 20px rgba(192,255,60,0.08), inset 0 1px 0 rgba(192,255,60,0.12);
+      box-shadow: 0 0 20px rgba(79,70,229,0.08), inset 0 1px 0 rgba(79,70,229,0.10);
     }
 
     .parser-card.selected::after {
-      border-color: rgba(192,255,60,0.15);
+      border-color: rgba(79,70,229,0.12);
     }
 
     .parser-card--soon { cursor: not-allowed; opacity: 0.35; }
@@ -1677,7 +1677,7 @@
       line-height: 1;
     }
 
-    .parser-card.selected .parser-icon { color: var(--accent); }
+    .parser-card.selected .parser-icon { color: var(--accent-2); }
     .parser-card:hover:not(.parser-card--soon) .parser-icon { color: var(--text-2); }
 
     .parser-name {
@@ -1815,8 +1815,8 @@
 
     .parser-subtab.active {
       background: var(--accent-dim);
-      border-color: rgba(192,255,60,0.4);
-      color: var(--accent);
+      border-color: rgba(79,70,229,0.35);
+      color: var(--accent-2);
     }
 
     .parser-subtab--error {
@@ -1867,6 +1867,119 @@
       border-radius: var(--r-md);
       padding: 12px 14px;
     }
+
+    /* ══════════════════════════════════════════════════════════════
+       DOCUMENT STREAM COMPARISON
+    ══════════════════════════════════════════════════════════════ */
+    .stream-section { animation: fadeUp 0.3s ease both; }
+
+    .stream-legend {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .stream-legend-title {
+      font-family: var(--f-mono);
+      font-size: 0.60rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-right: 2px;
+      flex-shrink: 0;
+    }
+
+    .stream-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--text-2);
+      white-space: nowrap;
+    }
+
+    .stream-legend-swatch {
+      display: inline-block;
+      width: 14px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .stream-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .stream-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stream-col-hdr {
+      padding: 11px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      flex-shrink: 0;
+    }
+
+    .stream-col-label {
+      font-family: var(--f-mono);
+      font-size: 0.57rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 3px;
+    }
+
+    .stream-col-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+
+    .stream-col-body {
+      padding: 14px 16px;
+      overflow-y: auto;
+      max-height: 460px;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      word-break: break-word;
+      white-space: pre-wrap;
+      color: var(--text-1);
+      flex: 1;
+    }
+
+    .hl { border-radius: 3px; padding: 1px 3px; display: inline; }
+
+    .hl-error  { background: rgba(220,38,38,0.13);  color: #b91c1c; outline: 1px solid rgba(220,38,38,0.28); }
+    .hl-noise  { background: rgba(220,38,38,0.09);  color: #b91c1c; text-decoration: line-through; text-decoration-color: rgba(220,38,38,0.55); }
+    .hl-format { background: rgba(180,83,9,0.11);   color: #92400e; outline: 1px solid rgba(180,83,9,0.28); }
+    .hl-fixed  { background: rgba(22,163,74,0.12);  color: #15803d; outline: 1px solid rgba(22,163,74,0.28); }
+    .hl-missing{ background: rgba(220,38,38,0.055); color: var(--text-2); text-decoration: underline; text-decoration-style: wavy; text-decoration-color: rgba(220,38,38,0.45); }
+
+    .stream-no-data {
+      padding: 52px 24px;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) { .stream-columns { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -1960,6 +2073,7 @@
     <div class="rpt-toggle">
       <div class="rpt-opt active" data-report="general"        onclick="setReport('general')">General Report</div>
       <div class="rpt-opt"        data-report="postprocessing" onclick="setReport('postprocessing')">Postprocessing</div>
+      <div class="rpt-opt"        data-report="stream"         onclick="setReport('stream')">Stream View</div>
     </div>
     <div class="toggle-spacer"></div>
     <!-- Standard report downloads (visible when General or Diagnostic is active) -->
@@ -2301,15 +2415,16 @@ function renderToggle() {
 }
 
 function syncToggle() {
-  const isPP = S.activeReport === 'postprocessing';
+  const isPP     = S.activeReport === 'postprocessing';
+  const isStream = S.activeReport === 'stream';
   document.querySelectorAll('.rpt-opt').forEach(el => {
     el.classList.toggle('active', el.dataset.report === S.activeReport);
   });
   /* Swap download buttons depending on active report type */
-  $('dl-general').style.display    = isPP ? 'none'  : 'flex';
-  $('dl-diag').style.display       = isPP ? 'none'  : 'flex';
-  $('dl-general-pp').style.display = isPP ? 'flex'  : 'none';
-  $('dl-diag-pp').style.display    = isPP ? 'flex'  : 'none';
+  $('dl-general').style.display    = (isPP || isStream) ? 'none' : 'flex';
+  $('dl-diag').style.display       = (isPP || isStream) ? 'none' : 'flex';
+  $('dl-general-pp').style.display = isPP ? 'flex' : 'none';
+  $('dl-diag-pp').style.display    = isPP ? 'flex' : 'none';
 }
 
 /* ── Select doc / report type ───────────────────────────────────── */
@@ -2356,7 +2471,13 @@ function renderReport() {
     }
   }
 
-  if (S.activeReport === 'postprocessing') {
+  if (S.activeReport === 'stream') {
+    if (S.activeDoc === 'summary') {
+      panel.innerHTML = `<div class="stream-no-data">Select a specific document tab to view the Stream Comparison.</div>`;
+    } else {
+      renderStreamComparison(panel);
+    }
+  } else if (S.activeReport === 'postprocessing') {
     if (S.activeDoc === 'summary') renderPostprocessingSummary(panel);
     else                           renderPostprocessing(panel);
   } else if (S.activeDoc === 'summary') {
@@ -2584,7 +2705,7 @@ function buildGlobalSummaryHTML() {
         <div class="metric-value" style="color:${covCol(avgCovBefore)}">${(avgCovBefore*100).toFixed(1)}<span class="unit">%</span></div>
         <div class="metric-sub">baseline average</div>
       </div>
-      <div class="metric-card mc-coverage" style="animation-delay:.06s;border-color:rgba(192,255,60,0.35)">
+      <div class="metric-card mc-coverage" style="animation-delay:.06s;border-color:rgba(79,70,229,0.30)">
         <div class="metric-label">Coverage — After</div>
         <div class="metric-value" style="color:${covCol(avgCovAfter)}">${(avgCovAfter*100).toFixed(1)}<span class="unit">%</span></div>
         <div class="metric-sub" style="color:${covDelta >= 0 ? 'var(--success)' : 'var(--danger)'}">
@@ -2596,7 +2717,7 @@ function buildGlobalSummaryHTML() {
         <div class="metric-value" style="color:var(--danger)">${(avgNoiseBefore*100).toFixed(1)}<span class="unit">%</span></div>
         <div class="metric-sub">baseline average</div>
       </div>
-      <div class="metric-card mc-noise" style="animation-delay:.18s;border-color:rgba(192,255,60,0.35)">
+      <div class="metric-card mc-noise" style="animation-delay:.18s;border-color:rgba(79,70,229,0.30)">
         <div class="metric-label">Noise Rate — After</div>
         <div class="metric-value" style="color:var(--danger)">${(avgNoiseAfter*100).toFixed(1)}<span class="unit">%</span></div>
         <div class="metric-sub" style="color:${noiseDelta <= 0 ? 'var(--success)' : 'var(--danger)'}">
@@ -2693,10 +2814,10 @@ function buildGlobalSummaryHTML() {
     if (pct !== null) {
       if (diff > 0) {
         resLabel = `${pct}% resolved`;
-        resBg    = 'background:rgba(64,192,87,0.12);color:#69db7c';
+        resBg    = 'background:rgba(21,128,61,0.08);color:#15803d';
       } else if (diff < 0) {
         resLabel = `${Math.abs(pct)}% increase`;
-        resBg    = 'background:rgba(255,77,109,0.12);color:#ff8a9e';
+        resBg    = 'background:rgba(185,28,28,0.08);color:#b91c1c';
       } else {
         resLabel = 'no change';
       }
@@ -3571,6 +3692,124 @@ function scoreColor(score) {
   return score >= 75 ? 'var(--success)'
        : score >= 40 ? 'var(--warning)'
        :               'var(--danger)';
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DOCUMENT STREAM COMPARISON
+   Segments: { text: string, cls: string }
+   cls: '' | 'hl-error' | 'hl-noise' | 'hl-format' | 'hl-fixed' | 'hl-missing'
+   Fetches live from /api/stream_data — works for any document automatically.
+══════════════════════════════════════════════════════════════════ */
+
+const STREAM_LEGEND_HTML = `
+  <div class="stream-legend">
+    <span class="stream-legend-title">Legend</span>
+    <span class="stream-legend-item">
+      <span class="stream-legend-swatch" style="background:rgba(220,38,38,0.15);outline:1px solid rgba(220,38,38,0.30);border-radius:2px"></span>
+      Problem / Error
+    </span>
+    <span class="stream-legend-item">
+      <span class="stream-legend-swatch" style="background:rgba(220,38,38,0.09);border-radius:2px;text-decoration:line-through"></span>
+      Noise (removed)
+    </span>
+    <span class="stream-legend-item">
+      <span class="stream-legend-swatch" style="background:rgba(180,83,9,0.13);outline:1px solid rgba(180,83,9,0.30);border-radius:2px"></span>
+      Formatting / Spacing
+    </span>
+    <span class="stream-legend-item">
+      <span class="stream-legend-swatch" style="background:rgba(22,163,74,0.14);outline:1px solid rgba(22,163,74,0.30);border-radius:2px"></span>
+      Fixed / Recovered
+    </span>
+    <span class="stream-legend-item">
+      <span class="stream-legend-swatch" style="background:rgba(220,38,38,0.06);border-bottom:2px solid rgba(220,38,38,0.35);border-radius:2px"></span>
+      Missing from parser
+    </span>
+  </div>`;
+
+function _streamColBody(segments) {
+  return (segments || []).map(seg =>
+    seg.cls
+      ? `<span class="hl ${esc(seg.cls)}" dir="auto">${esc(seg.text)}</span>`
+      : esc(seg.text)
+  ).join('');
+}
+
+function _streamCol(label, name, segments, available) {
+  const body = available
+    ? `<div class="stream-col-body" dir="auto">${_streamColBody(segments)}</div>`
+    : `<div class="stream-col-body stream-no-data" style="font-size:0.78rem">Not available for this document.</div>`;
+  return `
+    <div class="stream-col">
+      <div class="stream-col-hdr">
+        <div class="stream-col-label">${esc(label)}</div>
+        <div class="stream-col-name">${esc(name)}</div>
+      </div>
+      ${body}
+    </div>`;
+}
+
+function _streamColLoading(label, name) {
+  return `
+    <div class="stream-col">
+      <div class="stream-col-hdr">
+        <div class="stream-col-label">${esc(label)}</div>
+        <div class="stream-col-name">${esc(name)}</div>
+      </div>
+      <div class="stream-col-body" style="color:var(--text-3);font-size:0.78rem">Loading…</div>
+    </div>`;
+}
+
+async function renderStreamComparison(panel) {
+  const diagDoc = (S.diagnostic?.documents ?? [])[S.activeDoc];
+  if (!diagDoc) {
+    panel.innerHTML = `<div class="stream-no-data">No document data available.</div>`;
+    return;
+  }
+
+  const docName     = diagDoc.doc_name;
+  const parserId    = S.activeParser ?? [...S.selectedParsers][0] ?? '';
+  const parserLabel = PARSERS.find(p => p.id === parserId)?.label ?? parserId;
+
+  panel.innerHTML = `
+    <div class="stream-section">
+      <div style="font-family:var(--f-display);font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:3px">
+        Document Stream Comparison
+      </div>
+      <div style="font-size:0.74rem;color:var(--text-3);margin-bottom:14px" dir="auto">${esc(docName)}</div>
+      ${STREAM_LEGEND_HTML}
+      <div class="stream-columns">
+        ${_streamColLoading('Ground Truth (Expected)', 'Reference Document')}
+        ${_streamColLoading('Raw Parser Output', parserLabel)}
+        ${_streamColLoading('Post-Processed Output', parserLabel + ' + PP')}
+      </div>
+    </div>`;
+
+  let data;
+  try {
+    const res = await fetch('/api/stream_data?doc=' + encodeURIComponent(docName));
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (err) {
+    panel.innerHTML = `<div class="stream-no-data">
+      Failed to load stream data for <strong>${esc(docName)}</strong>.<br>
+      <span style="font-family:var(--f-mono);font-size:0.78em;color:var(--danger)">${esc(String(err))}</span>
+    </div>`;
+    return;
+  }
+
+  panel.innerHTML = `
+    <div class="stream-section">
+      <div style="font-family:var(--f-display);font-size:1rem;font-weight:600;color:var(--text-1);margin-bottom:3px">
+        Document Stream Comparison
+      </div>
+      <div style="font-size:0.74rem;color:var(--text-3);margin-bottom:14px" dir="auto">${esc(docName)}</div>
+      ${STREAM_LEGEND_HTML}
+      <div class="stream-columns">
+        ${_streamCol('Ground Truth (Expected)', 'Reference Document',  data.gt,  data.has_gt)}
+        ${_streamCol('Raw Parser Output',       parserLabel,            data.raw, data.has_raw)}
+        ${_streamCol('Post-Processed Output',   parserLabel + ' + PP', data.pp,  data.has_pp)}
+      </div>
+    </div>`;
 }
 </script>
 </body>

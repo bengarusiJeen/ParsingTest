@@ -1,26 +1,83 @@
 {
   "summary": {
     "total_documents": 5,
-    "total_missing_ngrams": 704,
-    "MISSING_BLOCK_PARSE_total": 5,
-    "OCR_SPLIT_total": 2,
-    "MERGED_WORDS_total": 0,
-    "FORMATTING_ISSUES_total": 128,
-    "UNCLASSIFIED_total": 515
+    "total_missing_ngrams": 951,
+    "MISSING_BLOCK_PARSE_total": 10,
+    "OCR_SPLIT_total": 27,
+    "MERGED_WORDS_total": 7,
+    "FORMATTING_ISSUES_total": 13,
+    "UNCLASSIFIED_total": 603
   },
   "documents": [
     {
       "doc_name": "5 עמודים",
       "file_ext": ".pdf",
-      "total_missing_ngrams": 39,
+      "total_missing_ngrams": 105,
       "detected_problems": {
         "MISSING_BLOCK_PARSE": {
           "count": 0,
           "blocks_number": []
         },
         "OCR_SPLIT": {
-          "count": 0,
-          "issues": []
+          "count": 8,
+          "issues": [
+            {
+              "original_word": "ה-RAG",
+              "fragments_in_parser": [
+                "ה-",
+                "RAG"
+              ]
+            },
+            {
+              "original_word": "הרכיבים.",
+              "fragments_in_parser": [
+                "הרכיבי",
+                "ם."
+              ]
+            },
+            {
+              "original_word": "ל-Tone.",
+              "fragments_in_parser": [
+                "ל-",
+                "Tone."
+              ]
+            },
+            {
+              "original_word": "Classifier.",
+              "fragments_in_parser": [
+                "Classifier",
+                "."
+              ]
+            },
+            {
+              "original_word": "False.",
+              "fragments_in_parser": [
+                "False",
+                "."
+              ]
+            },
+            {
+              "original_word": "מציג",
+              "fragments_in_parser": [
+                "מצי",
+                "ג"
+              ]
+            },
+            {
+              "original_word": "ההודעה",
+              "fragments_in_parser": [
+                "ה",
+                "הודעה"
+              ]
+            },
+            {
+              "original_word": "flow:",
+              "fragments_in_parser": [
+                "flow",
+                ":"
+              ]
+            }
+          ]
         },
         "MERGED_WORDS": {
           "count": 0,
@@ -52,45 +109,87 @@
           }
         },
         "UNCLASSIFIED": {
-          "count": 37,
+          "count": 79,
           "ngrams": [
             "False/True. דוגמאות אלו",
-            "Guard rail מטרת",
             "Guard, התשובה תיגזר",
             "Guard. End of",
             "Guard. פורמט: Response",
             "Interactive מורכב Jeen.ai",
             "Message אשר קובע",
-            "Message מטרת הרכיב:",
-            "Tone מטרת הרכיב:",
-            "Tone. האם חובה",
-            "conversation Message מטרת",
+            "Tone-כדי לעודד שאילת",
             "message Guard, התשובה",
             "message Guard. פורמט:",
-            "rail מטרת הרכיב:",
+            "או הגבלת הזמן.",
+            "או לא רציפות.",
             "אינו חובה. Guard",
+            "אלו ישתנו בהתאם",
+            "את המידע המתאים",
             "את שדה ה-Message",
-            "ב Tone. האם",
+            "ב Tone-כדי לעודד",
+            "ב.Flow מה הרכיב",
+            "בהתאם לתחומי העיסוק",
+            "בכוכביות. בסוכנים עם",
+            "במידה וקיים ב.Flow",
+            "במסגרת ה-Interactive. לאחר",
+            "במקרה כזה תוחזר",
+            "בסוכן ללא מסמכים,",
+            "בסוכן עם מסמכים",
             "בשדה message Guard,",
+            "ה-Interactive. לאחר שהמדריך",
             "ה-Message Guard. End",
+            "הבסיסי סקר את",
+            "הגבלת הזמן. לאחר",
             "הדוגמאות למצבי False/True.",
+            "הודעה שתוגדר מראש.",
             "הודעות באמצעות Limitation",
-            "הרכיבים. Tone מטרת",
+            "הזמן. לאחר שהמשתמש",
+            "הינו חובה. במידה",
+            "המידע המתאים בכל",
+            "המסומנים בכוכביות. בסוכנים",
+            "המקומות המסומנים בכוכביות.",
+            "המתאים בכל המקומות",
+            "הנוכחית ויידרש לפתוח",
+            "הרכיב אינו חובה.",
+            "הרכיב הינו חובה.",
+            "התגובה צפויה להגיע",
             "התשובה מה message",
+            "התשובה תיגזר מהגדרות",
+            "ויידרש לפתוח שיחה",
+            "וקיים ב.Flow מה",
+            "חדשה. האם חובה",
             "חובה. Guard rail",
-            "חובה. Special Guard",
-            "חובה. תרשים ה",
-            "יחדל מהפנייה ל-Tone.",
-            "ל-Tone. כשנרצה שסוכן",
-            "לא נשתמש ב",
+            "חובה. במידה ומדובר",
+            "ישתנו בהתאם לתחומי",
+            "כאשר התגובה צפויה",
+            "כזה תוחזר למשתמש",
+            "כזה, כאשר התגובה",
+            "לא רציפות. מה",
+            "לאחר שהמדריך הבסיסי",
+            "לאחר שהמשתמש מגיע",
+            "להשתמש ב Tone-כדי",
+            "ללא מסמכים, הרכיב",
             "למצבי False/True. דוגמאות",
+            "לפתוח שיחה חדשה.",
             "מה message Guard.",
-            "מהפנייה ל-Tone. כשנרצה",
-            "נשתמש ב Tone.",
-            "רכיב חובה. Special",
-            "רכיב חובה. תרשים",
+            "מהגדרות שונות שנכתבו",
+            "ממושכות או לא",
+            "מסמכים הרכיב אינו",
+            "מסמכים, הרכיב הינו",
+            "מראש. רכיב זה",
+            "ניתן להשתמש ב",
+            "עם מסמכים הרכיב",
+            "ראויות. במקרה כזה",
+            "רציפות. מה הרכיב",
             "שדה ה-Message Guard.",
-            "שמוגדרת בשדה message"
+            "שהמדריך הבסיסי סקר",
+            "שהמשתמש מגיע למכסה,",
+            "שיחה חדשה. האם",
+            "שמוגדרת בשדה message",
+            "שממלאים את המידע",
+            "שתוגדר מראש. רכיב",
+            "תוחזר למשתמש הודעה",
+            "תיגזר מהגדרות שונות"
           ]
         }
       }
@@ -98,48 +197,215 @@
     {
       "doc_name": "air defense_1",
       "file_ext": ".pdf",
-      "total_missing_ngrams": 278,
+      "total_missing_ngrams": 346,
       "detected_problems": {
         "MISSING_BLOCK_PARSE": {
-          "count": 5,
+          "count": 9,
           "blocks_number": [
+            1,
             4,
-            5,
             6,
-            8,
-            16
+            9,
+            11,
+            12,
+            15,
+            17,
+            19
           ]
         },
         "OCR_SPLIT": {
-          "count": 0,
-          "issues": []
+          "count": 18,
+          "issues": [
+            {
+              "original_word": "מ-50,000",
+              "fragments_in_parser": [
+                "מ-",
+                "50,000"
+              ]
+            },
+            {
+              "original_word": "1.",
+              "fragments_in_parser": [
+                "1",
+                "."
+              ]
+            },
+            {
+              "original_word": "2.",
+              "fragments_in_parser": [
+                "2",
+                "."
+              ]
+            },
+            {
+              "original_word": "בחברה\",",
+              "fragments_in_parser": [
+                "בחברה\"",
+                ","
+              ]
+            },
+            {
+              "original_word": "דרישת",
+              "fragments_in_parser": [
+                "דרי",
+                "שת"
+              ]
+            },
+            {
+              "original_word": "3.",
+              "fragments_in_parser": [
+                "3",
+                "."
+              ]
+            },
+            {
+              "original_word": "החברה",
+              "fragments_in_parser": [
+                "החב",
+                "רה"
+              ]
+            },
+            {
+              "original_word": "4.",
+              "fragments_in_parser": [
+                "4",
+                "."
+              ]
+            },
+            {
+              "original_word": "יועצים,",
+              "fragments_in_parser": [
+                "יועצ",
+                "ים,"
+              ]
+            },
+            {
+              "original_word": "5.",
+              "fragments_in_parser": [
+                "5",
+                "."
+              ]
+            },
+            {
+              "original_word": "6.",
+              "fragments_in_parser": [
+                "6",
+                "."
+              ]
+            },
+            {
+              "original_word": "במטה",
+              "fragments_in_parser": [
+                "ב",
+                "מטה"
+              ]
+            },
+            {
+              "original_word": "(בוועדות",
+              "fragments_in_parser": [
+                "(בוועדו",
+                "ת"
+              ]
+            },
+            {
+              "original_word": "המפעל",
+              "fragments_in_parser": [
+                "ה",
+                "מפעל"
+              ]
+            },
+            {
+              "original_word": "והוראות",
+              "fragments_in_parser": [
+                "והו",
+                "ראות"
+              ]
+            },
+            {
+              "original_word": "החלטת",
+              "fragments_in_parser": [
+                "החל",
+                "טת"
+              ]
+            },
+            {
+              "original_word": "בחטיבת/לחטיבת:",
+              "fragments_in_parser": [
+                "ב",
+                "חטיבת/לחטיבת:"
+              ]
+            },
+            {
+              "original_word": "בהסכם",
+              "fragments_in_parser": [
+                "בהס",
+                "כם"
+              ]
+            }
+          ]
         },
         "MERGED_WORDS": {
-          "count": 0,
-          "issues": []
+          "count": 7,
+          "issues": [
+            {
+              "merged_word": "ובחירתם–",
+              "original": [
+                "ובחירתם",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "פומבי/סגור–",
+              "original": [
+                "פומבי/סגור",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "יו\"ר–",
+              "original": [
+                "יו\"ר",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "חבר–",
+              "original": [
+                "חבר",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "נוסף–",
+              "original": [
+                "נוסף",
+                "–"
+              ]
+            },
+            {
+              "merged_word": "ג.המלצה",
+              "original": [
+                "ג.",
+                "המלצה"
+              ]
+            },
+            {
+              "merged_word": "הבקשה–",
+              "original": [
+                "הבקשה",
+                "–"
+              ]
+            }
+          ]
         },
         "FORMATTING_ISSUES": {
-          "count": 21,
+          "count": 12,
           "WORD_ORDER_REVERSAL": {
-            "count": 1,
-            "issues": [
-              {
-                "ngram": "משנה: רכש פרק:",
-                "type": "WORD_ORDER_REVERSAL",
-                "subtype": "PAIRWISE_REVERSAL",
-                "pair": [
-                  "רכש",
-                  "פרק:"
-                ],
-                "gt_text": "רכש פרק:",
-                "parser_text": "פרק: רכש",
-                "confidence": "MEDIUM",
-                "evidence": "Hebrew↔Hebrew pair ('רכש', 'פרק:'). Original 'רכש פרק:' absent from parser; flipped 'פרק: רכש' confirmed. Confidence: MEDIUM."
-              }
-            ]
+            "count": 0,
+            "issues": []
           },
           "MISPLACED_PUNCTUATION": {
-            "count": 20,
+            "count": 12,
             "issues": [
               {
                 "ngram": "– תרשים זרימה",
@@ -150,28 +416,28 @@
                 "evidence": "Content words 'תרשים זרימה' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "מכרז פומבי/סגור –",
+                "ngram": "הנוגעים לנוהל *)",
                 "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "מכרז פומבי/סגור –",
-                "parser_text": "מכרז פומבי/סגור",
+                "gt_text": "הנוגעים לנוהל *)",
+                "parser_text": "הנוגעים לנוהל",
                 "confidence": "MEDIUM",
-                "evidence": "Content words 'מכרז פומבי/סגור' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+                "evidence": "Content words 'הנוגעים לנוהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "– מנהל המפעל/ארגון",
+                "ngram": "לנוהל *) אם",
                 "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– מנהל המפעל/ארגון",
-                "parser_text": "מנהל המפעל/ארגון",
+                "gt_text": "לנוהל *) אם",
+                "parser_text": "לנוהל אם",
                 "confidence": "MEDIUM",
-                "evidence": "Content words 'מנהל המפעל/ארגון' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+                "evidence": "Content words 'לנוהל אם' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "נוגע חבר –",
+                "ngram": "*) אם לא",
                 "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "נוגע חבר –",
-                "parser_text": "נוגע חבר",
+                "gt_text": "*) אם לא",
+                "parser_text": "אם לא",
                 "confidence": "MEDIUM",
-                "evidence": "Content words 'נוגע חבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+                "evidence": "Content words 'אם לא' found contiguously inside parser flow after punctuation normalization. Punctuation ['*)'] likely caused the boundary shift (RTL displacement)."
               },
               {
                 "ngram": "– מנהל ארגון",
@@ -182,22 +448,6 @@
                 "evidence": "Content words 'מנהל ארגון' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "החברה חבר –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "החברה חבר –",
-                "parser_text": "החברה חבר",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'החברה חבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "– חשב המפעל/ארגון",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– חשב המפעל/ארגון",
-                "parser_text": "חשב המפעל/ארגון",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'חשב המפעל/ארגון' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
                 "ngram": "– נציג הלשכה",
                 "type": "MISPLACED_PUNCTUATION",
                 "gt_text": "– נציג הלשכה",
@@ -206,28 +456,12 @@
                 "evidence": "Content words 'נציג הלשכה' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "– מנהל המפעל",
+                "ngram": "– ראש מינהל",
                 "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– מנהל המפעל",
-                "parser_text": "מנהל המפעל",
+                "gt_text": "– ראש מינהל",
+                "parser_text": "ראש מינהל",
                 "confidence": "MEDIUM",
-                "evidence": "Content words 'מנהל המפעל' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "– חשב המפעל",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– חשב המפעל",
-                "parser_text": "חשב המפעל",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'חשב המפעל' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "המפעל חבר –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "המפעל חבר –",
-                "parser_text": "המפעל חבר",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'המפעל חבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
+                "evidence": "Content words 'ראש מינהל' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
                 "ngram": "– מנהל רכש",
@@ -236,14 +470,6 @@
                 "parser_text": "מנהל רכש",
                 "confidence": "MEDIUM",
                 "evidence": "Content words 'מנהל רכש' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "הנוגע חבר –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "הנוגע חבר –",
-                "parser_text": "הנוגע חבר",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'הנוגע חבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
                 "ngram": "– ראש המינהל",
@@ -262,36 +488,12 @@
                 "evidence": "Content words 'ראש תחום' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
               },
               {
-                "ngram": "חבר נוסף –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "חבר נוסף –",
-                "parser_text": "חבר נוסף",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'חבר נוסף' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "בכספים חבר –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "בכספים חבר –",
-                "parser_text": "בכספים חבר",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'בכספים חבר' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
                 "ngram": "– מנהל הפרויקט",
                 "type": "MISPLACED_PUNCTUATION",
                 "gt_text": "– מנהל הפרויקט",
                 "parser_text": "מנהל הפרויקט",
                 "confidence": "MEDIUM",
                 "evidence": "Content words 'מנהל הפרויקט' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "₪ נכון ליום",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "₪ נכון ליום",
-                "parser_text": "נכון ליום",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'נכון ליום' found contiguously inside parser flow after punctuation normalization. Punctuation ['₪'] likely caused the boundary shift (RTL displacement)."
               },
               {
                 "ngram": "– במסמך זה",
@@ -305,213 +507,168 @@
           }
         },
         "UNCLASSIFIED": {
-          "count": 205,
+          "count": 160,
           "ngrams": [
             "\"החטיבה\") של התעשייה",
+            "\"התע\"א\") [או, יש",
+            "\"התע\"א\"). בקשה זו",
+            "(בהתאם למצויין בטבלה):",
             "(המשך) מס' הפרק",
             "(להלן: \"החטיבה\") של",
+            "(להלן: \"התע\"א\") [או,",
+            "(להלן: \"התע\"א\"). בקשה",
+            "(נוסח מוצע) נספח",
             ".16.01.23 לצורך הבדיקה",
-            ".922.01.06 6. כל",
-            "1 כללי 1.",
             "1,000,000 דולר ארגוני",
-            "1. הרכב ועדות",
-            "1. נוהל זה",
-            "15.08.23 נספח 10",
-            "2 מתוך 119",
-            "2. אם יו\"ר",
-            "2. הנוהל עוסק",
-            "3 מתוך 119",
-            "3. הנוהל חל",
-            "3. רק בוועדות",
-            "4. ההיקף הכספי",
-            "4. לפנייה לספקים",
-            "42 מתוך 119",
+            "10 לנוהל), בהתאם",
+            "5 טופס לאישור",
+            "5(המשך) ועדה מס':",
             "5,000,000 דולר ארגוני",
-            "5. דיוני הוועדות",
-            "5. הוצאת ההזמנה",
-            "5.6.2.8 ניהול מו\"מ",
-            "58 מתוך 119",
-            "59 מתוך 119",
             "6 א' בקשה",
             "6 ב' בקשה",
-            "6. בוועדות מכרזים/פטור",
-            "6. כל התהליכים",
+            "SAP, ינוהלו במערכת",
+            "[או, יש לבחור]",
             "[הערה לעורך הבקשה",
             "[ולשימוש בהיקף כספי",
             "א' בקשה לקבלת",
             "או סגנו חבר",
-            "אם יו\"ר הוועדה",
-            "ארגון הסמנכ\"ל לתפעול,",
+            "אחרון*) 5.6.2.8 ניהול",
+            "איכות חטיבתי/מפעלי נוגע",
             "ארגוני מטה החברה:",
-            "את עלויות המע\"מ",
             "ב' בקשה לקבלת",
+            "באמצעות גורמים אחרים",
             "באמצעות מכרז [ולשימוש",
             "בארץ ומספקים בחו\"ל,",
-            "באתר ארגון הסמנכ\"ל",
-            "בדבר פטורים ממכרזים",
-            "בהליך של מו\"מ",
             "בהתאם למפורט בנוהל,922.01.06",
-            "בוועדה. 3. רק",
             "בחו\"ל, אם באופן",
-            "בטבלה): 1. הרכב",
-            "במטה החברה חבר",
-            "במטה חבר נוסף",
             "במטה/ססמנכ\"ל נוגע חבר",
-            "במסמך זה צוינו,",
-            "במפעל/ארגון במטה חבר",
-            "בנוהל .922.01.06 6.",
+            "במערכת SAP, ינוהלו",
+            "במפעל/החטיבה/התע\"א] נספח 6",
+            "במפעל/מנהל הרכש והלוגיסטיקה",
+            "בנוגע לה. הגשת",
+            "בנוגע לוועדות לפטור",
             "בנוהל,922.01.06 \"תהליך הרכש",
-            "בנספח.11 5. הוצאת",
+            "בנספח 10 לנוהל),",
             "בסכום המחייב לאורה",
             "בע\"מ (להלן: \"התע\"א\")",
             "בע\"מ (להלן: \"התע\"א\").",
-            "בע\"מ נושא ראשי:",
+            "גדול מהסכום המחייב",
+            "גוף הרכש במפעל/החטיבה/התע\"א]",
+            "גורמים אחרים בהתאם",
             "דולר ארגוני מטה",
-            "דף 2 מתוך",
-            "דף 3 מתוך",
-            "דף 42 מתוך",
-            "דף 58 מתוך",
-            "דף 59 מתוך",
-            "דרישת הרכש הנ\"ל",
-            "האווירית לישראל בע\"מ",
-            "האופציות. 5. דיוני",
             "הביטחון), תשנ\"ג-1993, ובכלל",
-            "הבקשה – במסמך",
-            "ההתקשרות עימם. 2.",
+            "ההתקשרות: תאריך: ג.",
+            "הוודעה אינה מאושרת",
             "הוודעה ובהרכב מינימלי",
-            "הוועדה, כולל היו\"ר",
-            "הוועדה. 2. אם",
+            "הוודעה לא לקבל",
+            "הוודעה מאושרת בהתאם",
+            "הוועדות-חלק מההערות משמשות",
             "הזמנה: מעל 1,000,000",
             "הזמנה: מעל 150,000",
-            "החברה הנוגעים. 4.",
-            "החברה. 4. ההיקף",
-            "החברה: יו\"ר –",
-            "היו\"ר והרכב מינימלי",
             "היקף הזמנה: מעל",
+            "הישימים במערכת SAP,",
             "הלשכה המשפטית חבר",
+            "הלשכה המשפטית נציג",
             "המחייב לאורה מכרז)",
+            "המחייב מכרז) נספח",
             "המינהל הנוגע חבר",
-            "המנכ\"ל, באישור דירקטוריון",
-            "המע\"מ ואת ההיקף",
-            "המפעל הנוגע חבר",
+            "המפורט בנוהל .922.01.06",
             "המפעל/ארגון במטה/ססמנכ\"ל נוגע",
-            "המשפטית חבר (בוועדות",
-            "הנ\"ל וההתקשרות עמו.",
+            "המציע תהיה התחייבות",
+            "המשפטית נציג המפעל/ארגון",
             "הנוגע חבר נוסף",
             "הנוגעים לנוהל בנספח.11",
-            "הנוגעים. 4. לפנייה",
             "הסמנכ\"ל הנוגע חבר",
-            "הסמנכ\"ל לתפעול, רכש",
-            "הספק יהיה עפ\"י",
             "העניינים (המשך) מס'",
-            "הערות לעורך והצעות",
-            "הרכש הנ\"ל וההתקשרות",
-            "התע\"א תתקשר בהסכם",
-            "ובחירתם – תרשים",
-            "וההתקשרות עמו. 3.",
+            "הפרויקט הנוגע חבר",
+            "הפרק עדכון אחרון*)",
+            "הרכבי הוועדות-חלק מההערות",
+            "הרכש במפעל/החטיבה/התע\"א] נספח",
+            "הרכש במפעל/מנהל הרכש",
+            "התחילה המקורי של",
+            "ואם באמצעות גורמים",
+            "ובחירת ספק (נוסח",
+            "ובכלל זה מספר",
+            "ובכתב רגיל. את",
+            "וכן בנוגע לוועדות",
             "ומספקים בחו\"ל, אם",
-            "ומקרה. תנאים שהעורך",
-            "ונציג רכש. 6.",
-            "זרימה 15.08.23 נספח",
-            "חבר – חשב",
-            "חבר – מנהל",
-            "חבר – נציג",
-            "חבר – ראש",
+            "ועדה מס': שם",
+            "זה מספר חברי",
+            "זה, הישימים במערכת",
             "חברי הוודעה ובהרכב",
-            "חברי הוועדה. 2.",
             "חטיבתי/מפעלי נוגע היקף",
             "חטיבתי/מפעלי נוגע מפעל/חטיבה:",
-            "חשב המפעל חבר",
-            "חשב המפעל/ארגון במטה",
+            "חטיבתי/ראש מינהל הרכש",
+            "חל על רכש",
             "טופס לאישור מנכ\"ל/הודעה",
-            "יד, הערות לעורך",
-            "יהיה עפ\"י חוזי",
-            "יו\"ר הוועדה אינו",
-            "יו\"ר – מנהל",
-            "יו\"ר – ראש",
-            "יו\"ר, נציג כספים",
-            "ייקבע ע\"י המנכ\"ל,",
+            "ידי המציע תהיה",
+            "ידי מציע תהיה",
+            "יחולו בנוגע לה.",
             "יש לבחור] למפעל:",
             "יש למחוק מהמסמך].",
-            "כולל היו\"ר והרכב",
-            "ככל שניתן התע\"א",
-            "כללי 1. נוהל",
-            "כלליים התעשייה האווירית",
+            "כהנחיות (בהתאם למצויין",
             "לאורה מכרז) מפעל/חטיבה:",
             "לאישור מנכ\"ל/הודעה למנכ\"ל",
             "לבחור] למפעל: (להלן:",
-            "לחבר בוועדה. 3.",
+            "לה. הגשת הצעה",
+            "לוועדות לפטור ממכרז",
+            "לטבלת הרכבי הוועדות-חלק",
             "ליום .16.01.23 לצורך",
-            "לישראל בע\"מ (להלן:",
-            "לישראל בע\"מ נושא",
-            "למוצרי החברה. 4.",
+            "ללא סוגריים ובכתב",
             "למחוק מהמסמך]. מתבקשות",
             "למנכ\"ל בדבר פטורים",
             "למפורט בנוהל,922.01.06 \"תהליך",
             "למפעל: (להלן: \"המפעל\")",
-            "למצויין בטבלה): 1.",
-            "לנוהל בנספח.11 5.",
-            "לעורך הבקשה –",
-            "לעורך והצעות לתנאים",
+            "לנוהל), בהתאם לכללים",
+            "לסכום המחייב מכרז)",
+            "לתאריך התחילה המקורי",
             "מהמסמך]. מתבקשות בזה",
-            "מו\"מ או בהליך",
-            "מו\"מ או של",
-            "מו\"מ עם ספקים",
+            "מהסכום המחייב מכרז)",
+            "מוצע) נספח 4",
             "מטה החברה: יו\"ר",
-            "מינהל נציג הסמנכ\"ל",
-            "מינימלי של: יו\"ר,",
+            "מינהל איכות חטיבתי/מפעלי",
+            "מינהל הרכש במפעל/מנהל",
+            "מינהל לפחות) חבר",
             "מכרז [ולשימוש בהיקף",
             "מכרז) מפעל/חטיבה: יו\"ר",
-            "ממכרזים 15.08.23 נספח",
-            "מנהל ארגון הרכש",
-            "מנהל המפעל או",
+            "מכרז) נספח 6",
+            "מכרז) נספח 7",
+            "מכרזים/פטור) – ראש",
             "מנהל המפעל/ארגון במטה/ססמנכ\"ל",
-            "מנהל הפרויקט הנוגע",
             "מנהל רכש חטיבתי/ראש",
             "מנכ\"ל/הודעה למנכ\"ל בדבר",
-            "מס' הפרק שם",
+            "מס': שם הספק:",
+            "מספקים בארץ ומספקים",
+            "מספר חברי הוועדה.",
+            "מעודכן לתאריך התחילה",
             "מערכת הביטחון), תשנ\"ג-1993,",
-            "מפעל/חטיבה: יו\"ר –",
-            "מקומי נוהל נוגע:",
-            "נהלים כלליים התעשייה",
+            "מציע תהיה התחייבות",
+            "מקומיים ואם באמצעות",
+            "משמשות כהנחיות (בהתאם",
             "נוגע היקף הזמנה:",
             "נוגע מפעל/חטיבה: יו\"ר",
-            "נוסף – נציג",
-            "ניהול מו\"מ עם",
             "נכון ליום .16.01.23",
+            "נספח 5 טופס",
+            "נספח 5(המשך) ועדה",
             "נספח 6 א'",
             "נספח 6 ב'",
-            "נציג הלשכה המשפטית",
-            "נציג הסמנכ\"ל הנוגע",
-            "נציג כספים ועו\"ד.",
-            "סגנו חבר –",
-            "ע\"י המנכ\"ל, באישור",
-            "עימם. 2. הנוהל",
-            "עלויות המע\"מ ואת",
-            "עמו. 3. הנוהל",
-            "עפ\"י חוזי הרכש",
-            "פומבי/סגור – תרשים",
-            "פטור ייקבע ע\"י",
-            "פטורים ממכרזים 15.08.23",
-            "פרק: רכש מקומי",
-            "ראש המינהל הנוגע",
-            "ראש מינהל הרכש",
-            "ראש תחום בכספים",
-            "ראש תחום כספים",
-            "רכש מקומי נוהל",
-            "רכש. 6. בוועדות",
-            "שהעורך בוחר להשאיר,",
-            "של האופציות. 5.",
+            "סוגריים ובכתב רגיל.",
+            "ספק (נוסח מוצע)",
+            "עדכון אחרון*) 5.6.2.8",
+            "על רכש מספקים",
+            "ראש מינהל לפחות)",
+            "רכש חטיבתי/ראש מינהל",
+            "רכש מספקים בארץ",
             "של חברי הוודעה",
-            "של מו\"מ או",
             "של מכרז פומבי/סגור",
-            "של: יו\"ר, נציג",
-            "שניתן התע\"א תתקשר",
-            "תאריך: [הערה לעורך",
+            "שם הפרק עדכון",
+            "שם: חתימה: ד.",
+            "תהיה התחייבות מטעמו",
+            "תוכן העניינים (המשך)",
             "תחום בכספים חבר",
-            "תנאים שהעורך בוחר",
-            "תרשים זרימה 15.08.23",
-            "תשנ\"ג-1993, ובכלל זה"
+            "תשנ\"ג-1993, ובכלל זה",
+            "– חשב המפעל/ארגון",
+            "– מנהל המפעל/ארגון"
           ]
         }
       }
@@ -519,22 +676,15 @@
     {
       "doc_name": "AroundTown Focused POC SOW",
       "file_ext": ".pdf",
-      "total_missing_ngrams": 370,
+      "total_missing_ngrams": 237,
       "detected_problems": {
         "MISSING_BLOCK_PARSE": {
           "count": 0,
           "blocks_number": []
         },
         "OCR_SPLIT": {
-          "count": 2,
+          "count": 1,
           "issues": [
-            {
-              "original_word": "validation.",
-              "fragments_in_parser": [
-                "validation",
-                "."
-              ]
-            },
             {
               "original_word": "Email:The",
               "fragments_in_parser": [
@@ -549,867 +699,18 @@
           "issues": []
         },
         "FORMATTING_ISSUES": {
-          "count": 106,
+          "count": 0,
           "WORD_ORDER_REVERSAL": {
             "count": 0,
             "issues": []
           },
           "MISPLACED_PUNCTUATION": {
-            "count": 106,
-            "issues": [
-              {
-                "ngram": "solution should: •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "solution should: •",
-                "parser_text": "solution should:",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'solution should:' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "should: • Detect",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "should: • Detect",
-                "parser_text": "should: Detect",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'should: Detect' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Detect newly",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Detect newly",
-                "parser_text": "Detect newly",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Detect newly' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "uploaded documents •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "uploaded documents •",
-                "parser_text": "uploaded documents",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'uploaded documents' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "documents • Classify",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "documents • Classify",
-                "parser_text": "documents Classify",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'documents Classify' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Classify them",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Classify them",
-                "parser_text": "Classify them",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Classify them' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Photo Documentation) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Photo Documentation) •",
-                "parser_text": "Photo Documentation)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Photo Documentation)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Documentation) • Extract",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Documentation) • Extract",
-                "parser_text": "Documentation) Extract",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Documentation) Extract' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Extract defined",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Extract defined",
-                "parser_text": "Extract defined",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Extract defined' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "agreed guidelines •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "agreed guidelines •",
-                "parser_text": "agreed guidelines",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'agreed guidelines' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "guidelines • Write",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "guidelines • Write",
-                "parser_text": "guidelines Write",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'guidelines Write' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Write extracted",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Write extracted",
-                "parser_text": "Write extracted",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Write extracted' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "SharePoint metadata •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "SharePoint metadata •",
-                "parser_text": "SharePoint metadata",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'SharePoint metadata' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "metadata • Involve",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "metadata • Involve",
-                "parser_text": "metadata Involve",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'metadata Involve' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Involve the",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Involve the",
-                "parser_text": "Involve the",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Involve the' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "validation process •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "validation process •",
-                "parser_text": "validation process",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'validation process' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "process • Upon",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "process • Upon",
-                "parser_text": "process Upon",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'process Upon' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Upon approval,",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Upon approval,",
-                "parser_text": "Upon approval,",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Upon approval,' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "structured folder/library •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "structured folder/library •",
-                "parser_text": "structured folder/library",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'structured folder/library' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "folder/library • Archive",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "folder/library • Archive",
-                "parser_text": "folder/library Archive",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'folder/library Archive' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Archive original",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Archive original",
-                "parser_text": "Archive original",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Archive original' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Document Intake •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Document Intake •",
-                "parser_text": "Document Intake",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Document Intake' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Intake • Files",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Intake • Files",
-                "parser_text": "Intake Files",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Intake Files' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Files will",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Files will",
-                "parser_text": "Files will",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Files will' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "(PoC environment). •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "(PoC environment). •",
-                "parser_text": "(PoC environment).",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '(PoC environment).' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "environment). • A",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "environment). • A",
-                "parser_text": "environment). A",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'environment). A' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• A manual",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• A manual",
-                "parser_text": "A manual",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'A manual' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "X minutes. •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "X minutes. •",
-                "parser_text": "X minutes.",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'X minutes.' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "minutes. • Each",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "minutes. • Each",
-                "parser_text": "minutes. Each",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'minutes. Each' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Each run",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Each run",
-                "parser_text": "Each run",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Each run' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "new files. •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "new files. •",
-                "parser_text": "new files.",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'new files.' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "files. • Files",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "files. • Files",
-                "parser_text": "files. Files",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'files. Files' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Document Classification •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Document Classification •",
-                "parser_text": "Document Classification",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Document Classification' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Classification • The",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Classification • The",
-                "parser_text": "Classification The",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Classification The' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "documents (docx/pptx/xlsx/pdf/image) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "documents (docx/pptx/xlsx/pdf/image) •",
-                "parser_text": "documents (docx/pptx/xlsx/pdf/image)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'documents (docx/pptx/xlsx/pdf/image)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "(docx/pptx/xlsx/pdf/image) • The",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "(docx/pptx/xlsx/pdf/image) • The",
-                "parser_text": "(docx/pptx/xlsx/pdf/image) The",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '(docx/pptx/xlsx/pdf/image) The' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Option A –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Option A –",
-                "parser_text": "Option A",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Option A' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "– Email-based validation",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– Email-based validation",
-                "parser_text": "Email-based validation",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Email-based validation' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Email-based validation •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Email-based validation •",
-                "parser_text": "Email-based validation",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Email-based validation' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "validation • The",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "validation • The",
-                "parser_text": "validation The",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'validation The' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• The system",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• The system",
-                "parser_text": "The system",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'The system' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Jeen mailbox. •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Jeen mailbox. •",
-                "parser_text": "Jeen mailbox.",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Jeen mailbox.' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "mailbox. • The",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "mailbox. • The",
-                "parser_text": "mailbox. The",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'mailbox. The' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• The user",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• The user",
-                "parser_text": "The user",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'The user' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "and re-classify •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "and re-classify •",
-                "parser_text": "and re-classify",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'and re-classify' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "re-classify • The",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "re-classify • The",
-                "parser_text": "re-classify The",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 're-classify The' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Option B –",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Option B –",
-                "parser_text": "Option B",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Option B' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "– Database-based validation",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "– Database-based validation",
-                "parser_text": "Database-based validation",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Database-based validation' found contiguously inside parser flow after punctuation normalization. Punctuation ['–'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Database-based validation •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Database-based validation •",
-                "parser_text": "Database-based validation",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Database-based validation' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "validation • Classification",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "validation • Classification",
-                "parser_text": "validation Classification",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'validation Classification' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Classification results",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Classification results",
-                "parser_text": "Classification results",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Classification results' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "validation table. •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "validation table. •",
-                "parser_text": "validation table.",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'validation table.' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "table. • Users",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "table. • Users",
-                "parser_text": "table. Users",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'table. Users' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Users review",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Users review",
-                "parser_text": "Users review",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Users review' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Pending, Target) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Pending, Target) •",
-                "parser_text": "Pending, Target)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Pending, Target)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Target) • All",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Target) • All",
-                "parser_text": "Target) All",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Target) All' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• All uploaded",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• All uploaded",
-                "parser_text": "All uploaded",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'All uploaded' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Blob folder. •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Blob folder. •",
-                "parser_text": "Blob folder.",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Blob folder.' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "folder. • After",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "folder. • After",
-                "parser_text": "folder. After",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'folder. After' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• After classification,",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• After classification,",
-                "parser_text": "After classification,",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'After classification,' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• After approval,",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• After approval,",
-                "parser_text": "After approval,",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'After approval,' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• The target",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• The target",
-                "parser_text": "The target",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'The target' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "will capture: •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "will capture: •",
-                "parser_text": "will capture:",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'will capture:' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "capture: • Document",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "capture: • Document",
-                "parser_text": "capture: Document",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'capture: Document' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Document ID",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Document ID",
-                "parser_text": "Document ID",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Document ID' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Document ID •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Document ID •",
-                "parser_text": "Document ID",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Document ID' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "ID • Original",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "ID • Original",
-                "parser_text": "ID Original",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'ID Original' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Original file",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Original file",
-                "parser_text": "Original file",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Original file' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "file name •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "file name •",
-                "parser_text": "file name",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'file name' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "name • Upload",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "name • Upload",
-                "parser_text": "name Upload",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'name Upload' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Upload timestamp",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Upload timestamp",
-                "parser_text": "Upload timestamp",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Upload timestamp' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "Upload timestamp •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "Upload timestamp •",
-                "parser_text": "Upload timestamp",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Upload timestamp' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "timestamp • Detected",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "timestamp • Detected",
-                "parser_text": "timestamp Detected",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'timestamp Detected' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Detected document",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Detected document",
-                "parser_text": "Detected document",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Detected document' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "document type •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "document type •",
-                "parser_text": "document type",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'document type' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "type • Processing",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "type • Processing",
-                "parser_text": "type Processing",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'type Processing' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Processing step",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Processing step",
-                "parser_text": "Processing step",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Processing step' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "routing, etc.) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "routing, etc.) •",
-                "parser_text": "routing, etc.)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'routing, etc.)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "etc.) • User",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "etc.) • User",
-                "parser_text": "etc.) User",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'etc.) User' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• User action",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• User action",
-                "parser_text": "User action",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'User action' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "action (Approve/Reject/Reclassify) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "action (Approve/Reject/Reclassify) •",
-                "parser_text": "action (Approve/Reject/Reclassify)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'action (Approve/Reject/Reclassify)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "(Approve/Reject/Reclassify) • User",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "(Approve/Reject/Reclassify) • User",
-                "parser_text": "(Approve/Reject/Reclassify) User",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '(Approve/Reject/Reclassify) User' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• User identifier",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• User identifier",
-                "parser_text": "User identifier",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'User identifier' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "User identifier •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "User identifier •",
-                "parser_text": "User identifier",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'User identifier' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "identifier • Timestamp",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "identifier • Timestamp",
-                "parser_text": "identifier Timestamp",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'identifier Timestamp' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Timestamp of",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Timestamp of",
-                "parser_text": "Timestamp of",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Timestamp of' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "each action •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "each action •",
-                "parser_text": "each action",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'each action' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "action • Final",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "action • Final",
-                "parser_text": "action Final",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'action Final' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Final storage",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Final storage",
-                "parser_text": "Final storage",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Final storage' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "storage location •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "storage location •",
-                "parser_text": "storage location",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'storage location' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "location • Processing",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "location • Processing",
-                "parser_text": "location Processing",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'location Processing' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Processing status",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Processing status",
-                "parser_text": "Processing status",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Processing status' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "are met: •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "are met: •",
-                "parser_text": "are met:",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'are met:' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "met: • ≥80%",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "met: • ≥80%",
-                "parser_text": "met: ≥80%",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'met: ≥80%' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• ≥80% correct",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• ≥80% correct",
-                "parser_text": "≥80% correct",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '≥80% correct' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "test set •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "test set •",
-                "parser_text": "test set",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'test set' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "set • ≥80%",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "set • ≥80%",
-                "parser_text": "set ≥80%",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'set ≥80%' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• ≥80% image",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• ≥80% image",
-                "parser_text": "≥80% image",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '≥80% image' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "user feedback) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "user feedback) •",
-                "parser_text": "user feedback)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'user feedback)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "feedback) • Fully",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "feedback) • Fully",
-                "parser_text": "feedback) Fully",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'feedback) Fully' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Fully operational",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Fully operational",
-                "parser_text": "Fully operational",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Fully operational' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "validation flow •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "validation flow •",
-                "parser_text": "validation flow",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'validation flow' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "flow • Predefined",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "flow • Predefined",
-                "parser_text": "flow Predefined",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'flow Predefined' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "• Predefined log",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "• Predefined log",
-                "parser_text": "Predefined log",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'Predefined log' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "AroundTown (who/what/when/why) •",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "AroundTown (who/what/when/why) •",
-                "parser_text": "AroundTown (who/what/when/why)",
-                "confidence": "MEDIUM",
-                "evidence": "Content words 'AroundTown (who/what/when/why)' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              },
-              {
-                "ngram": "(who/what/when/why) • Original",
-                "type": "MISPLACED_PUNCTUATION",
-                "gt_text": "(who/what/when/why) • Original",
-                "parser_text": "(who/what/when/why) Original",
-                "confidence": "MEDIUM",
-                "evidence": "Content words '(who/what/when/why) Original' found contiguously inside parser flow after punctuation normalization. Punctuation ['•'] likely caused the boundary shift (RTL displacement)."
-              }
-            ]
+            "count": 0,
+            "issues": []
           }
         },
         "UNCLASSIFIED": {
-          "count": 256,
+          "count": 232,
           "ngrams": [
             "& routing|Jeen internal",
             "&<br>routing|Jeen internal Azure",
@@ -1420,19 +721,14 @@
             "+ Store logs<br>in",
             "+ full<br>audit trail|Archive",
             "10 new files.<br>For",
-            "A – Email-based",
-            "AI Agent will",
-            "AI agent will",
             "Adaptive Card validation|Email",
             "Adaptive Card<br>validation|Email-based approval",
             "Approve/Reject responses.<br>2 –",
-            "AroundTown’s production systems.",
             "Azure Blob storage|",
             "Azure Blob<br>storage. Archive",
             "Azure Blob<br>storage|Demonstrates routing",
             "Azure<br>Blob + Store",
             "Azure<br>Blob folder|1- A",
-            "B – Database-based",
             "Blob storage| |2|Classify",
             "Blob storage| |4|Teams",
             "Blob<br>storage. Archive into",
@@ -1451,7 +747,6 @@
             "Jeen<br>database|To avoid SharePoint",
             "Jeen’s internal<br>log database<br>table|1-To",
             "Key Trade-Offs |#|OriginalDirection|FocusedPoCAlternative|",
-            "SharePoint document dump”",
             "SharePoint integration complexity<br>in",
             "SharePoint integration<br>complexity in",
             "SharePoint schema<br>configuration.| This",
@@ -1460,8 +755,6 @@
             "Teams integration, we<br>suggest",
             "Teams integration| |5|SharePoint",
             "Teams<br>Adaptive Card|Send email",
-            "The AI Agent",
-            "The AI agent",
             "The<br>system will monitor",
             "This keeps the<br>classification",
             "This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.| |---|---|---|---| |7|Archive",
@@ -1471,11 +764,8 @@
             "X minutes<br>from an",
             "X<br>files per run)|Simplifies",
             "a validation<br>email from",
-            "a “Pending” Azure",
             "a<br>dedicated internal<br>“Classification_Management” database<br>table",
             "an Azure<br>Blob folder|1-",
-            "an “Unsorted” Azure",
-            "an “unstructured SharePoint",
             "an<br>internal Jeen<br>database|To avoid",
             "and measurable.| |3|Extract",
             "and<br>read the reply|To",
@@ -1494,7 +784,6 @@
             "classifications are written<br>into",
             "classification|The agent will",
             "complexity in<br>the PoC",
-            "complexity with AroundTown’s",
             "complexity<br>in the PoC",
             "database log table<br>will",
             "database<br>table in the",
@@ -1504,8 +793,6 @@
             "defined key<br>values/descriptions<br>based on",
             "dependency on<br>SharePoint or",
             "document ID, classification,<br>timestamps,",
-            "document dump” into",
-            "dump” into a",
             "email with<br>classification and<br>read",
             "etc.). |Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale| |---|---|---|---|",
             "external integration<br>complexity.| |4|Teams",
@@ -1524,7 +811,6 @@
             "guidelines|We need<br>clarification for<br>this",
             "implementation timeline. |#|AroundTownRequest|Suggested|Clarification|",
             "in a<br>dedicated internal<br>“Classification_Management”",
-            "in an “Unsorted”",
             "in batch (not<br>full",
             "in<br>SharePoint|Batch reading of<br>uploaded",
             "in<br>the PoC phase,",
@@ -1551,7 +837,6 @@
             "logs<br>in Jeen’s internal<br>log",
             "mailbox. The<br>system will",
             "measurable.| |3|Extract defined",
-            "mechanisms: Option A",
             "metadata write-back|Jeen internal",
             "metadata<br>write-back|Jeen internal database<br>tables|Maintains",
             "minutes)|Avoids dependency on<br>SharePoint",
@@ -1581,7 +866,6 @@
             "real-time parallel automation).<br>2-",
             "real-time processing|Batch processing",
             "replies to<br>capture Approve/Reject",
-            "replies. Option B",
             "reply|To avoid Microsoft",
             "requirement|| |4|Write extracted",
             "response, file movement,<br>and",
@@ -1608,13 +892,11 @@
             "to SharePoint<br>metadata|Write<br>classification<br>results to",
             "to X files)|",
             "to X<br>files per",
-            "to a “Pending”",
             "to an<br>internal Jeen<br>database|To",
             "to<br>5 predefined document",
             "to<br>capture Approve/Reject responses.<br>2",
             "traceability without<br>requiring SharePoint",
             "trail|Archive into Azure<br>Blob",
-            "transform an “unstructured",
             "trigger will run<br>every",
             "triggers, etc.). |Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale|",
             "triggers| |2|Real-time parallel<br>processing|Batch",
@@ -1634,7 +916,6 @@
             "we<br>suggest two options:<br>1",
             "will run<br>every X",
             "will use<br>jeen Azure",
-            "with AroundTown’s production",
             "with<br>classification and<br>read the",
             "without<br>requiring SharePoint schema<br>configuration.|",
             "write-back|Jeen internal database",
@@ -1662,11 +943,7 @@
             "|6|Rename+movefileto<br>correctSharePoint<br>library/folder|Movefiletoan<br>internalAzure<br>Blobfolderper<br>classification(one<br>folderper<br>classification)|ToavoidSharePointintegrationcomplexityin<br>thePoCphase:wewillusejeenAzureBlob<br>storage<br>.<br>InsteadofmovingfilesinsideAroundTown<br>SharePoint fileswillbestoredinJeen’s<br>,<br>internalAzureBlobfolders This<br>.<br>demonstratesroutinglogicwithoutexternal<br>integrations<br>.|",
             "|7|Archive originals +",
             "|Col1|OriginalDirection|FocusedPoC<br>Alternative|Rationale| |---|---|---|---| |1|External",
-            "–<br>AI classification|The agent",
-            "“Pending” Azure Blob",
-            "“Unsorted” Azure Blob",
-            "“unstructured SharePoint document",
-            "• The AI"
+            "–<br>AI classification|The agent"
           ]
         }
       }
@@ -1674,11 +951,13 @@
     {
       "doc_name": "word-two-column-submission-sample",
       "file_ext": ".docx",
-      "total_missing_ngrams": 4,
+      "total_missing_ngrams": 148,
       "detected_problems": {
         "MISSING_BLOCK_PARSE": {
-          "count": 0,
-          "blocks_number": []
+          "count": 1,
+          "blocks_number": [
+            4
+          ]
         },
         "OCR_SPLIT": {
           "count": 0,
@@ -1700,12 +979,25 @@
           }
         },
         "UNCLASSIFIED": {
-          "count": 4,
+          "count": 17,
           "ngrams": [
+            "1. Insert a",
             "AND COLUMNS On",
+            "Anonymous for Submission",
+            "Authors Anonymous for",
             "COLUMNS On each",
+            "City, Country e-mail",
+            "Country e-mail address",
+            "Figure 1. Insert",
+            "Format Leave Authors",
+            "Leave Authors Anonymous",
             "PAGE SIZE AND",
-            "SIZE AND COLUMNS"
+            "Proceedings Format Leave",
+            "SIZE AND COLUMNS",
+            "Submission City, Country",
+            "address Leave Authors",
+            "e-mail address Leave",
+            "for Submission City,"
           ]
         }
       }
@@ -1713,7 +1005,7 @@
     {
       "doc_name": "מסמך אפיון לפרויקט  Jeen",
       "file_ext": ".docx",
-      "total_missing_ngrams": 13,
+      "total_missing_ngrams": 115,
       "detected_problems": {
         "MISSING_BLOCK_PARSE": {
           "count": 0,
@@ -1739,21 +1031,123 @@
           }
         },
         "UNCLASSIFIED": {
-          "count": 13,
+          "count": 115,
           "ngrams": [
             "(Bar) קו 400",
+            "(לא תחנת רכבת",
+            "15/03 דווח על",
+            "400 צינור המים",
+            "5 שניות עד",
+            "X? יש לפתוח",
+            "Y לפי נתוני",
+            "Z? בתאריך 15/03",
+            "או צומת בקרה",
+            "או תחנת דלק).",
+            "איך אני מאפס",
+            "אני מאפס את",
+            "את השכונה המזרחית.",
+            "את מונה הזרימה",
+            "את מכסה הבקרה,",
+            "באזור הדרום היום?",
+            "בוצע שימון והתקלה",
+            "ביותר בתחנה Y",
+            "במנוע; בוצע שימון",
+            "במשאבה מסוג X?",
+            "בקו מים איך",
+            "בקרה (לא תחנת",
             "בר. (Bar) קו",
+            "בתאריך 15/03 דווח",
+            "בתחנה Y לפי",
             "גישה לסוכן לדוגמה:",
+            "דווח על רעשים",
+            "דיסציפלינות שונות. מילה",
+            "דלק). לחץ נמוך",
+            "ה-Reset למשך 5",
+            "האחרון על תחנה",
+            "הבקרה, ללחוץ על",
+            "הדיווח האחרון על",
+            "הדרום היום? הטכנאי",
+            "הוא ישראל ישראלי",
+            "הזרימה במשאבה מסוג",
+            "הטכנאי התורן באזור",
+            "הטכנאי התורן הוא",
+            "היא ירידת לחץ",
+            "היה הדיווח האחרון",
+            "היום? הטכנאי התורן",
+            "המזין את השכונה",
+            "המזרחית. סוגי מידע",
+            "המים הראשי המזין",
+            "הנפוצה ביותר בתחנה",
+            "הנפוצה היא ירידת",
             "הסוכן. מהם השלבים",
             "הפעולה של הסוכן.",
+            "הראשי המזין את",
+            "השכונה המזרחית. סוגי",
+            "התורן באזור הדרום",
+            "התורן הוא ישראל",
+            "התחזוקה, התקלה הנפוצה",
+            "התקלה הנפוצה ביותר",
+            "התקלה הנפוצה היא",
+            "והתקלה נסגרה. טבלת",
+            "חריגים במנוע; בוצע",
+            "ירוקה. מי הטכנאי",
+            "ירידת לחץ בקו",
+            "יש לפתוח את",
+            "ישראל ישראלי מה",
+            "ישראלי מה היה",
+            "כל ערך שנמדד",
+            "כפתור ה-Reset למשך",
             "ל-2.5 בר. (Bar)",
             "לדוגמה: OAI, אפליקציה,",
+            "להבהוב נורה ירוקה.",
+            "לחץ בקו מים",
+            "לחץ נמוך כל",
+            "ללחוץ על כפתור",
+            "למשך 5 שניות",
             "לסוכן לדוגמה: OAI,",
+            "לפי נתוני התחזוקה,",
+            "לפתוח את מכסה",
+            "מאפס את מונה",
+            "מה היה הדיווח",
+            "מה התקלה הנפוצה",
+            "מונה הזרימה במשאבה",
+            "מי הטכנאי התורן",
+            "מילה פירוש תחנה",
+            "מים איך אני",
+            "מכסה הבקרה, ללחוץ",
+            "מסוג X? יש",
             "מתחת ל-2.5 בר.",
+            "מתקן שאיבה או",
+            "נורה ירוקה. מי",
+            "נמוך כל ערך",
+            "נסגרה. טבלת המרות",
+            "נתוני התחזוקה, התקלה",
+            "עד להבהוב נורה",
+            "על כפתור ה-Reset",
+            "על רעשים חריגים",
+            "על תחנה Z?",
+            "ערך שנמדד מתחת",
+            "פירוש תחנה מתקן",
+            "צומת בקרה (לא",
+            "צינור המים הראשי",
+            "צפויה. מה התקלה",
+            "קו 400 צינור",
+            "רכבת או תחנת",
+            "רעשים חריגים במנוע;",
+            "שאיבה או צומת",
+            "שונות. מילה פירוש",
             "שיחה, תקלות, תאריכים.",
+            "שימון והתקלה נסגרה.",
             "של הסוכן. מהם",
+            "שניות עד להבהוב",
+            "שנמדד מתחת ל-2.5",
             "תאריכים. איפה ובאיזה",
-            "תקלות, תאריכים. איפה"
+            "תחנה Z? בתאריך",
+            "תחנה מתקן שאיבה",
+            "תחנת דלק). לחץ",
+            "תחנת רכבת או",
+            "תקלות, תאריכים. איפה",
+            "תשובה צפויה. מה"
           ]
         }
       }
